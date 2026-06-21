@@ -31,7 +31,7 @@
 
   .legend {
     display: flex; flex-wrap: wrap; gap: 8px;
-    justify-content: center; margin: 0 0 24px;
+    justify-content: center; margin: 8px 0 0;
   }
   .legend-item { display: flex; align-items: center; gap: 5px; }
   .legend-swatch {
@@ -163,30 +163,29 @@
   <header>
     <h1>Adjektivendungen</h1>
     <p>hover any tile for an example phrase</p>
+    <div class="legend">
+      <div class="legend-item">
+        <div class="legend-swatch tile c-e" style="height:20px;width:20px;"><span style="font-size:12px;font-weight:700;color:#8ec4ff;font-family:'JetBrains Mono',monospace;">-e</span></div>
+        <span class="legend-label">weak</span>
+      </div>
+      <div class="legend-item">
+        <div class="legend-swatch tile c-en" style="height:20px;width:20px;"><span style="font-size:12px;font-weight:700;color:#c0c0c8;font-family:'JetBrains Mono',monospace;">-en</span></div>
+        <span class="legend-label">default</span>
+      </div>
+      <div class="legend-item">
+        <div class="legend-swatch tile c-er" style="height:20px;width:20px;"><span style="font-size:12px;font-weight:700;color:#ffa0c8;font-family:'JetBrains Mono',monospace;">-er</span></div>
+        <span class="legend-label">strong</span>
+      </div>
+      <div class="legend-item">
+        <div class="legend-swatch tile c-es" style="height:20px;width:20px;"><span style="font-size:12px;font-weight:700;color:#f0d060;font-family:'JetBrains Mono',monospace;">-es</span></div>
+        <span class="legend-label">strong</span>
+      </div>
+      <div class="legend-item">
+        <div class="legend-swatch tile c-em" style="height:20px;width:20px;"><span style="font-size:12px;font-weight:700;color:#80e8a0;font-family:'JetBrains Mono',monospace;">-em</span></div>
+        <span class="legend-label">strong</span>
+      </div>
+    </div>
   </header>
-
-  <div class="legend">
-    <div class="legend-item">
-      <div class="legend-swatch tile c-e" style="height:20px;width:20px;"><span style="font-size:12px;font-weight:700;color:#8ec4ff;font-family:'JetBrains Mono',monospace;">-e</span></div>
-      <span class="legend-label">weak</span>
-    </div>
-    <div class="legend-item">
-      <div class="legend-swatch tile c-en" style="height:20px;width:20px;"><span style="font-size:12px;font-weight:700;color:#c0c0c8;font-family:'JetBrains Mono',monospace;">-en</span></div>
-      <span class="legend-label">default</span>
-    </div>
-    <div class="legend-item">
-      <div class="legend-swatch tile c-er" style="height:20px;width:20px;"><span style="font-size:12px;font-weight:700;color:#ffa0c8;font-family:'JetBrains Mono',monospace;">-er</span></div>
-      <span class="legend-label">strong</span>
-    </div>
-    <div class="legend-item">
-      <div class="legend-swatch tile c-es" style="height:20px;width:20px;"><span style="font-size:12px;font-weight:700;color:#f0d060;font-family:'JetBrains Mono',monospace;">-es</span></div>
-      <span class="legend-label">strong</span>
-    </div>
-    <div class="legend-item">
-      <div class="legend-swatch tile c-em" style="height:20px;width:20px;"><span style="font-size:12px;font-weight:700;color:#80e8a0;font-family:'JetBrains Mono',monospace;">-em</span></div>
-      <span class="legend-label">strong</span>
-    </div>
-  </div>
 
   <div class="grids" id="grids"></div>
 
