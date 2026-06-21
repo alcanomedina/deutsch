@@ -3,6 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="assets/favicon.ico" sizes="16x16 32x32 48x48">
+<link rel="icon" href="assets/favicon-32x32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 <title>Modalverben — können · müssen · dürfen · sollen · wollen · möchten</title>
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
@@ -442,16 +445,20 @@ function toggleGuess() {
   cells.forEach(td => {
     if (guessMode) {
       td.classList.add('guess-cell-hidden');
-      td.addEventListener('click', revealCell);
+      td.classList.remove('guess-cell-revealed');
+      td.addEventListener('click', toggleCell);
     } else {
-      td.classList.remove('guess-cell-hidden');
-      td.removeEventListener('click', revealCell);
+      td.classList.remove('guess-cell-hidden', 'guess-cell-revealed');
+      td.removeEventListener('click', toggleCell);
     }
   });
 }
-function revealCell() {
-  this.classList.remove('guess-cell-hidden');
-  this.removeEventListener('click', revealCell);
+function toggleCell() {
+  if (this.classList.contains('guess-cell-hidden')) {
+    this.classList.remove('guess-cell-hidden'); this.classList.add('guess-cell-revealed');
+  } else {
+    this.classList.remove('guess-cell-revealed'); this.classList.add('guess-cell-hidden');
+  }
 }
 
 const sections = document.querySelectorAll('.section[id]');

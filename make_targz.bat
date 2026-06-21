@@ -13,7 +13,7 @@ for %%f in (*.html *.md) do (
 )
 
 set "DIRS="
-if exist docs set "DIRS=!DIRS! docs"
+for %%d in (docs assets) do if exist "%%d" set "DIRS=!DIRS! %%d"
 
 tar -a -cf project.tar.gz --exclude=".git" --exclude="*.tar.gz" !FILES! !DIRS!
 

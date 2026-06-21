@@ -3,6 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="assets/favicon.ico" sizes="16x16 32x32 48x48">
+<link rel="icon" href="assets/favicon-32x32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 <title>Deutsche Artikel — Referenz</title>
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
@@ -232,6 +235,7 @@ header p { margin: 6px 0 0; font-size: 15px; color: #ababba; }
 .guess-cell-hidden { cursor: pointer; color: transparent !important; user-select: none; }
 .guess-cell-hidden * { color: transparent !important; }
 .guess-cell-hidden:hover { background: rgba(122, 96, 192, 0.15) !important; }
+.guess-cell-hidden.tile { background: #343438 !important; border-color: #4a4a52 !important; }
 .guess-btn { font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 500; padding: 5px 12px; border-radius: 7px; background: #343438; color: #8888a0; border: 1px solid #44444c; transition: all .15s; cursor: pointer; margin-top: 6px; }
 .guess-btn:hover, .guess-btn.active { background: #2a1848; color: #c8a8ff; border-color: #7a60c0; }
 </style>
@@ -486,16 +490,20 @@ function toggleGuess() {
   tiles.forEach(tile => {
     if (guessMode) {
       tile.classList.add('guess-cell-hidden');
-      tile.addEventListener('click', revealCell);
+      tile.classList.remove('guess-cell-revealed');
+      tile.addEventListener('click', toggleCell);
     } else {
-      tile.classList.remove('guess-cell-hidden');
-      tile.removeEventListener('click', revealCell);
+      tile.classList.remove('guess-cell-hidden', 'guess-cell-revealed');
+      tile.removeEventListener('click', toggleCell);
     }
   });
 }
-function revealCell() {
-  this.classList.remove('guess-cell-hidden');
-  this.removeEventListener('click', revealCell);
+function toggleCell() {
+  if (this.classList.contains('guess-cell-hidden')) {
+    this.classList.remove('guess-cell-hidden'); this.classList.add('guess-cell-revealed');
+  } else {
+    this.classList.remove('guess-cell-revealed'); this.classList.add('guess-cell-hidden');
+  }
 }
 </script>
 </body>

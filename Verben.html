@@ -3,6 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="assets/favicon.ico" sizes="16x16 32x32 48x48">
+<link rel="icon" href="assets/favicon-32x32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 <title>Deutsche Verben — Präpositionen · Perfekt · Kasus</title>
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
@@ -310,8 +313,13 @@ function toggleGuess() {
   render();
 }
 document.getElementById('grid').addEventListener('click', function(e) {
-  const card = e.target.closest('.guess-hidden');
-  if (card) { card.classList.remove('guess-hidden'); card.classList.add('guess-revealed'); }
+  const card = e.target.closest('.guess-hidden, .guess-revealed');
+  if (!card || !guessMode) return;
+  if (card.classList.contains('guess-hidden')) {
+    card.classList.remove('guess-hidden'); card.classList.add('guess-revealed');
+  } else {
+    card.classList.remove('guess-revealed'); card.classList.add('guess-hidden');
+  }
 });
 
 function render() {
