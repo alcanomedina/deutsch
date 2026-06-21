@@ -103,10 +103,13 @@ body {
 
 /* ─── Card Grid ─── */
 .grid {
-  max-width: 960px; margin: 0 auto; padding: 0 20px;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 10px;
+}
+
+.content-wrap {
+  max-width: 960px; margin: 0 auto; padding: 14px 20px;
 }
 
 /* ─── Cards ─── */
@@ -211,7 +214,7 @@ body {
 
 /* ─── Legend ─── */
 .legend {
-  max-width: 960px; margin: 0 auto 20px; padding: 0 20px;
+  margin: 0 0 16px; padding: 0;
   display: flex; gap: 16px; flex-wrap: wrap;
   justify-content: center;
 }
@@ -234,9 +237,8 @@ body {
   .search-box { width: 100%; font-size: 13px; padding: 6px 10px; }
   .search-row { margin-bottom: 6px; }
   .cat-row { display: none; }
-  .grid { grid-template-columns: 1fr; padding: 0 10px; max-width: none; margin: 0; }
-  .legend { padding: 0 10px; max-width: none; margin: 0 0 12px; }
-  .card { border-radius: 8px; }
+  .content-wrap { padding: 10px; }
+  .grid { grid-template-columns: 1fr; }
   .card-word { font-size: 18px; }
 }
 </style>
@@ -256,6 +258,7 @@ body {
   </div>
 </div>
 
+<div class="content-wrap">
 <div class="legend">
   <div class="legend-item">
     <div class="legend-swatch" style="background:#2a1808;border-color:#a06830;"></div>
@@ -272,6 +275,7 @@ body {
 </div>
 
 <div class="grid" id="grid"></div>
+</div><!-- /content-wrap -->
 
 <script>
 // [word, komparativ, superlativ, english, category, type, example]
