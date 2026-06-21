@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Relativpronomen – German Relative Pronouns &amp; Clauses</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Inter', Arial, Helvetica, sans-serif;background:#2b2b2f;color:#e0e0e4;min-height:100vh;padding:24px 16px 48px;}
+.container{max-width:820px;margin:0 auto;}
+header{text-align:center;margin-bottom:24px;}
+h1{font-family:'JetBrains Mono',monospace;font-size:28px;font-weight:700;color:#f0f0f4;letter-spacing:-0.5px;}
+header p{margin:6px 0 0;font-size:14px;color:#ababba;}
+.mono{font-family:'JetBrains Mono',monospace;font-weight:700;}
+
+/* === PRONOUN TABLE === */
+.table-wrap{
+  background:#343438;border-radius:12px;
+  border:1px solid #44444c;overflow:hidden;
+  margin-bottom:28px;
+}
+.table-title{
+  padding:16px 20px 12px;
+  border-bottom:2px solid #7c3aed;
+}
+.table-title h2{
+  font-family:'JetBrains Mono',monospace;
+  font-size:20px;font-weight:700;color:#e0e0e4;
+}
+.table-title p{
+  font-size:14px;color:#ababba;margin-top:2px;
+}
+table{width:100%;border-collapse:collapse;}
+th{
+  font-family:'JetBrains Mono',monospace;
+  font-size:12px;font-weight:700;color:#ababba;
+  text-transform:uppercase;letter-spacing:1px;
+  padding:10px 12px;text-align:center;
+  border-bottom:1px solid #3e3e44;
+}
+th:first-child{text-align:left;width:100px;}
+td{
+  padding:0;text-align:center;
+  border-bottom:1px solid #f1f5f9;
+}
+tr:last-child td{border-bottom:none;}
+.case-label{
+  font-family:'JetBrains Mono',monospace;
+  font-size:12px;font-weight:700;color:#8888a0;
+  padding:12px;text-align:left;letter-spacing:0.5px;
+}
+
+.cell{color:#e0e0e4;
+  position:relative;padding:10px 8px;
+  cursor:default;transition:background 0.12s;
+  border-radius:0;
+}
+.cell:hover{z-index:10;}
+.cell .pronoun{
+  font-family:'JetBrains Mono',monospace;
+  font-size:20px;font-weight:700;
+}
+
+/* Color by how "different" from normal articles */
+.cell.same .pronoun{color:#ababba;} /* same as article - grey */
+.cell.diff .pronoun{color:#7c3aed;} /* different from article - purple */
+.cell.same{background:#343438;}
+.cell.diff{background:#2e2040;}
+.cell.same:hover{background:#3e3e44;}
+.cell.diff:hover{background:#3a2860;}
+
+.cell .tip{
+  display:none;position:absolute;
+  top:calc(100% + 6px);left:50%;
+  transform:translateX(-50%);
+  background:#111115;color:#e8e8ec;
+  padding:8px 14px;border-radius:8px;
+  font-size:14px;font-style:italic;
+  white-space:nowrap;max-width:380px;
+  font-family:'Inter', Arial, Helvetica, sans-serif;
+  z-index:200;box-shadow:0 4px 16px rgba(0,0,0,0.5);
+  pointer-events:none;line-height:1.5;
+}
+.cell .tip::after{
+  content:'';position:absolute;
+  bottom:100%;left:50%;transform:translateX(-50%);
+  border-left:5px solid transparent;
+  border-right:5px solid transparent;
+  border-bottom:5px solid #111115;
+}
+.cell:hover .tip{display:block;}
+.cell .tip em{font-style:normal;font-weight:700;color:#c4b5fd;}
+
+/* === RULE CARDS === */
+.rules{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(340px,1fr));
+  gap:12px;margin-bottom:24px;
+}
+.rule-card{
+  background:#343438;border-radius:10px;
+  border:1px solid #44444c;padding:16px 20px;
+}
+.rule-card .rule-num{
+  font-family:'JetBrains Mono',monospace;
+  font-size:12px;font-weight:700;color:#7c3aed;
+  text-transform:uppercase;letter-spacing:1px;
+  margin-bottom:6px;
+}
+.rule-card h3{
+  font-family:'JetBrains Mono',monospace;
+  font-size:18px;font-weight:700;color:#e0e0e4;
+  margin-bottom:8px;
+}
+.rule-card p{font-size:13px;line-height:1.6;color:#c0c0c8;}
+.rule-card .ex{
+  margin-top:8px;padding:8px 12px;
+  background:#2b2b2f;border-radius:6px;
+  border-left:3px solid #c4b5fd;
+  font-size:13px;line-height:1.6;color:#e0e0e4;
+}
+.rule-card .ex em{font-style:normal;font-weight:700;color:#7c3aed;}
+.rule-card .ex .transl{
+  display:block;font-size:11px;color:#ababba;
+  font-style:italic;margin-top:2px;
+}
+
+/* === PREP COMBOS === */
+.prep-section{
+  background:#343438;border-radius:12px;
+  border:1px solid #44444c;
+  padding:20px;margin-bottom:24px;
+}
+.prep-section h2{
+  font-family:'JetBrains Mono',monospace;
+  font-size:15px;font-weight:700;color:#e0e0e4;
+  margin-bottom:6px;
+}
+.prep-section .hint{
+  font-size:14px;color:#ababba;font-style:italic;margin-bottom:14px;
+}
+.prep-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
+  gap:6px;
+}
+.prep-ex{
+  position:relative;
+  background:#2e2040;border:1.5px solid #5a4080;
+  border-radius:8px;padding:10px 12px;
+  cursor:default;transition:transform 0.12s,box-shadow 0.12s;
+}
+.prep-ex:hover{transform:translateY(-2px);box-shadow:0 3px 10px #e9d5ff88;z-index:5;}
+.prep-ex .prep-combo{
+  font-family:'JetBrains Mono',monospace;
+  font-size:18px;font-weight:700;color:#c8a8ff;
+}
+.prep-ex .prep-eng{
+  font-size:11px;color:#8888a0;margin-top:1px;
+}
+.prep-ex .ptip{
+  display:none;position:absolute;
+  top:calc(100% + 6px);left:50%;
+  transform:translateX(-50%);
+  background:#111115;color:#e8e8ec;
+  padding:8px 14px;border-radius:8px;
+  font-size:14px;font-style:italic;
+  white-space:nowrap;max-width:420px;
+  font-family:'Inter', Arial, Helvetica, sans-serif;
+  z-index:200;box-shadow:0 4px 16px rgba(0,0,0,0.5);
+  pointer-events:none;line-height:1.5;
+}
+.prep-ex .ptip::after{
+  content:'';position:absolute;
+  bottom:100%;left:50%;transform:translateX(-50%);
+  border-left:5px solid transparent;
+  border-right:5px solid transparent;
+  border-bottom:5px solid #111115;
+}
+.prep-ex:hover .ptip{display:block;}
+.prep-ex .ptip em{font-style:normal;font-weight:700;color:#c4b5fd;}
+
+/* === CHEAT BOX === */
+.cheat-box{
+  padding:16px 20px;background:#343438;
+  border-radius:10px;border:1px solid #44444c;
+  font-size:15px;line-height:1.8;color:#c0c0c8;
+  margin-bottom:16px;
+}
+.cheat-box .title{
+  font-weight:700;font-family:'JetBrains Mono',monospace;
+  color:#e0e0e4;margin-bottom:8px;font-size:13px;
+}
+
+.legend{
+  display:flex;gap:16px;justify-content:center;
+  margin-bottom:20px;font-size:12px;
+}
+.legend-item{display:flex;align-items:center;gap:5px;}
+.legend-swatch{width:16px;height:16px;border-radius:4px;}
+
+@media(max-width:600px){
+  .rules{grid-template-columns:1fr;}
+  .prep-grid{grid-template-columns:1fr;}
+  .cell .tip,.prep-ex .ptip{white-space:normal;min-width:220px;font-size:11px;}
+}
+</style>
+</head>
+<body>
+<div class="container">
+  <header>
+    <h1>Relativpronomen &amp; Relativsätze</h1>
+    <p>hover any cell or card for example sentences</p>
+  </header>
+
+  <div class="legend">
+    <div class="legend-item">
+      <div class="legend-swatch" style="background:#343438;border:1.5px solid #58585e;"></div>
+      <span style="color:#ababba;font-family:'JetBrains Mono',monospace;font-size:11px;">same as article</span>
+    </div>
+    <div class="legend-item">
+      <div class="legend-swatch" style="background:#2e2040;border:1.5px solid #5a4080;"></div>
+      <span style="color:#7c3aed;font-family:'JetBrains Mono',monospace;font-size:11px;">different — learn these!</span>
+    </div>
+  </div>
+
+  <!-- MAIN TABLE -->
+  <div class="table-wrap">
+    <div class="table-title">
+      <h2>Die Relativpronomen</h2>
+      <p>Gender & number from the noun · case from the role in the relative clause</p>
+    </div>
+    <div style="overflow-x:auto;">
+    <table>
+      <thead>
+        <tr>
+          <th>Kasus</th>
+          <th>Maskulin</th>
+          <th>Feminin</th>
+          <th>Neutrum</th>
+          <th>Plural</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="case-label">NOM</td>
+          <td><div class="cell same"><span class="pronoun">der</span><div class="tip">Der Mann, <em>der</em> dort steht, ist mein Chef.</div></div></td>
+          <td><div class="cell same"><span class="pronoun">die</span><div class="tip">Die Frau, <em>die</em> dort steht, ist meine Kollegin.</div></div></td>
+          <td><div class="cell same"><span class="pronoun">das</span><div class="tip">Das Kind, <em>das</em> dort spielt, ist mein Sohn.</div></div></td>
+          <td><div class="cell same"><span class="pronoun">die</span><div class="tip">Die Leute, <em>die</em> dort warten, sind meine Freunde.</div></div></td>
+        </tr>
+        <tr>
+          <td class="case-label">AKK</td>
+          <td><div class="cell same"><span class="pronoun">den</span><div class="tip">Der Mann, <em>den</em> ich kenne, arbeitet bei der UBS.</div></div></td>
+          <td><div class="cell same"><span class="pronoun">die</span><div class="tip">Die Stadt, <em>die</em> ich besucht habe, war wunderschön.</div></div></td>
+          <td><div class="cell same"><span class="pronoun">das</span><div class="tip">Das Buch, <em>das</em> ich lese, ist sehr spannend.</div></div></td>
+          <td><div class="cell same"><span class="pronoun">die</span><div class="tip">Die Berge, <em>die</em> wir gesehen haben, waren schneebedeckt.</div></div></td>
+        </tr>
+        <tr>
+          <td class="case-label">DAT</td>
+          <td><div class="cell same"><span class="pronoun">dem</span><div class="tip">Der Mann, <em>dem</em> ich geholfen habe, war dankbar.</div></div></td>
+          <td><div class="cell same"><span class="pronoun">der</span><div class="tip">Die Kollegin, <em>der</em> ich die Datei geschickt habe, hat geantwortet.</div></div></td>
+          <td><div class="cell same"><span class="pronoun">dem</span><div class="tip">Das Kind, <em>dem</em> ich das Spielzeug gegeben habe, lacht.</div></div></td>
+          <td><div class="cell diff"><span class="pronoun">denen</span><div class="tip">Die Leute, <em>denen</em> wir geholfen haben, waren sehr nett.<br><span style="font-size:10px;opacity:0.7;font-style:normal;">⚠ Not "den" — this is the one Dativ Plural form that differs!</span></div></div></td>
+        </tr>
+        <tr>
+          <td class="case-label">GEN</td>
+          <td><div class="cell diff"><span class="pronoun">dessen</span><div class="tip">Der Mann, <em>dessen</em> Auto kaputt ist, nimmt das Tram.<br><span style="font-size:10px;opacity:0.7;font-style:normal;">= whose (replaces "sein")</span></div></div></td>
+          <td><div class="cell diff"><span class="pronoun">deren</span><div class="tip">Die Firma, <em>deren</em> Umsatz gestiegen ist, expandiert.<br><span style="font-size:10px;opacity:0.7;font-style:normal;">= whose (replaces "ihr")</span></div></div></td>
+          <td><div class="cell diff"><span class="pronoun">dessen</span><div class="tip">Das Kind, <em>dessen</em> Mutter krank ist, bleibt zu Hause.<br><span style="font-size:10px;opacity:0.7;font-style:normal;">= whose (replaces "sein")</span></div></div></td>
+          <td><div class="cell diff"><span class="pronoun">deren</span><div class="tip">Die Kunden, <em>deren</em> Verträge auslaufen, müssen informiert werden.<br><span style="font-size:10px;opacity:0.7;font-style:normal;">= whose (replaces "ihr")</span></div></div></td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+  </div>
+
+  <!-- RULES -->
+  <div class="rules">
+    <div class="rule-card">
+      <div class="rule-num">Rule 1</div>
+      <h3>Gender & number → from the noun</h3>
+      <p>The relative pronoun matches the <strong>noun it refers back to</strong> in gender and number. A feminine noun gets <em>die/der/deren</em>, regardless of what happens inside the clause.</p>
+      <div class="ex">
+        Die <strong>Toblerone</strong> (fem.), <em>deren</em> Dreiecksform an das Matterhorn erinnert…
+        <span class="transl">die → feminine → deren (Gen.f.)</span>
+      </div>
+    </div>
+    <div class="rule-card">
+      <div class="rule-num">Rule 2</div>
+      <h3>Case → from the role in the clause</h3>
+      <p>Look at what the pronoun <strong>does inside</strong> the relative clause: Is it the subject (Nom)? Direct object (Akk)? Indirect object (Dat)? Or showing possession (Gen)?</p>
+      <div class="ex">
+        Der Mann, <em>den</em> ich kenne…<br>
+        <span class="transl">ich kenne [wen?] → den Mann → Akkusativ</span>
+      </div>
+    </div>
+    <div class="rule-card">
+      <div class="rule-num">Rule 3</div>
+      <h3>Preposition → determines the case</h3>
+      <p>If the verb needs a preposition, it goes <strong>before</strong> the relative pronoun. The preposition determines the case, just like it always does.</p>
+      <div class="ex">
+        Der Mann, <em>mit dem</em> du dich unterhalten hast…<br>
+        <span class="transl">sich unterhalten mit [wem?] → mit + Dativ</span>
+      </div>
+    </div>
+    <div class="rule-card">
+      <div class="rule-num">Rule 4</div>
+      <h3>Verb goes to the END</h3>
+      <p>In the relative clause, the conjugated verb <strong>always moves to the last position</strong>. This is the standard rule for all German subclauses.</p>
+      <div class="ex">
+        Die Leute, neben denen wir unser Zelt <em>hatten</em>, waren laut.
+        <span class="transl">The verb "hatten" is kicked to the end.</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- PREPOSITION COMBOS -->
+  <div class="prep-section">
+    <h2>Präposition + Relativpronomen</h2>
+    <p class="hint">Verbs that need a preposition carry it into the relative clause. The preposition determines the case. Hover for examples.</p>
+    <div class="prep-grid">
+      <div class="prep-ex">
+        <div class="prep-combo">mit + dem/der/denen</div>
+        <div class="prep-eng">with whom</div>
+        <div class="ptip">Der Kollege, <em>mit dem</em> ich zusammenarbeite, ist sehr kompetent.</div>
+      </div>
+      <div class="prep-ex">
+        <div class="prep-combo">für + den/die/das</div>
+        <div class="prep-eng">for whom/which</div>
+        <div class="ptip">Das Projekt, <em>für das</em> ich verantwortlich bin, läuft gut.</div>
+      </div>
+      <div class="prep-ex">
+        <div class="prep-combo">an + den/die/das/dem/der</div>
+        <div class="prep-eng">at/to/about whom/which</div>
+        <div class="ptip">Die Geschichte, <em>an die</em> ich nicht mehr denken möchte…<br>(denken <em>an</em> + Akk)</div>
+      </div>
+      <div class="prep-ex">
+        <div class="prep-combo">in + den/die/das/dem/der</div>
+        <div class="prep-eng">in/into whom/which</div>
+        <div class="ptip">Das ist ein Mann, <em>in den</em> ich mich sofort verlieben könnte.<br>(sich verlieben <em>in</em> + Akk)</div>
+      </div>
+      <div class="prep-ex">
+        <div class="prep-combo">auf + den/die/das/dem/der</div>
+        <div class="prep-eng">on/for/about whom/which</div>
+        <div class="ptip">Die Prüfung, <em>auf die</em> ich mich vorbereite, ist morgen.<br>(sich vorbereiten <em>auf</em> + Akk)</div>
+      </div>
+      <div class="prep-ex">
+        <div class="prep-combo">über + den/die/das</div>
+        <div class="prep-eng">about/over whom/which</div>
+        <div class="ptip">Das Thema, <em>über das</em> wir gesprochen haben, ist komplex.<br>(sprechen <em>über</em> + Akk)</div>
+      </div>
+      <div class="prep-ex">
+        <div class="prep-combo">von + dem/der/denen</div>
+        <div class="prep-eng">from/of whom/which</div>
+        <div class="ptip">Die Kollegin, <em>von der</em> ich dir erzählt habe, fängt morgen an.</div>
+      </div>
+      <div class="prep-ex">
+        <div class="prep-combo">neben + dem/der/denen</div>
+        <div class="prep-eng">next to whom/which</div>
+        <div class="ptip">Die Leute, <em>neben denen</em> wir unser Zelt hatten, waren laut.<br>(neben + Dat for location)</div>
+      </div>
+      <div class="prep-ex">
+        <div class="prep-combo">aus + dem/der/denen</div>
+        <div class="prep-eng">from/out of whom/which</div>
+        <div class="ptip">Das Land, <em>aus dem</em> er kommt, liegt in Südamerika.</div>
+      </div>
+      <div class="prep-ex">
+        <div class="prep-combo">bei + dem/der/denen</div>
+        <div class="prep-eng">at/with whom/which</div>
+        <div class="ptip">Die Firma, <em>bei der</em> ich arbeite, hat 200 Mitarbeiter.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DECISION PROCESS -->
+  <div class="cheat-box">
+    <div class="title">How to solve fill-in-the-blank exercises</div>
+    <strong>Step 1:</strong> Find the noun the clause refers to → get its <span class="mono" style="color:#7c3aed;">gender</span> (m/f/n/pl)<br>
+    <strong>Step 2:</strong> Look at the verb in the relative clause → does it need a preposition?<br>
+    &nbsp;&nbsp;&nbsp;• YES → write the prep first, then determine the case it requires<br>
+    &nbsp;&nbsp;&nbsp;• NO → determine what role the pronoun plays: subject (Nom), direct object (Akk), indirect object (Dat), possession (Gen)<br>
+    <strong>Step 3:</strong> Cross-reference gender + case in the table above → done!
+  </div>
+
+  <div class="cheat-box">
+    <div class="title">dessen vs. deren — the Genitiv shortcut</div>
+    These replace possessive articles (sein/ihr). If you can rephrase with "whose" in English, it's Genitiv.<br><br>
+    <strong>dessen</strong> = whose (for maskulin & neutrum nouns)<br>
+    <strong>deren</strong> = whose (for feminin & plural nouns)<br><br>
+    ⚠ The noun <em>after</em> dessen/deren takes <strong>no article</strong>:<br>
+    Der Mann, <span class="mono" style="color:#7c3aed;">dessen Auto</span> kaputt ist… (NOT: dessen <del>das</del> Auto)
+  </div>
+</div>
+</body>
+</html>

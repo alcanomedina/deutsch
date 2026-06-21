@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Komposita — Zusammengesetzte Wörter</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',Arial,sans-serif;background:#2b2b2f;color:#e0e0e4;min-height:100vh;padding:0 0 48px}
+header{position:sticky;top:0;z-index:100;background:#232327ee;backdrop-filter:blur(12px);border-bottom:1px solid #3e3e44;padding:14px 20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px}
+h1{font-family:'JetBrains Mono',monospace;font-size:26px;font-weight:700;color:#f0f0f4;letter-spacing:-.5px}
+nav{display:flex;gap:6px;flex-wrap:wrap}
+nav a{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:500;padding:5px 9px;border-radius:8px;background:#343438;color:#8888a0;text-decoration:none;border:1px solid #44444c;transition:all .15s}
+nav a:hover,nav a.active{background:#3a2e10;color:#fff;border-color:#e8a840}
+.container{max-width:880px;margin:0 auto;padding:0 16px}
+.section{margin-top:32px;scroll-margin-top:70px}
+.section-title{font-family:'JetBrains Mono',monospace;font-size:26px;font-weight:700;color:#e0e0e4;display:flex;align-items:center;gap:8px;margin-bottom:2px}
+.section-title .dot{width:10px;height:10px;border-radius:50%;display:inline-block}
+.section-sub{font-size:14px;color:#ababba;margin-bottom:16px;font-style:italic}
+.sub-label{font-family:'JetBrains Mono',monospace;font-size:17px;font-weight:700;margin-bottom:8px;margin-top:24px;color:#e0e0e4}
+.sub-label .hint{font-weight:400;font-size:13px;color:#ababba}
+
+/* Compound visual */
+.compound{display:flex;align-items:center;gap:0;margin:8px 0;flex-wrap:wrap}
+.comp-part{font-family:'JetBrains Mono',monospace;font-size:16px;font-weight:600;padding:8px 14px;border-radius:8px;border:2px solid}
+.comp-bw{background:#2a1848;border-color:#7a60c0;color:#c8a8ff}
+.comp-gw{border-color:#9a7a20;color:#f0d060}
+.comp-gw.m{background:#1e3a5f;border-color:#3a6ea8;color:#8ec4ff}
+.comp-gw.f{background:#5a1e3a;border-color:#a84070;color:#ffa0c8}
+.comp-gw.n{background:#4a3a10;border-color:#9a7a20;color:#f0d060}
+.comp-plus{font-family:'JetBrains Mono',monospace;font-size:18px;color:#55555e;padding:0 6px}
+.comp-eq{font-family:'JetBrains Mono',monospace;font-size:18px;color:#55555e;padding:0 8px}
+.comp-result{font-family:'JetBrains Mono',monospace;font-size:17px;font-weight:700;padding:8px 14px;border-radius:8px;border:2px solid}
+.comp-result.m{background:#1e3a5f;border-color:#3a6ea8;color:#8ec4ff}
+.comp-result.f{background:#5a1e3a;border-color:#a84070;color:#ffa0c8}
+.comp-result.n{background:#4a3a10;border-color:#9a7a20;color:#f0d060}
+.comp-fuge{background:#3a1818;border-color:#a04040;color:#f08888;font-size:14px;padding:4px 6px;border-radius:5px;border:2px solid;margin:0 -2px;z-index:2}
+
+/* Rule cards */
+.rule-cards{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+.rule-card{flex:1 1 260px;background:#343438;border:1px solid #44444c;border-left:3px solid #e8a840;border-radius:10px;padding:12px 16px}
+.rule-card .rule-title{font-family:'JetBrains Mono',monospace;font-size:14px;font-weight:700;margin-bottom:5px;color:#e8a840}
+.rule-card p{font-size:14px;color:#c0c0c8;line-height:1.6}
+.rule-card .example{font-family:'JetBrains Mono',monospace;font-size:13px;color:#ababba;margin-top:6px;font-style:italic;line-height:1.6}
+
+/* Example grid */
+.ex-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:6px;margin:12px 0}
+.ex-card{background:#343438;border:1px solid #44444c;border-radius:10px;padding:10px 14px;transition:all .12s}
+.ex-card:hover{border-color:#7a60c0;transform:translateY(-1px)}
+.ex-card .ec-compound{font-family:'JetBrains Mono',monospace;font-size:16px;font-weight:700;margin-bottom:3px}
+.ex-card .ec-parts{font-family:'JetBrains Mono',monospace;font-size:12px;color:#ababba;margin-bottom:2px}
+.ex-card .ec-meaning{font-size:13px;color:#c0c0c8}
+.ec-bw{color:#c8a8ff}.ec-fuge{color:#f08888}.ec-gw{color:#e0e0e4}
+
+/* Gender dot */
+.gd{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:4px}
+.gd.m{background:#3a6ea8}.gd.f{background:#a84070}.gd.n{background:#9a7a20}
+
+/* Notes */
+.notes{margin-top:16px;padding:14px 18px;background:#343438;border-radius:10px;border:1px solid #44444c;font-size:15px;line-height:1.8;color:#c0c0c8}
+.notes .notes-title{font-weight:700;font-family:'JetBrains Mono',monospace;color:#e0e0e4;margin-bottom:6px;font-size:13px}
+.warn{background:#3a2e10;border-color:#9a7a20}
+.warn .notes-title{color:#e8a840}
+
+/* Fuge table */
+.fuge-table{width:100%;border-collapse:separate;border-spacing:0 3px;margin:12px 0}
+.fuge-table th{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;color:#8888a0;text-transform:uppercase;padding:4px 8px;text-align:left}
+.fuge-table td{background:#343438;padding:8px 12px;font-size:14px;border-top:1px solid #3e3e44;border-bottom:1px solid #3e3e44}
+.fuge-table td:first-child{border-left:1px solid #3e3e44;border-radius:8px 0 0 8px;font-family:'JetBrains Mono',monospace;font-weight:700;color:#f08888;min-width:60px}
+.fuge-table td:last-child{border-right:1px solid #3e3e44;border-radius:0 8px 8px 0}
+.fuge-table .fuge-ex{font-family:'JetBrains Mono',monospace;font-size:13px;color:#ababba}
+
+kw{font-family:'JetBrains Mono',monospace;font-weight:700;padding:1px 5px;border-radius:4px;font-size:.95em}
+kw.bw{background:#2a1848;color:#c8a8ff}
+kw.gw{background:#3a3010;color:#f0d060}
+kw.fu{background:#3a1818;color:#f08888}
+
+@media(max-width:700px){
+  header{padding:10px 12px}
+  h1{font-size:18px}
+  .container{padding:0 10px}
+  .section-title{font-size:22px}
+  nav a{font-size:10px;padding:4px 6px}
+  .comp-part{font-size:13px;padding:6px 8px}
+  .comp-result{font-size:14px;padding:6px 8px}
+  .ex-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Komposita</h1>
+  <nav>
+    <a href="#prinzip" class="active">Prinzip</a>
+    <a href="#nn">N+N</a>
+    <a href="#vn">V+N</a>
+    <a href="#an">Adj+N</a>
+    <a href="#fugen">Fugen</a>
+    <a href="#tipps">Tipps</a>
+  </nav>
+</header>
+
+<div class="container">
+
+<!-- ═══ PRINZIP ═══ -->
+<div class="section" id="prinzip">
+  <div class="section-title"><span class="dot" style="background:#e8a840"></span> Das Prinzip</div>
+  <div class="section-sub">Zwei (oder mehr) Wörter werden zu einem neuen Wort zusammengesetzt</div>
+
+  <div class="compound">
+    <div class="comp-part comp-bw">Bestimmungswort</div>
+    <div class="comp-plus">+</div>
+    <div class="comp-part comp-gw n">Grundwort</div>
+    <div class="comp-eq">=</div>
+    <div class="comp-part comp-result n">Kompositum</div>
+  </div>
+
+  <div class="rule-cards">
+    <div class="rule-card">
+      <div class="rule-title">Genus = Grundwort</div>
+      <p>Das <strong>letzte Wort</strong> (Grundwort) bestimmt den Artikel.</p>
+      <div class="example"><kw class="bw">Haus</kw> + <kw class="gw">die Tür</kw> = <strong>die</strong> Haustür</div>
+    </div>
+    <div class="rule-card">
+      <div class="rule-title">Bedeutung = Grundwort</div>
+      <p>Das Grundwort sagt, <strong>was</strong> es ist. Das Bestimmungswort sagt, <strong>welche Art</strong>.</p>
+      <div class="example"><kw class="bw">Schreib</kw>tisch = ein Tisch zum Schreiben</div>
+    </div>
+    <div class="rule-card">
+      <div class="rule-title">Ein Wort!</div>
+      <p>Komposita werden <strong>zusammen</strong> geschrieben — nicht getrennt wie im Englischen.</p>
+      <div class="example">dining table = der Esstisch ✓<br>der Ess Tisch ✗</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ NOMEN + NOMEN ═══ -->
+<div class="section" id="nn">
+  <div class="section-title"><span class="dot" style="background:#8ec4ff"></span> Nomen + Nomen</div>
+  <div class="section-sub">Der häufigste Typ — oft mit Fugenelement verbunden</div>
+
+  <div class="compound">
+    <div class="comp-part comp-bw">Haus</div>
+    <div class="comp-plus">+</div>
+    <div class="comp-part comp-gw f">die Tür</div>
+    <div class="comp-eq">=</div>
+    <div class="comp-part comp-result f">Haustür</div>
+  </div>
+  <div class="compound">
+    <div class="comp-part comp-bw">Geburts</div>
+    <div class="comp-fuge">s</div>
+    <div class="comp-part comp-gw m">der Tag</div>
+    <div class="comp-eq">=</div>
+    <div class="comp-part comp-result m">Geburtstag</div>
+  </div>
+
+  <div class="ex-grid">
+    <div class="ex-card"><div class="ec-compound"><span class="gd m"></span>Kühlschrank</div><div class="ec-parts"><span class="ec-bw">kühl</span> + <span class="ec-gw">der Schrank</span></div><div class="ec-meaning">fridge</div></div>
+    <div class="ex-card"><div class="ec-compound"><span class="gd n"></span>Schlafzimmer</div><div class="ec-parts"><span class="ec-bw">Schlaf</span> + <span class="ec-gw">das Zimmer</span></div><div class="ec-meaning">bedroom</div></div>
+    <div class="ex-card"><div class="ec-compound"><span class="gd f"></span>Handtasche</div><div class="ec-parts"><span class="ec-bw">Hand</span> + <span class="ec-gw">die Tasche</span></div><div class="ec-meaning">handbag</div></div>
+    <div class="ex-card"><div class="ec-compound"><span class="gd m"></span>Arbeitsplatz</div><div class="ec-parts"><span class="ec-bw">Arbeit</span><span class="ec-fuge">s</span> + <span class="ec-gw">der Platz</span></div><div class="ec-meaning">workplace</div></div>
+    <div class="ex-card"><div class="ec-compound"><span class="gd f"></span>Sonnenbrillle</div><div class="ec-parts"><span class="ec-bw">Sonne</span><span class="ec-fuge">n</span> + <span class="ec-gw">die Brille</span></div><div class="ec-meaning">sunglasses</div></div>
+    <div class="ex-card"><div class="ec-compound"><span class="gd n"></span>Kinderzimmer</div><div class="ec-parts"><span class="ec-bw">Kind</span><span class="ec-fuge">er</span> + <span class="ec-gw">das Zimmer</span></div><div class="ec-meaning">children's room</div></div>
+    <div class="ex-card"><div class="ec-compound"><span class="gd m"></span>Führerschein</div><div class="ec-parts"><span class="ec-bw">Führer</span> + <span class="ec-gw">der Schein</span></div><div class="ec-meaning">driver's license</div></div>
+    <div class="ex-card"><div class="ec-compound"><span class="gd f"></span>Krankenversicherung</div><div class="ec-parts"><span class="ec-bw">Krank</span><span class="ec-fuge">en</span> + <span class="ec-gw">die Versicherung</span></div><div class="ec-meaning">health insurance</div></div>
+    <div class="ex-card"><div class="ec-compound"><span class="gd n"></span>Datenbanksystem</div><div class="ec-parts"><span class="ec-bw">Datenbank</span> + <span class="ec-gw">das System</span></div><div class="ec-meaning">database system</div></div>
+    <div class="ex-card"><div class="ec-compound"><span class="gd f"></span>Strassenbahn</div><div class="ec-parts"><span class="ec-bw">Strasse</span><span class="ec-fuge">n</span> + <span class="ec-gw">die Bahn</span></div><div class="ec-meaning">tram</div></div>
+    <div class="ex-card"><div class="ec-compound"><span class="gd m"></span>Wohnungsmarkt</div><div class="ec-parts"><span class="ec-bw">Wohnung</span><span class="ec-fuge">s</span> + <span class="ec-gw">der Markt</span></div><div class="ec-meaning">housing market</div></div>
+    <div class="ex-card"><div class="ec-compound"><span class="gd n"></span>Vorstellungsgespräch</div><div class="ec-parts"><span class="ec-bw">Vorstellung</span><span class="ec-fuge">s</span> + <span class="ec-gw">das Gespräch</span></div><div class="ec-meaning">job interview</div></div>
+  </div>
+</div>
+
+<!-- ═══ VERB + NOMEN ═══ -->
+<div class="section" id="vn">
+  <div class="section-title"><span class="dot" style="background:#70d890"></span> Verb + Nomen</div>
+  <div class="section-sub">Verbstamm (ohne -en / -n) + Nomen</div>
+
+  <div class="compound">
+    <div class="comp-part comp-bw">schreib(en)</div>
+    <div class="comp-plus">+</div>
+    <div class="comp-part comp-gw m">der Tisch</div>
+    <div class="comp-eq">=</div>
+    <div class="comp-part comp-result m">Schreibtisch</div>
+  </div>
+
+  <div class="rule-cards" style="margin-bottom:16px;">
+    <div class="rule-card" style="border-left-color:#70d890;">
+      <div class="rule-title" style="color:#70d890;">Regel: -en / -n weglassen</div>
+      <p>Den Infinitiv auf den <strong>Stamm</strong> kürzen</p>
+      <div class="example">schreib<s>en</s> → Schreib·tisch<br>spül<s>en</s> → Spül·becken<br>bügel<s>n</s> → Bügel·brett<br>wander<s>n</s> → Wander·weg</div>
+    </div>
+    <div class="rule-card" style="border-left-color:#f08888;">
+      <div class="rule-title" style="color:#f08888;">Ausnahme: -t / -d / -s</div>
+      <p>Verben auf <strong>-t, -d, -s</strong> behalten oft das <strong>-e</strong> vom Infinitiv</p>
+      <div class="example">bad<kw class="fu">e</kw>n → Bad<kw class="fu">e</kw>·zimmer<br>wart<kw class="fu">e</kw>n → Wart<kw class="fu">e</kw>·liste<br>les<kw class="fu">e</kw>n → Les<kw class="fu">e</kw>·lampe</div>
+    </div>
+  </div>
+
+  <div class="ex-grid">
+    <div class="ex-card"><div class="ec-compound"><span class="gd n"></span>Spülbecken</div><div class="ec-parts"><span class="ec-bw">spül(en)</span> + <span class="ec-gw">das Becken</span></div><div class="ec-meaning">kitchen sink</div></div>
+    <div class="ex-card"><div class="ec-compound"><span class="gd n"></span>Bügelbrett</div><div class="ec-parts"><span class="ec-bw">bügel(n)</span> + <span class="ec-gw">das Brett</span></div><div class="ec-meaning">ironing board</div></div>
+    <div class="ex-card"><div class="ec-compound"><span class="gd m"></span>Wanderweg</div><div class="ec-parts"><span class="ec-bw">wander(n)</span> + <span class="ec-gw">der Weg</span></div><div class="ec-meaning">hiking trail</div></div>
+    <div class="ex-card"><div class="ec-compound"><span class="gd n"></span>Badezimmer</div><div class="ec-parts"><span class="ec-bw">bad<span class="ec-fuge">e</span>(n)</span> + <span class="ec-gw">das Zimmer</span></div><div class="ec-meaning">bathroom</div></div>
+    <div class="ex-card"><div class="ec-compound"><span class="gd f"></span>Warteliste</div><div class="ec-parts"><span class="ec-bw">wart<span class="ec-fuge">e</span>(n)</span> + <span class="ec-gw">die Liste</span></div><div class="ec-meaning">waiting list</div></div>
+    <div class="ex-card"><div class="ec-compound"><span class="gd f"></span>Leselampe</div><div class="ec-parts"><span class="ec-bw">les<span class="ec-fuge">e</span>(n)</span> + <span class="ec-gw">die Lampe</span></div><div class="ec-meaning">reading lamp</div></div>
+    <div class="ex-card"><div class="ec-compound"><span class="gd m"></span>Esstisch</div><div class="ec-parts"><span class="ec-bw">ess(en)</span> + <span class="ec-gw">der Tisch</span></div><div class="ec-meaning">dining table</div></div>
+    <div class="ex-card"><div class="ec-compound"><span class="gd f"></span>Fahrschule</div><div class="ec-parts"><span class="ec-bw">fahr(en)</span> + <span class="ec-gw">die Schule</span></div><div class="ec-meaning">driving school</div></div>
+    <div class="ex-card"><div class="ec-compound"><span class="gd n"></span>Trinkwasser</div><div class="ec-parts"><span class="ec-bw">trink(en)</span> + <span class="ec-gw">das Wasser</span></div><div class="ec-meaning">drinking water</div></div>
+  </div>
+</div>
+
+<!-- ═══ ADJEKTIV + NOMEN ═══ -->
+<div class="section" id="an">
+  <div class="section-title"><span class="dot" style="background:#c8a8ff"></span> Adjektiv + Nomen</div>
+  <div class="section-sub">Das Adjektiv wird nicht dekliniert — es behält die Grundform</div>
+
+  <div class="compound">
+    <div class="comp-part comp-bw">gross</div>
+    <div class="comp-plus">+</div>
+    <div class="comp-part comp-gw f">die Stadt</div>
+    <div class="comp-eq">=</div>
+    <div class="comp-part comp-result f">Grossstadt</div>
+  </div>
+
+  <div class="ex-grid">
+    <div class="ex-card"><div class="ec-compound"><span class="gd f"></span>Grossstadt</div><div class="ec-parts"><span class="ec-bw">gross</span> + <span class="ec-gw">die Stadt</span></div><div class="ec-meaning">big city</div></div>
+    <div class="ex-card"><div class="ec-compound"><span class="gd f"></span>Kleinstadt</div><div class="ec-parts"><span class="ec-bw">klein</span> + <span class="ec-gw">die Stadt</span></div><div class="ec-meaning">small town</div></div>
+    <div class="ex-card"><div class="ec-compound"><span class="gd m"></span>Rotwein</div><div class="ec-parts"><span class="ec-bw">rot</span> + <span class="ec-gw">der Wein</span></div><div class="ec-meaning">red wine</div></div>
+    <div class="ex-card"><div class="ec-compound"><span class="gd n"></span>Schwarzbrot</div><div class="ec-parts"><span class="ec-bw">schwarz</span> + <span class="ec-gw">das Brot</span></div><div class="ec-meaning">dark bread</div></div>
+    <div class="ex-card"><div class="ec-compound"><span class="gd n"></span>Hochhaus</div><div class="ec-parts"><span class="ec-bw">hoch</span> + <span class="ec-gw">das Haus</span></div><div class="ec-meaning">high-rise</div></div>
+    <div class="ex-card"><div class="ec-compound"><span class="gd m"></span>Frühling</div><div class="ec-parts"><span class="ec-bw">früh</span> + <span class="ec-gw">der -ling</span></div><div class="ec-meaning">spring (season)</div></div>
+    <div class="ex-card"><div class="ec-compound"><span class="gd f"></span>Schnellstrasse</div><div class="ec-parts"><span class="ec-bw">schnell</span> + <span class="ec-gw">die Strasse</span></div><div class="ec-meaning">expressway</div></div>
+    <div class="ex-card"><div class="ec-compound"><span class="gd f"></span>Altstadt</div><div class="ec-parts"><span class="ec-bw">alt</span> + <span class="ec-gw">die Stadt</span></div><div class="ec-meaning">old town</div></div>
+    <div class="ex-card"><div class="ec-compound"><span class="gd n"></span>Fremdwort</div><div class="ec-parts"><span class="ec-bw">fremd</span> + <span class="ec-gw">das Wort</span></div><div class="ec-meaning">foreign/loan word</div></div>
+  </div>
+</div>
+
+<!-- ═══ FUGENELEMENTE ═══ -->
+<div class="section" id="fugen">
+  <div class="section-title"><span class="dot" style="background:#f08888"></span> Fugenelemente</div>
+  <div class="section-sub">Verbindungslaute zwischen Bestimmungswort und Grundwort</div>
+
+  <div class="notes" style="margin-bottom:16px;">
+    <div class="notes-title">📌 Wann?</div>
+    Fugenelemente haben <strong>keine feste Regel</strong> — man muss sie mit dem Wort lernen. Aber es gibt Tendenzen.
+  </div>
+
+  <table class="fuge-table">
+    <thead><tr><th>Fuge</th><th>Tendenz</th><th>Beispiele</th></tr></thead>
+    <tbody>
+      <tr>
+        <td>-(e)s-</td>
+        <td>Häufig bei maskulinen und neutralen Nomen, besonders nach -ung, -heit, -keit, -tion, -tum, -ling</td>
+        <td><span class="fuge-ex">Geburt<kw class="fu">s</kw>tag · Arbeit<kw class="fu">s</kw>platz · Freiheit<kw class="fu">s</kw>kampf · Wohnung<kw class="fu">s</kw>markt · Liebling<kw class="fu">s</kw>essen</span></td>
+      </tr>
+      <tr>
+        <td>-(e)n-</td>
+        <td>Häufig bei femininen Nomen (bes. auf -e), n-Deklination</td>
+        <td><span class="fuge-ex">Sonne<kw class="fu">n</kw>brille · Strasse<kw class="fu">n</kw>bahn · Blume<kw class="fu">n</kw>laden · Krank<kw class="fu">en</kw>haus</span></td>
+      </tr>
+      <tr>
+        <td>-er-</td>
+        <td>Bei Plural auf -er</td>
+        <td><span class="fuge-ex">Kind<kw class="fu">er</kw>zimmer · Büch<kw class="fu">er</kw>regal · Bild<kw class="fu">er</kw>buch</span></td>
+      </tr>
+      <tr>
+        <td>-e-</td>
+        <td>Bei manchen Verbstämmen (s. Verb+Nomen)</td>
+        <td><span class="fuge-ex">Bad<kw class="fu">e</kw>zimmer · Wart<kw class="fu">e</kw>liste · Les<kw class="fu">e</kw>lampe · Hund<kw class="fu">e</kw>hütte</span></td>
+      </tr>
+      <tr>
+        <td>∅</td>
+        <td>Kein Fugenelement — direkte Verbindung</td>
+        <td><span class="fuge-ex">Haustür · Schreibtisch · Handtasche · Kühlschrank</span></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ═══ TIPPS ═══ -->
+<div class="section" id="tipps">
+  <div class="section-title"><span class="dot" style="background:#ff6060"></span> Tipps</div>
+  <div class="section-sub">Häufige Fehler und praktische Hinweise</div>
+
+  <div class="notes warn">
+    <div class="notes-title">⚠ Englisch-Transfer vermeiden</div>
+    Im Englischen schreibt man Komposita oft als separate Wörter. Auf Deutsch <strong>immer zusammen</strong>:<br><br>
+    <span style="font-family:'JetBrains Mono',monospace;font-size:13px;">
+      <span style="color:#ff6060">✗</span> <span style="color:#ababba">Daten Analyse · Sprach Kurs · Wohnungs Markt</span><br>
+      <span style="color:#70d890">✓</span> <span style="color:#e0e0e4">Datenanalyse · Sprachkurs · Wohnungsmarkt</span>
+    </span>
+  </div>
+
+  <div class="rule-cards" style="margin-top:16px;">
+    <div class="rule-card" style="border-left-color:#c8a8ff;">
+      <div class="rule-title" style="color:#c8a8ff;">Sehr lange Wörter</div>
+      <p>Komposita können theoretisch unendlich lang sein. Bei drei oder mehr Teilen kann man einen <strong>Bindestrich</strong> setzen, wenn es die Lesbarkeit verbessert.</p>
+      <div class="example">Datenbank-Management-System<br>Krankenversicherungsbeitrag</div>
+    </div>
+    <div class="rule-card" style="border-left-color:#60d0e8;">
+      <div class="rule-title" style="color:#60d0e8;">Von rechts nach links lesen</div>
+      <p>Das <strong>letzte Wort</strong> ist die Kernbedeutung. Von rechts nach links entschlüsseln:</p>
+      <div class="example">Strassenbahn·halte·stelle<br>= Stelle, wo die Strassenbahn hält</div>
+    </div>
+    <div class="rule-card" style="border-left-color:#70d890;">
+      <div class="rule-title" style="color:#70d890;">Neue Komposita bilden</div>
+      <p>Du kannst <strong>eigene Komposita</strong> bilden — Deutsche machen das ständig. Wenn es logisch ist, wird es verstanden.</p>
+      <div class="example">Zoom-Meeting-Müdigkeit<br>Homeoffice-Pausenraum</div>
+    </div>
+  </div>
+
+  <div class="notes" style="margin-top:16px;">
+    <div class="notes-title">🇨🇭 Schweizer Besonderheit</div>
+    In der Schweiz schreibt man <strong>ss</strong> statt <strong>ß</strong>. Bei Komposita ändert das nichts am Prinzip: Strasse → Strassenbahn, Fussball, Reisepass.
+  </div>
+</div>
+
+</div>
+
+<script>
+const sections = document.querySelectorAll('.section[id]');
+const navLinks = document.querySelectorAll('nav a');
+function updateNav(){let c='';sections.forEach(s=>{if(window.scrollY>=s.offsetTop-90)c=s.id});navLinks.forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+c))}
+window.addEventListener('scroll',updateNav,{passive:true});
+updateNav();
+navLinks.forEach(a=>{a.addEventListener('click',e=>{e.preventDefault();document.querySelector(a.getAttribute('href'))?.scrollIntoView({behavior:'smooth',block:'start'})})});
+</script>
+</body>
+</html>

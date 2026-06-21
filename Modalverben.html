@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Modalverben — können · müssen · dürfen · sollen · wollen · möchten</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',Arial,sans-serif;background:#2b2b2f;color:#e0e0e4;min-height:100vh;padding:0 0 48px}
+header{position:sticky;top:0;z-index:100;background:#232327ee;backdrop-filter:blur(12px);border-bottom:1px solid #3e3e44;padding:14px 20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px}
+h1{font-family:'JetBrains Mono',monospace;font-size:26px;font-weight:700;color:#f0f0f4;letter-spacing:-.5px}
+nav{display:flex;gap:6px;flex-wrap:wrap}
+nav a{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:500;padding:5px 9px;border-radius:8px;background:#343438;color:#8888a0;text-decoration:none;border:1px solid #44444c;transition:all .15s}
+nav a:hover,nav a.active{background:#1a4a2a;color:#fff;border-color:#70d890}
+.container{max-width:900px;margin:0 auto;padding:0 16px}
+
+/* Sections */
+.section{margin-top:32px;scroll-margin-top:70px}
+.section-title{font-family:'JetBrains Mono',monospace;font-size:26px;font-weight:700;color:#e0e0e4;display:flex;align-items:center;gap:8px;margin-bottom:2px}
+.section-title .dot{width:10px;height:10px;border-radius:50%;display:inline-block}
+.section-sub{font-size:14px;color:#ababba;margin-bottom:16px;font-style:italic}
+.sub-label{font-family:'JetBrains Mono',monospace;font-size:17px;font-weight:700;margin-bottom:8px;margin-top:24px;color:#e0e0e4}
+.sub-label .hint{font-weight:400;font-size:13px;color:#ababba}
+
+/* Modal color accents */
+.c-k{color:#60d0e8} .bg-k{background:#133040;border-color:#2a7088}
+.c-m{color:#f08888} .bg-m{background:#3a1818;border-color:#a04040}
+.c-d{color:#70d890} .bg-d{background:#1a3a22;border-color:#40a060}
+.c-s{color:#e8a840} .bg-s{background:#3a2e10;border-color:#9a7a20}
+.c-w{color:#c8a8ff} .bg-w{background:#2a1848;border-color:#7a60c0}
+.c-mo{color:#ffa0c8} .bg-mo{background:#3a1830;border-color:#a04070}
+
+/* Overview cards */
+.modal-overview{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:8px;margin:14px 0}
+.mo-card{border-radius:10px;padding:14px 16px;border:2px solid;transition:all .15s}
+.mo-card:hover{transform:translateY(-2px);box-shadow:0 4px 14px rgba(0,0,0,.3)}
+.mo-card .mo-verb{font-family:'JetBrains Mono',monospace;font-size:22px;font-weight:700;margin-bottom:4px}
+.mo-card .mo-meaning{font-size:14px;margin-bottom:6px}
+.mo-card .mo-ex{font-family:'JetBrains Mono',monospace;font-size:13px;opacity:.7;font-style:italic;line-height:1.5}
+
+/* Conjugation grids */
+.conj-grid{width:100%;border-collapse:separate;border-spacing:0 2px;margin:12px 0}
+.conj-grid th{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;color:#8888a0;text-transform:uppercase;letter-spacing:.5px;padding:4px 6px;text-align:center}
+.conj-grid th:first-child{text-align:left}
+.conj-grid td{background:#343438;padding:8px 8px;font-family:'JetBrains Mono',monospace;font-size:14px;font-weight:600;text-align:center;border-top:1px solid #3e3e44;border-bottom:1px solid #3e3e44}
+.conj-grid td:first-child{border-left:1px solid #3e3e44;border-radius:8px 0 0 8px;text-align:left;font-weight:700;color:#8888a0;font-size:13px;min-width:50px}
+.conj-grid td:last-child{border-right:1px solid #3e3e44;border-radius:0 8px 8px 0}
+.conj-grid .stem-change{text-decoration:underline;text-underline-offset:2px}
+
+/* Color columns */
+.col-k{color:#60d0e8}.col-m{color:#f08888}.col-d{color:#70d890}
+.col-s{color:#e8a840}.col-w{color:#c8a8ff}.col-mo{color:#ffa0c8}
+
+/* Rule cards */
+.rule-cards{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+.rule-card{flex:1 1 260px;background:#343438;border:1px solid #44444c;border-left:3px solid #70d890;border-radius:10px;padding:12px 16px}
+.rule-card .rule-title{font-family:'JetBrains Mono',monospace;font-size:14px;font-weight:700;margin-bottom:5px}
+.rule-card p{font-size:14px;color:#c0c0c8;line-height:1.6}
+.rule-card .example{font-family:'JetBrains Mono',monospace;font-size:13px;color:#ababba;margin-top:6px;font-style:italic;line-height:1.6}
+
+/* Notes */
+.notes{margin-top:16px;padding:14px 18px;background:#343438;border-radius:10px;border:1px solid #44444c;font-size:15px;line-height:1.8;color:#c0c0c8}
+.notes .notes-title{font-weight:700;font-family:'JetBrains Mono',monospace;color:#e0e0e4;margin-bottom:6px;font-size:13px}
+.warn{background:#3a2e10;border-color:#9a7a20}
+.warn .notes-title{color:#e8a840}
+
+/* Sentence diagram */
+.satz{display:flex;align-items:stretch;gap:3px;margin:10px 0 16px;overflow-x:auto;padding-bottom:4px}
+.pos{display:flex;flex-direction:column;align-items:center;gap:3px;min-width:70px;flex-shrink:0}
+.pos.wide{flex:1;min-width:100px}
+.pos-label{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;color:#8888a0;text-transform:uppercase;text-align:center;white-space:nowrap}
+.pos-val{width:100%;background:#343438;border:2px solid #44444c;border-radius:8px;padding:8px 10px;font-family:'JetBrains Mono',monospace;font-size:15px;font-weight:600;color:#e0e0e4;text-align:center;min-height:44px;display:flex;align-items:center;justify-content:center;line-height:1.3}
+.pos-val.verb{border-color:#a04040;color:#f08888;background:#3a1818}
+.pos-val.subj{border-color:#3a6ea8;color:#8ec4ff;background:#1e2e45}
+.pos-val.bracket{border-color:#a04040;color:#f08888;background:#3a1818;border-style:dashed}
+
+/* Comparison boxes */
+.vs-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:14px 0}
+.vs-box{background:#343438;border:1px solid #44444c;border-radius:10px;padding:14px 16px}
+.vs-box .vs-title{font-family:'JetBrains Mono',monospace;font-size:16px;font-weight:700;margin-bottom:6px}
+.vs-box .vs-meaning{font-size:14px;margin-bottom:8px}
+.vs-box .vs-ex{font-family:'JetBrains Mono',monospace;font-size:13px;color:#ababba;font-style:italic;line-height:1.7}
+
+kw{font-family:'JetBrains Mono',monospace;font-weight:700;padding:1px 5px;border-radius:4px;font-size:.95em}
+kw.v{background:#3a1818;color:#f08888}
+
+@media(max-width:700px){
+  header{padding:10px 12px}
+  h1{font-size:18px}
+  .container{padding:0 10px}
+  .section-title{font-size:22px}
+  nav a{font-size:10px;padding:4px 6px}
+  .conj-grid td{font-size:12px;padding:6px 4px}
+  .conj-grid th{font-size:10px}
+  .mo-card .mo-verb{font-size:18px}
+  .vs-grid{grid-template-columns:1fr}
+  .pos-val{font-size:13px;padding:6px 6px}
+  .pos{min-width:55px}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Modalverben</h1>
+  <nav>
+    <a href="#uebersicht" class="active">Übersicht</a>
+    <a href="#praesens">Präsens</a>
+    <a href="#praet">Präteritum</a>
+    <a href="#kii">Konjunktiv II</a>
+    <a href="#perfekt">Perfekt</a>
+    <a href="#position">Position</a>
+    <a href="#nuancen">Nuancen</a>
+  </nav>
+</header>
+
+<div class="container">
+
+<!-- ═══ ÜBERSICHT ═══ -->
+<div class="section" id="uebersicht">
+  <div class="section-title"><span class="dot" style="background:#70d890"></span> Übersicht</div>
+  <div class="section-sub">Die sechs Modalverben und ihre Kernbedeutungen</div>
+
+  <div class="modal-overview">
+    <div class="mo-card bg-k">
+      <div class="mo-verb c-k">können</div>
+      <div class="mo-meaning c-k">ability · possibility</div>
+      <div class="mo-ex">Ich kann Deutsch sprechen.<br>Kannst du mir helfen?</div>
+    </div>
+    <div class="mo-card bg-m">
+      <div class="mo-verb c-m">müssen</div>
+      <div class="mo-meaning c-m">necessity · obligation</div>
+      <div class="mo-ex">Ich muss heute arbeiten.<br>Du musst zum Arzt gehen.</div>
+    </div>
+    <div class="mo-card bg-d">
+      <div class="mo-verb c-d">dürfen</div>
+      <div class="mo-meaning c-d">permission · prohibition</div>
+      <div class="mo-ex">Darf ich hier rauchen?<br>Man darf hier nicht parkieren.</div>
+    </div>
+    <div class="mo-card bg-s">
+      <div class="mo-verb c-s">sollen</div>
+      <div class="mo-meaning c-s">expectation · recommendation</div>
+      <div class="mo-ex">Du sollst mehr Wasser trinken.<br>Was soll ich tun?</div>
+    </div>
+    <div class="mo-card bg-w">
+      <div class="mo-verb c-w">wollen</div>
+      <div class="mo-meaning c-w">desire · intention</div>
+      <div class="mo-ex">Ich will nach Berlin fahren.<br>Willst du mitkommen?</div>
+    </div>
+    <div class="mo-card bg-mo">
+      <div class="mo-verb c-mo">möchten</div>
+      <div class="mo-meaning c-mo">polite wish · would like</div>
+      <div class="mo-ex">Ich möchte einen Kaffee.<br>Möchten Sie bestellen?</div>
+    </div>
+  </div>
+
+  <div class="notes">
+    <div class="notes-title">📌 möchten vs. mögen</div>
+    <strong>möchten</strong> ist eigentlich Konjunktiv II von <strong>mögen</strong>, wird aber als eigenständiges Modalverb benutzt (höflicher Wunsch). <strong>mögen</strong> allein bedeutet „to like": <em>Ich mag Schokolade.</em>
+  </div>
+</div>
+
+<!-- ═══ PRÄSENS ═══ -->
+<div class="section" id="praesens">
+  <div class="section-title"><span class="dot" style="background:#70d890"></span> Präsens</div>
+  <div class="section-sub">Konjugation im Präsens — Vokalwechsel in ich/er/sie/es</div>
+
+  <table class="conj-grid">
+    <thead><tr>
+      <th></th>
+      <th class="col-k">können</th>
+      <th class="col-m">müssen</th>
+      <th class="col-d">dürfen</th>
+      <th class="col-s">sollen</th>
+      <th class="col-w">wollen</th>
+      <th class="col-mo">möchten</th>
+    </tr></thead>
+    <tbody>
+      <tr><td>ich</td><td class="col-k">k<span class="stem-change">a</span>nn</td><td class="col-m">m<span class="stem-change">u</span>ss</td><td class="col-d">d<span class="stem-change">a</span>rf</td><td class="col-s">soll</td><td class="col-w">w<span class="stem-change">i</span>ll</td><td class="col-mo">möchte</td></tr>
+      <tr><td>du</td><td class="col-k">k<span class="stem-change">a</span>nnst</td><td class="col-m">m<span class="stem-change">u</span>sst</td><td class="col-d">d<span class="stem-change">a</span>rfst</td><td class="col-s">sollst</td><td class="col-w">w<span class="stem-change">i</span>llst</td><td class="col-mo">möchtest</td></tr>
+      <tr><td>er/sie</td><td class="col-k">k<span class="stem-change">a</span>nn</td><td class="col-m">m<span class="stem-change">u</span>ss</td><td class="col-d">d<span class="stem-change">a</span>rf</td><td class="col-s">soll</td><td class="col-w">w<span class="stem-change">i</span>ll</td><td class="col-mo">möchte</td></tr>
+      <tr><td>wir</td><td class="col-k">k<span class="stem-change">ö</span>nnen</td><td class="col-m">m<span class="stem-change">ü</span>ssen</td><td class="col-d">d<span class="stem-change">ü</span>rfen</td><td class="col-s">sollen</td><td class="col-w">w<span class="stem-change">o</span>llen</td><td class="col-mo">möchten</td></tr>
+      <tr><td>ihr</td><td class="col-k">k<span class="stem-change">ö</span>nnt</td><td class="col-m">m<span class="stem-change">ü</span>sst</td><td class="col-d">d<span class="stem-change">ü</span>rft</td><td class="col-s">sollt</td><td class="col-w">w<span class="stem-change">o</span>llt</td><td class="col-mo">möchtet</td></tr>
+      <tr><td>sie/Sie</td><td class="col-k">k<span class="stem-change">ö</span>nnen</td><td class="col-m">m<span class="stem-change">ü</span>ssen</td><td class="col-d">d<span class="stem-change">ü</span>rfen</td><td class="col-s">sollen</td><td class="col-w">w<span class="stem-change">o</span>llen</td><td class="col-mo">möchten</td></tr>
+    </tbody>
+  </table>
+
+  <div class="notes">
+    <div class="notes-title">📌 Muster</div>
+    <strong>ich = er/sie/es</strong> (keine Endung, gleiche Form!). Der Vokal wechselt zwischen Singular (ich/du/er) und Plural (wir/ihr/sie) — ausser bei <em>sollen</em> und <em>möchten</em>.
+  </div>
+</div>
+
+<!-- ═══ PRÄTERITUM ═══ -->
+<div class="section" id="praet">
+  <div class="section-title"><span class="dot" style="background:#e8a840"></span> Präteritum</div>
+  <div class="section-sub">Für die Vergangenheit benutzt man bei Modalverben fast immer das Präteritum (nicht Perfekt)</div>
+
+  <table class="conj-grid">
+    <thead><tr>
+      <th></th>
+      <th class="col-k">können</th>
+      <th class="col-m">müssen</th>
+      <th class="col-d">dürfen</th>
+      <th class="col-s">sollen</th>
+      <th class="col-w">wollen</th>
+      <th style="color:#8888a0">mögen</th>
+    </tr></thead>
+    <tbody>
+      <tr><td>ich</td><td class="col-k">konnte</td><td class="col-m">musste</td><td class="col-d">durfte</td><td class="col-s">sollte</td><td class="col-w">wollte</td><td style="color:#ababba">mochte</td></tr>
+      <tr><td>du</td><td class="col-k">konntest</td><td class="col-m">musstest</td><td class="col-d">durftest</td><td class="col-s">solltest</td><td class="col-w">wolltest</td><td style="color:#ababba">mochtest</td></tr>
+      <tr><td>er/sie</td><td class="col-k">konnte</td><td class="col-m">musste</td><td class="col-d">durfte</td><td class="col-s">sollte</td><td class="col-w">wollte</td><td style="color:#ababba">mochte</td></tr>
+      <tr><td>wir</td><td class="col-k">konnten</td><td class="col-m">mussten</td><td class="col-d">durften</td><td class="col-s">sollten</td><td class="col-w">wollten</td><td style="color:#ababba">mochten</td></tr>
+      <tr><td>ihr</td><td class="col-k">konntet</td><td class="col-m">musstet</td><td class="col-d">durftet</td><td class="col-s">solltet</td><td class="col-w">wolltet</td><td style="color:#ababba">mochtet</td></tr>
+      <tr><td>sie/Sie</td><td class="col-k">konnten</td><td class="col-m">mussten</td><td class="col-d">durften</td><td class="col-s">sollten</td><td class="col-w">wollten</td><td style="color:#ababba">mochten</td></tr>
+    </tbody>
+  </table>
+
+  <div class="notes">
+    <div class="notes-title">📌 Muster</div>
+    Umlaut fällt weg: können → k<strong>o</strong>nnte, müssen → m<strong>u</strong>sste, dürfen → d<strong>u</strong>rfte. Wieder: <strong>ich = er/sie/es</strong> (ohne Endung).
+  </div>
+</div>
+
+<!-- ═══ KONJUNKTIV II ═══ -->
+<div class="section" id="kii">
+  <div class="section-title"><span class="dot" style="background:#c8a8ff"></span> Konjunktiv II</div>
+  <div class="section-sub">Höflichkeit, irreale Wünsche, Ratschläge — Modalverben behalten ihre eigene KII-Form</div>
+
+  <table class="conj-grid">
+    <thead><tr>
+      <th></th>
+      <th class="col-k">können</th>
+      <th class="col-m">müssen</th>
+      <th class="col-d">dürfen</th>
+      <th class="col-s">sollen</th>
+      <th class="col-w">wollen</th>
+    </tr></thead>
+    <tbody>
+      <tr><td>ich</td><td class="col-k">könnte</td><td class="col-m">müsste</td><td class="col-d">dürfte</td><td class="col-s">sollte</td><td class="col-w">wollte</td></tr>
+      <tr><td>du</td><td class="col-k">könntest</td><td class="col-m">müsstest</td><td class="col-d">dürftest</td><td class="col-s">solltest</td><td class="col-w">wolltest</td></tr>
+      <tr><td>er/sie</td><td class="col-k">könnte</td><td class="col-m">müsste</td><td class="col-d">dürfte</td><td class="col-s">sollte</td><td class="col-w">wollte</td></tr>
+      <tr><td>wir</td><td class="col-k">könnten</td><td class="col-m">müssten</td><td class="col-d">dürften</td><td class="col-s">sollten</td><td class="col-w">wollten</td></tr>
+      <tr><td>ihr</td><td class="col-k">könntet</td><td class="col-m">müsstet</td><td class="col-d">dürftet</td><td class="col-s">solltet</td><td class="col-w">wolltet</td></tr>
+      <tr><td>sie/Sie</td><td class="col-k">könnten</td><td class="col-m">müssten</td><td class="col-d">dürften</td><td class="col-s">sollten</td><td class="col-w">wollten</td></tr>
+    </tbody>
+  </table>
+
+  <div class="notes warn">
+    <div class="notes-title">⚠ Achtung: sollen / wollen</div>
+    <strong>sollte</strong> und <strong>wollte</strong> sind identisch in Präteritum und Konjunktiv II — der Kontext entscheidet.<br>
+    <span style="font-family:'JetBrains Mono',monospace;font-size:13px;color:#ababba;">
+      Er <strong>sollte</strong> kommen. (Prät. = he was supposed to / KII = he should)<br>
+      Sie <strong>wollte</strong> gehen. (Prät. = she wanted to / KII = she would want to)
+    </span>
+  </div>
+
+  <div class="notes" style="margin-top:10px;">
+    <div class="notes-title">💡 KII = Präteritum + Umlaut</div>
+    können → k<strong>ö</strong>nnte, müssen → m<strong>ü</strong>sste, dürfen → d<strong>ü</strong>rfte — der Umlaut kommt zurück!<br>
+    Bei sollen/wollen gibt es keinen Umlaut → Formen sind identisch mit dem Präteritum.
+  </div>
+</div>
+
+<!-- ═══ PERFEKT ═══ -->
+<div class="section" id="perfekt">
+  <div class="section-title"><span class="dot" style="background:#f08888"></span> Perfekt mit Modalverben</div>
+  <div class="section-sub">Der doppelte Infinitiv — eine Besonderheit</div>
+
+  <div class="rule-cards">
+    <div class="rule-card" style="border-left-color:#f08888;">
+      <div class="rule-title c-m">Ohne Vollverb → Partizip II</div>
+      <p>Wenn das Modalverb <strong>allein</strong> steht (ohne zweites Verb)</p>
+      <div class="example">Ich habe das nicht ge<strong>konnt</strong>.<br>Sie hat es nicht ge<strong>wollt</strong>.</div>
+    </div>
+    <div class="rule-card" style="border-left-color:#f08888;">
+      <div class="rule-title c-m">Mit Vollverb → Doppelter Infinitiv</div>
+      <p>Wenn ein Vollverb dabei ist → <strong>Infinitiv statt Partizip</strong></p>
+      <div class="example">Ich habe nicht kommen <strong>können</strong>.<br>Sie hat nicht schlafen <strong>wollen</strong>.</div>
+    </div>
+  </div>
+
+  <div class="sub-label">Satzklammer <span class="hint">— Perfekt mit Modalverb</span></div>
+  <div class="satz">
+    <div class="pos"><div class="pos-label">Pos. 1</div><div class="pos-val subj">Sie</div></div>
+    <div class="pos"><div class="pos-label">hat</div><div class="pos-val verb">hat</div></div>
+    <div class="pos wide"><div class="pos-label">Mittelfeld</div><div class="pos-val">nicht</div></div>
+    <div class="pos"><div class="pos-label">Vollverb</div><div class="pos-val bracket">kommen</div></div>
+    <div class="pos"><div class="pos-label">Modal</div><div class="pos-val bracket">können</div></div>
+  </div>
+  <div style="font-size:13px;color:#8888a0;font-style:italic;margin-top:-8px;margin-bottom:12px;">hat … kommen können (nicht: gekonnt!)</div>
+
+  <div class="notes warn">
+    <div class="notes-title">⚠ In der Praxis</div>
+    Das Perfekt mit Modalverben ist umständlich. In der Umgangssprache und auch schriftlich benutzt man fast immer das <strong>Präteritum</strong>:<br>
+    <span style="font-family:'JetBrains Mono',monospace;font-size:13px;color:#ababba;">
+      Sie <strong>konnte</strong> nicht kommen. ✓ (natürlich)<br>
+      Sie hat nicht kommen können. ✓ (korrekt, aber seltener)
+    </span>
+  </div>
+
+  <div class="sub-label" style="margin-top:20px;">Partizip II <span class="hint">— nur ohne Vollverb</span></div>
+  <table class="conj-grid" style="max-width:600px;">
+    <thead><tr>
+      <th class="col-k">können</th>
+      <th class="col-m">müssen</th>
+      <th class="col-d">dürfen</th>
+      <th class="col-s">sollen</th>
+      <th class="col-w">wollen</th>
+      <th style="color:#8888a0">mögen</th>
+    </tr></thead>
+    <tbody>
+      <tr>
+        <td class="col-k">gekonnt</td>
+        <td class="col-m">gemusst</td>
+        <td class="col-d">gedurft</td>
+        <td class="col-s">gesollt</td>
+        <td class="col-w">gewollt</td>
+        <td style="color:#ababba">gemocht</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ═══ POSITION ═══ -->
+<div class="section" id="position">
+  <div class="section-title"><span class="dot" style="background:#e8a840"></span> Position im Satz</div>
+  <div class="section-sub">Modalverb auf Position 2, Infinitiv am Ende — Satzklammer</div>
+
+  <div class="sub-label">Hauptsatz</div>
+  <div class="satz">
+    <div class="pos"><div class="pos-label">Pos. 1</div><div class="pos-val subj">Ich</div></div>
+    <div class="pos"><div class="pos-label">Modal</div><div class="pos-val verb">kann</div></div>
+    <div class="pos"><div class="pos-label">Mo</div><div class="pos-val" style="border-color:#7a60c0;color:#c8a8ff;background:#2a1848">gut</div></div>
+    <div class="pos wide"><div class="pos-label">Akk.</div><div class="pos-val" style="border-color:#9a7a20;color:#e8a840;background:#3a2e10">Deutsch</div></div>
+    <div class="pos"><div class="pos-label">Infinitiv</div><div class="pos-val bracket">sprechen</div></div>
+  </div>
+
+  <div class="sub-label">Nebensatz <span class="hint">— alles am Ende</span></div>
+  <div class="satz">
+    <div class="pos"><div class="pos-label">Konj.</div><div class="pos-val" style="border-color:#2a7088;color:#60d0e8;background:#133040">weil</div></div>
+    <div class="pos"><div class="pos-label">Subj.</div><div class="pos-val subj">ich</div></div>
+    <div class="pos"><div class="pos-label">Mo</div><div class="pos-val" style="border-color:#7a60c0;color:#c8a8ff;background:#2a1848">gut</div></div>
+    <div class="pos"><div class="pos-label">Akk.</div><div class="pos-val" style="border-color:#9a7a20;color:#e8a840;background:#3a2e10">Deutsch</div></div>
+    <div class="pos"><div class="pos-label">Inf.</div><div class="pos-val bracket">sprechen</div></div>
+    <div class="pos"><div class="pos-label">Modal</div><div class="pos-val verb">kann</div></div>
+  </div>
+  <div style="font-size:13px;color:#8888a0;font-style:italic;margin-top:-8px;margin-bottom:12px;">Im Nebensatz: Infinitiv vor dem konjugierten Modalverb am Ende</div>
+</div>
+
+<!-- ═══ NUANCEN ═══ -->
+<div class="section" id="nuancen">
+  <div class="section-title"><span class="dot" style="background:#ffa0c8"></span> Bedeutungsnuancen</div>
+  <div class="section-sub">Häufige Verwechslungen und feine Unterschiede</div>
+
+  <div class="sub-label" style="color:#f08888;">müssen vs. sollen</div>
+  <div class="vs-grid">
+    <div class="vs-box" style="border-left:3px solid #f08888;">
+      <div class="vs-title c-m">müssen</div>
+      <div class="vs-meaning">Innere Notwendigkeit, objektiver Zwang</div>
+      <div class="vs-ex">Ich <strong>muss</strong> arbeiten. (Pflicht)<br>Du <strong>musst</strong> essen. (Notwendigkeit)<br>Ich <strong>muss</strong> auf die Toilette.</div>
+    </div>
+    <div class="vs-box" style="border-left:3px solid #e8a840;">
+      <div class="vs-title c-s">sollen</div>
+      <div class="vs-meaning">Äussere Erwartung, Empfehlung, Auftrag</div>
+      <div class="vs-ex">Du <strong>sollst</strong> den Chef anrufen. (Auftrag)<br>Man <strong>soll</strong> viel Wasser trinken. (Empfehlung)<br>Was <strong>soll</strong> ich tun? (Rat fragen)</div>
+    </div>
+  </div>
+
+  <div class="sub-label" style="color:#60d0e8;">können vs. dürfen</div>
+  <div class="vs-grid">
+    <div class="vs-box" style="border-left:3px solid #60d0e8;">
+      <div class="vs-title c-k">können</div>
+      <div class="vs-meaning">Fähigkeit, Möglichkeit</div>
+      <div class="vs-ex">Ich <strong>kann</strong> schwimmen. (Fähigkeit)<br>Hier <strong>kann</strong> man gut essen. (Möglichkeit)<br><strong>Kannst</strong> du mir helfen? (informell)</div>
+    </div>
+    <div class="vs-box" style="border-left:3px solid #70d890;">
+      <div class="vs-title c-d">dürfen</div>
+      <div class="vs-meaning">Erlaubnis, Verbot</div>
+      <div class="vs-ex"><strong>Darf</strong> ich hier sitzen? (Erlaubnis)<br>Du <strong>darfst</strong> nicht rauchen. (Verbot)<br>Man <strong>darf</strong> hier nicht parkieren.</div>
+    </div>
+  </div>
+
+  <div class="sub-label" style="color:#c8a8ff;">wollen vs. möchten</div>
+  <div class="vs-grid">
+    <div class="vs-box" style="border-left:3px solid #c8a8ff;">
+      <div class="vs-title c-w">wollen</div>
+      <div class="vs-meaning">Starker Wille, Absicht, Forderung</div>
+      <div class="vs-ex">Ich <strong>will</strong> das nicht! (starker Wille)<br>Er <strong>will</strong> Arzt werden. (Absicht)<br>⚠ kann unhöflich klingen</div>
+    </div>
+    <div class="vs-box" style="border-left:3px solid #ffa0c8;">
+      <div class="vs-title c-mo">möchten</div>
+      <div class="vs-meaning">Höflicher Wunsch, Bitte</div>
+      <div class="vs-ex">Ich <strong>möchte</strong> einen Kaffee. (höflich)<br><strong>Möchten</strong> Sie bestellen?<br>✓ im Restaurant, Geschäft, formell</div>
+    </div>
+  </div>
+
+  <div class="sub-label" style="color:#ff6060;">nicht müssen vs. nicht dürfen</div>
+  <div class="vs-grid">
+    <div class="vs-box" style="border-left:3px solid #f08888;">
+      <div class="vs-title c-m">nicht müssen</div>
+      <div class="vs-meaning">= nicht nötig (don't have to)</div>
+      <div class="vs-ex">Du <strong>musst</strong> nicht kommen.<br>= Es ist nicht nötig.<br>= You don't have to come.</div>
+    </div>
+    <div class="vs-box" style="border-left:3px solid #70d890;">
+      <div class="vs-title c-d">nicht dürfen</div>
+      <div class="vs-meaning">= verboten (must not)</div>
+      <div class="vs-ex">Du <strong>darfst</strong> nicht rauchen.<br>= Es ist verboten!<br>= You must not smoke.</div>
+    </div>
+  </div>
+
+  <div class="notes" style="margin-top:16px;border-left:3px solid #ff6060;">
+    <div class="notes-title" style="color:#ff6060;">🇬🇧→🇩🇪 Übersetzungsfalle</div>
+    English "must not" = <strong>nicht dürfen</strong> (Verbot), nicht „nicht müssen"!<br>
+    <span style="font-family:'JetBrains Mono',monospace;font-size:13px;color:#ababba;">
+      You must not park here = Du <strong>darfst</strong> hier nicht parkieren. ✓<br>
+      Du <strong>musst</strong> hier nicht parkieren = You don't have to park here. (andere Bedeutung!)
+    </span>
+  </div>
+</div>
+
+</div>
+
+<script>
+const sections = document.querySelectorAll('.section[id]');
+const navLinks = document.querySelectorAll('nav a');
+function updateNav(){let c='';sections.forEach(s=>{if(window.scrollY>=s.offsetTop-90)c=s.id});navLinks.forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+c))}
+window.addEventListener('scroll',updateNav,{passive:true});
+updateNav();
+navLinks.forEach(a=>{a.addEventListener('click',e=>{e.preventDefault();document.querySelector(a.getAttribute('href'))?.scrollIntoView({behavior:'smooth',block:'start'})})});
+</script>
+</body>
+</html>

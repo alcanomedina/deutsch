@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Deutsche Artikel — Referenz</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: 'Inter', Arial, Helvetica, sans-serif;
+  background: #2b2b2f;
+  min-height: 100vh;
+  padding: 0 0 48px;
+  color: #e0e0e4;
+}
+.container { max-width: 960px; margin: 0 auto; padding: 0 20px; }
+
+/* ─── Header ─── */
+header {
+  position: sticky; top: 0; z-index: 100;
+  background: #232327ee;
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid #3e3e44;
+  padding: 18px 24px;
+  text-align: center;
+}
+h1 {
+  font-size: 32px; font-weight: 700;
+  font-family: 'JetBrains Mono', monospace;
+  color: #f0f0f4;
+  letter-spacing: -0.5px;
+}
+header p { margin: 6px 0 0; font-size: 15px; color: #ababba; }
+
+/* ─── Sections ─── */
+.section { margin-top: 36px; }
+.section-title {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 22px; font-weight: 700;
+  color: #e0e0e4;
+  display: flex; align-items: center; gap: 8px;
+  margin-bottom: 4px;
+}
+.section-title .dot {
+  width: 12px; height: 12px;
+  border-radius: 50%; display: inline-block;
+}
+.section-sub {
+  font-size: 15px; color: #ababba;
+  margin-bottom: 18px; font-style: italic;
+}
+
+/* ─── Grids ─── */
+.grids {
+  display: flex; gap: 28px; flex-wrap: wrap; justify-content: center;
+}
+.mini-grid { flex: 1 1 300px; min-width: 280px; max-width: 380px; }
+.grid-label { text-align: center; margin-bottom: 10px; }
+.grid-label .label {
+  font-size: 18px; font-weight: 700;
+  font-family: 'JetBrains Mono', monospace;
+  color: #e0e0e4;
+}
+.grid-label .sub {
+  font-size: 14px; color: #ababba;
+  font-family: 'JetBrains Mono', monospace;
+  margin-top: 2px;
+}
+
+.grid-table {
+  display: grid;
+  grid-template-columns: 50px repeat(4, 1fr);
+  gap: 4px; align-items: center;
+}
+
+.col-header {
+  text-align: center; font-size: 13px; font-weight: 700;
+  font-family: 'JetBrains Mono', monospace;
+  text-transform: uppercase; letter-spacing: 0.5px;
+  height: 28px;
+  display: flex; align-items: center; justify-content: center;
+}
+.col-header.m { color: #7ab3f0; }
+.col-header.f { color: #f0a0c0; }
+.col-header.n { color: #e0b850; }
+.col-header.pl { color: #70d070; }
+
+.row-label {
+  font-size: 13px; font-weight: 700; color: #8888a0;
+  font-family: 'JetBrains Mono', monospace;
+  text-align: right; padding-right: 6px;
+  display: flex; align-items: center; justify-content: flex-end;
+}
+
+/* ─── Tiles ─── */
+.tile {
+  position: relative;
+  border-radius: 9px;
+  height: 62px;
+  display: flex; align-items: center; justify-content: center;
+  cursor: default;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  border: 2px solid;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 19px; font-weight: 700;
+}
+.tile:hover { transform: scale(1.1); z-index: 10; }
+
+.tile.c-m   { background: #1e3a5f; border-color: #3a6ea8; color: #8ec4ff; }
+.tile.c-m:hover { box-shadow: 0 4px 16px #3a6ea866; }
+
+.tile.c-f   { background: #5a1e3a; border-color: #a84070; color: #ffa0c8; }
+.tile.c-f:hover { box-shadow: 0 4px 16px #a8407066; }
+
+.tile.c-n   { background: #4a3a10; border-color: #9a7a20; color: #f0d060; }
+.tile.c-n:hover { box-shadow: 0 4px 16px #9a7a2066; }
+
+.tile.c-pl  { background: #1a4a2a; border-color: #40a060; color: #80e8a0; }
+.tile.c-pl:hover { box-shadow: 0 4px 16px #40a06066; }
+
+.tile.c-empty {
+  background: #33333a; border-color: #44444c; color: #55555e; font-size: 14px;
+}
+
+/* ─── Tooltips (below) ─── */
+.tile .tip {
+  display: none;
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 50%; transform: translateX(-50%);
+  background: #111115; color: #e8e8ec;
+  padding: 5px 12px; border-radius: 7px;
+  font-size: 14px; font-style: italic;
+  white-space: nowrap;
+  font-family: 'Inter', Arial, Helvetica, sans-serif;
+  font-weight: 400;
+  z-index: 200;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.5);
+  pointer-events: none;
+  border: 1px solid #3e3e44;
+}
+.tile .tip::before {
+  content: ''; position: absolute;
+  bottom: 100%; left: 50%; transform: translateX(-50%);
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-bottom: 5px solid #111115;
+}
+.tile:hover .tip { display: block; }
+
+/* ─── Notes / Rule cards ─── */
+.notes {
+  margin-top: 22px; padding: 18px 22px;
+  background: #343438;
+  border-radius: 10px;
+  border: 1px solid #44444c;
+  font-size: 16px; line-height: 1.8; color: #c8c8d0;
+}
+.notes .notes-title {
+  font-weight: 700;
+  font-family: 'JetBrains Mono', monospace;
+  color: #e0e0e4; margin-bottom: 6px; font-size: 16px;
+}
+.mono { font-family: 'JetBrains Mono', monospace; font-weight: 700; }
+
+.rule-cards {
+  display: flex; gap: 10px; flex-wrap: wrap;
+  margin-top: 16px;
+}
+.rule-card {
+  flex: 1 1 260px;
+  background: #343438;
+  border: 1px solid #44444c;
+  border-left: 3px solid #3a6ea8;
+  border-radius: 10px;
+  padding: 14px 18px;
+}
+.rule-card .rule-title {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 15px; font-weight: 700;
+  color: #8ec4ff;
+  margin-bottom: 6px;
+}
+.rule-card p {
+  font-size: 15px; color: #b0b0b8; line-height: 1.55;
+}
+.rule-card .example {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px; color: #ababba;
+  margin-top: 6px; font-style: italic;
+}
+
+/* ─── Contraction cards ─── */
+.contraction-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 8px; margin-top: 12px;
+}
+.contraction-card {
+  background: #343438;
+  border: 1px solid #44444c;
+  border-radius: 10px;
+  padding: 14px 16px;
+  text-align: center;
+  transition: all .15s;
+}
+.contraction-card:hover {
+  border-color: #6880a0;
+  box-shadow: 0 2px 10px rgba(100,130,180,0.15);
+}
+.contraction-card .from {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 14px; color: #ababba;
+}
+.contraction-card .arrow { font-size: 16px; color: #60606a; margin: 3px 0; }
+.contraction-card .to {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 22px; font-weight: 700; color: #e0e0e4;
+}
+.contraction-card .ex {
+  font-size: 13px; color: #ababba; font-style: italic; margin-top: 5px;
+}
+
+@media (max-width: 600px) {
+  h1 { font-size: 24px; }
+  .tile { height: 52px; font-size: 16px; }
+  .grids { gap: 20px; }
+  .grid-table { grid-template-columns: 44px repeat(4, 1fr); }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Artikel</h1>
+  <p>bestimmt · unbestimmt · Negativartikel · Verschmelzungen · hover for examples</p>
+</header>
+
+<div class="container">
+
+<!-- ═══════════════════════════════ -->
+<!-- SIDE BY SIDE                   -->
+<!-- ═══════════════════════════════ -->
+<div class="section">
+<div class="grids">
+
+  <!-- Bestimmter Artikel -->
+  <div class="mini-grid">
+    <div class="grid-label">
+      <div class="label">bestimmter Artikel</div>
+      <div class="sub">the — definit, bekannt</div>
+    </div>
+    <div class="grid-table">
+      <div></div>
+      <div class="col-header m">m.</div>
+      <div class="col-header f">f.</div>
+      <div class="col-header n">n.</div>
+      <div class="col-header pl">pl.</div>
+
+      <div class="row-label">NOM</div>
+      <div class="tile c-m"><span>der</span><div class="tip">Der Mann ist gross.</div></div>
+      <div class="tile c-f"><span>die</span><div class="tip">Die Frau lacht.</div></div>
+      <div class="tile c-n"><span>das</span><div class="tip">Das Kind spielt.</div></div>
+      <div class="tile c-pl"><span>die</span><div class="tip">Die Leute kommen.</div></div>
+
+      <div class="row-label">AKK</div>
+      <div class="tile c-m"><span>den</span><div class="tip">Ich sehe den Mann.</div></div>
+      <div class="tile c-f"><span>die</span><div class="tip">Ich kenne die Frau.</div></div>
+      <div class="tile c-n"><span>das</span><div class="tip">Ich lese das Buch.</div></div>
+      <div class="tile c-pl"><span>die</span><div class="tip">Ich mag die Schuhe.</div></div>
+
+      <div class="row-label">DAT</div>
+      <div class="tile c-m"><span>dem</span><div class="tip">Ich helfe dem Mann.</div></div>
+      <div class="tile c-f"><span>der</span><div class="tip">Ich gebe der Frau ein Buch.</div></div>
+      <div class="tile c-n"><span>dem</span><div class="tip">Mit dem Kind gehe ich raus.</div></div>
+      <div class="tile c-pl"><span>den</span><div class="tip">Ich danke den Leuten.</div></div>
+
+      <div class="row-label">GEN</div>
+      <div class="tile c-m"><span>des</span><div class="tip">Das Auto des Mannes.</div></div>
+      <div class="tile c-f"><span>der</span><div class="tip">Die Tasche der Frau.</div></div>
+      <div class="tile c-n"><span>des</span><div class="tip">Der Name des Kindes.</div></div>
+      <div class="tile c-pl"><span>der</span><div class="tip">Die Meinung der Leute.</div></div>
+    </div>
+  </div>
+
+  <!-- Unbestimmter Artikel -->
+  <div class="mini-grid">
+    <div class="grid-label">
+      <div class="label">unbestimmter Artikel</div>
+      <div class="sub">a / an — indefinit, neu</div>
+    </div>
+    <div class="grid-table">
+      <div></div>
+      <div class="col-header m">m.</div>
+      <div class="col-header f">f.</div>
+      <div class="col-header n">n.</div>
+      <div class="col-header pl" style="font-size:10px;color:#55555e">—</div>
+
+      <div class="row-label">NOM</div>
+      <div class="tile c-m"><span>ein</span><div class="tip">Ein Mann steht da.</div></div>
+      <div class="tile c-f"><span>eine</span><div class="tip">Eine Frau ruft an.</div></div>
+      <div class="tile c-n"><span>ein</span><div class="tip">Ein Kind weint.</div></div>
+      <div class="tile c-empty"><span>—</span><div class="tip">Kein Plural für «ein»!</div></div>
+
+      <div class="row-label">AKK</div>
+      <div class="tile c-m"><span>einen</span><div class="tip">Ich suche einen Job.</div></div>
+      <div class="tile c-f"><span>eine</span><div class="tip">Ich trinke eine Cola.</div></div>
+      <div class="tile c-n"><span>ein</span><div class="tip">Ich lese ein Buch.</div></div>
+      <div class="tile c-empty"><span>—</span><div class="tip">Kein Plural für «ein»!</div></div>
+
+      <div class="row-label">DAT</div>
+      <div class="tile c-m"><span>einem</span><div class="tip">Ich helfe einem Kollegen.</div></div>
+      <div class="tile c-f"><span>einer</span><div class="tip">Mit einer Freundin esse ich.</div></div>
+      <div class="tile c-n"><span>einem</span><div class="tip">In einem Hotel übernachte ich.</div></div>
+      <div class="tile c-empty"><span>—</span><div class="tip">Kein Plural für «ein»!</div></div>
+
+      <div class="row-label">GEN</div>
+      <div class="tile c-m"><span>eines</span><div class="tip">Die Idee eines Kollegen.</div></div>
+      <div class="tile c-f"><span>einer</span><div class="tip">Das Büro einer Firma.</div></div>
+      <div class="tile c-n"><span>eines</span><div class="tip">Der Anfang eines Projekts.</div></div>
+      <div class="tile c-empty"><span>—</span><div class="tip">Kein Plural für «ein»!</div></div>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<!-- ═══════════════════════════════ -->
+<!-- NEGATIVARTIKEL                 -->
+<!-- ═══════════════════════════════ -->
+<div class="section">
+  <div class="section-title">
+    <span class="dot" style="background:#e05050"></span>
+    Negativartikel · kein
+  </div>
+  <div class="section-sub">Negation von «ein» — gleiche Endungen, aber mit Plural!</div>
+
+  <div class="grids">
+    <div class="mini-grid">
+      <div class="grid-table">
+        <div></div>
+        <div class="col-header m">m.</div>
+        <div class="col-header f">f.</div>
+        <div class="col-header n">n.</div>
+        <div class="col-header pl">pl.</div>
+
+        <div class="row-label">NOM</div>
+        <div class="tile c-m"><span>kein</span><div class="tip">Kein Problem!</div></div>
+        <div class="tile c-f"><span>keine</span><div class="tip">Keine Ahnung.</div></div>
+        <div class="tile c-n"><span>kein</span><div class="tip">Kein Bier mehr.</div></div>
+        <div class="tile c-pl"><span>keine</span><div class="tip">Keine Leute sind da.</div></div>
+
+        <div class="row-label">AKK</div>
+        <div class="tile c-m"><span>keinen</span><div class="tip">Ich habe keinen Hunger.</div></div>
+        <div class="tile c-f"><span>keine</span><div class="tip">Ich habe keine Zeit.</div></div>
+        <div class="tile c-n"><span>kein</span><div class="tip">Ich brauche kein Geld.</div></div>
+        <div class="tile c-pl"><span>keine</span><div class="tip">Ich sehe keine Fehler.</div></div>
+
+        <div class="row-label">DAT</div>
+        <div class="tile c-m"><span>keinem</span><div class="tip">Mit keinem Wort.</div></div>
+        <div class="tile c-f"><span>keiner</span><div class="tip">In keiner Stadt.</div></div>
+        <div class="tile c-n"><span>keinem</span><div class="tip">Aus keinem Grund.</div></div>
+        <div class="tile c-pl"><span>keinen</span><div class="tip">Mit keinen Mitteln.</div></div>
+
+        <div class="row-label">GEN</div>
+        <div class="tile c-m"><span>keines</span><div class="tip">Die Meinung keines Experten.</div></div>
+        <div class="tile c-f"><span>keiner</span><div class="tip">Der Rat keiner Kollegin.</div></div>
+        <div class="tile c-n"><span>keines</span><div class="tip">Das Ende keines Projekts.</div></div>
+        <div class="tile c-pl"><span>keiner</span><div class="tip">Die Hilfe keiner Freunde.</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════ -->
+<!-- VERSCHMELZUNGEN                -->
+<!-- ═══════════════════════════════ -->
+<div class="section">
+  <div class="section-title">
+    <span class="dot" style="background:#6366f1"></span>
+    Verschmelzungen
+  </div>
+  <div class="section-sub">Präposition + Artikel → ein Wort</div>
+
+  <div class="contraction-grid">
+    <div class="contraction-card">
+      <div class="from">an + dem</div><div class="arrow">↓</div>
+      <div class="to">am</div><div class="ex">am Montag · am See</div>
+    </div>
+    <div class="contraction-card">
+      <div class="from">an + das</div><div class="arrow">↓</div>
+      <div class="to">ans</div><div class="ex">ans Meer · ans Telefon</div>
+    </div>
+    <div class="contraction-card">
+      <div class="from">bei + dem</div><div class="arrow">↓</div>
+      <div class="to">beim</div><div class="ex">beim Arzt · beim Essen</div>
+    </div>
+    <div class="contraction-card">
+      <div class="from">in + dem</div><div class="arrow">↓</div>
+      <div class="to">im</div><div class="ex">im Büro · im Sommer</div>
+    </div>
+    <div class="contraction-card">
+      <div class="from">in + das</div><div class="arrow">↓</div>
+      <div class="to">ins</div><div class="ex">ins Kino · ins Büro</div>
+    </div>
+    <div class="contraction-card">
+      <div class="from">von + dem</div><div class="arrow">↓</div>
+      <div class="to">vom</div><div class="ex">vom Arzt · vom Chef</div>
+    </div>
+    <div class="contraction-card">
+      <div class="from">zu + dem</div><div class="arrow">↓</div>
+      <div class="to">zum</div><div class="ex">zum Bahnhof · zum Glück</div>
+    </div>
+    <div class="contraction-card">
+      <div class="from">zu + der</div><div class="arrow">↓</div>
+      <div class="to">zur</div><div class="ex">zur Arbeit · zur Schule</div>
+    </div>
+    <div class="contraction-card">
+      <div class="from">für + das</div><div class="arrow">↓</div>
+      <div class="to">fürs</div><div class="ex">fürs Erste · fürs Kind</div>
+    </div>
+    <div class="contraction-card">
+      <div class="from">auf + das</div><div class="arrow">↓</div>
+      <div class="to">aufs</div><div class="ex">aufs Land · aufs Dach</div>
+    </div>
+    <div class="contraction-card">
+      <div class="from">um + das</div><div class="arrow">↓</div>
+      <div class="to">ums</div><div class="ex">ums Eck · ums Haus</div>
+    </div>
+    <div class="contraction-card">
+      <div class="from">durch + das</div><div class="arrow">↓</div>
+      <div class="to">durchs</div><div class="ex">durchs Fenster</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════ -->
+<!-- TIPS                           -->
+<!-- ═══════════════════════════════ -->
+<div class="section">
+  <div class="rule-cards">
+    <div class="rule-card">
+      <div class="rule-title">🔑 Nur Maskulin ändert sich im Akkusativ</div>
+      <p>Feminin, Neutrum und Plural bleiben in Nom. und Akk. <strong>gleich</strong>. Nur Maskulin wechselt: <em>der→den, ein→einen</em>.</p>
+      <div class="example">Ich sehe den Mann. · Ich sehe die Frau. · Ich sehe das Kind.</div>
+    </div>
+    <div class="rule-card">
+      <div class="rule-title">📐 Dativ Plural: immer -n am Nomen</div>
+      <p>Im Dativ Plural bekommt das Nomen selbst ein <strong>-n</strong> (wenn es nicht schon auf -n/-s endet).</p>
+      <div class="example">die Kinder → den Kindern · die Bücher → den Büchern</div>
+    </div>
+    <div class="rule-card" style="border-left-color:#9a7a20">
+      <div class="rule-title" style="color:#f0d060">📏 Genitiv Mask./Neut.: -s/-es am Nomen</div>
+      <p>Im Genitiv bekommt das maskuline/neutrale Nomen ein <strong>-s</strong> oder <strong>-es</strong>.</p>
+      <div class="example">des Mannes · des Buches · des Autos · des Kindes</div>
+    </div>
+    <div class="rule-card" style="border-left-color:#40a060">
+      <div class="rule-title" style="color:#80e8a0">🎯 kein = ein + Plural</div>
+      <p><em>Kein</em> dekliniert exakt wie <em>ein</em>, hat aber Pluralformen. Die Pluralendungen folgen dem bestimmten Artikel.</p>
+      <div class="example">keine (Nom/Akk Pl.) · keinen (Dat Pl.) · keiner (Gen Pl.)</div>
+    </div>
+  </div>
+
+  <div class="notes" style="margin-top:16px; border-left:3px solid #6366f1">
+    <div class="notes-title">🎯 Warum sind Artikel so wichtig?</div>
+    Die Artikel-Endungen sind das <strong style="color:#e0e0e4">Fundament</strong> für alles andere. Possessivpronomen (<em>mein, dein, sein</em>) folgen dem <span class="mono" style="color:#8ec4ff">ein</span>-Muster. Demonstrativpronomen (<em>dieser, jener, welcher</em>) folgen dem <span class="mono" style="color:#8ec4ff">der</span>-Muster. Adjektivendungen hängen davon ab, welcher Artikel davor steht. Lern die Artikel-Tabellen, und der Rest folgt.
+  </div>
+</div>
+
+</div><!-- /container -->
+</body>
+</html>

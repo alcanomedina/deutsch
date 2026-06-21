@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Konjugation — Starke · Unregelmässige · Gemischte Verben</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',Arial,sans-serif;background:#2b2b2f;color:#e0e0e4;min-height:100vh}
+.top-bar{position:sticky;top:0;z-index:100;background:#232327ee;backdrop-filter:blur(12px);border-bottom:1px solid #3e3e44;padding:14px 16px 10px}
+.top-bar h1{font-family:'JetBrains Mono',monospace;font-size:26px;font-weight:700;color:#f0f0f4;letter-spacing:-.5px;text-align:center;margin-bottom:6px}
+.top-bar .sub{text-align:center;font-size:14px;color:#ababba;margin-bottom:8px}
+.controls{max-width:920px;margin:0 auto;display:flex;flex-wrap:wrap;gap:5px;align-items:center;justify-content:center}
+.search-box{flex:1 1 220px;max-width:300px;padding:7px 12px;border:2px solid #58585e;border-radius:8px;font-family:'JetBrains Mono',monospace;font-size:14px;outline:none;transition:border-color .2s;background:#2b2b2f;color:#e0e0e4}
+.search-box:focus{border-color:#6366f1}
+.search-box::placeholder{color:#6a6a7a}
+.fbtn{padding:4px 8px;border:2px solid #44444c;border-radius:7px;background:#343438;font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;cursor:pointer;transition:all .15s;color:#8888a0;white-space:nowrap}
+.fbtn:hover{border-color:#ababba}
+.fbtn.active{background:#3a1848;border-color:#7a60c0;color:#c8a8ff}
+.stats{width:100%;text-align:center;font-family:'JetBrains Mono',monospace;font-size:13px;color:#ababba;margin-top:4px}
+
+.container{max-width:960px;margin:0 auto;padding:14px}
+
+/* ─── Pattern overview cards ─── */
+.patterns{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:20px;justify-content:center}
+.pat-card{padding:8px 14px;border-radius:9px;border:2px solid #44444c;background:#343438;cursor:pointer;transition:all .15s;text-align:center;min-width:90px}
+.pat-card:hover{border-color:#7a60c0;transform:translateY(-1px)}
+.pat-card.pc-active{border-color:#7a60c0;background:#2a1848}
+.pat-card .vowels{font-family:'JetBrains Mono',monospace;font-size:16px;font-weight:700;margin-bottom:2px}
+.pat-card .count{font-family:'JetBrains Mono',monospace;font-size:10px;color:#8888a0}
+
+/* ─── Verb table ─── */
+.vtable{width:100%;border-collapse:separate;border-spacing:0 3px}
+.vtable thead th{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;color:#8888a0;text-transform:uppercase;letter-spacing:.5px;padding:4px 8px;text-align:left;position:sticky;top:110px;background:#2b2b2f;z-index:10}
+.vtable tbody tr{background:#343438;transition:all .12s;cursor:default}
+.vtable tbody tr:hover{background:#3e3e44;transform:translateX(2px)}
+.vtable td{padding:8px 10px;font-size:14px;border-top:1px solid #3e3e44;border-bottom:1px solid #3e3e44}
+.vtable td:first-child{border-left:1px solid #3e3e44;border-radius:8px 0 0 8px}
+.vtable td:last-child{border-right:1px solid #3e3e44;border-radius:0 8px 8px 0}
+
+.v-inf{font-family:'JetBrains Mono',monospace;font-weight:700;font-size:15px;color:#f0f0f4}
+.v-pres{font-family:'JetBrains Mono',monospace;font-size:13px;color:#c8a8ff}
+.v-prat{font-family:'JetBrains Mono',monospace;font-size:14px;font-weight:600;color:#e8a840}
+.v-part{font-family:'JetBrains Mono',monospace;font-size:14px;font-weight:600;color:#70d890}
+.v-aux{font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600}
+.v-hat{color:#8888a0}
+.v-ist{color:#60d0e8}
+.v-mean{font-size:13px;color:#ababba}
+.v-pat{font-family:'JetBrains Mono',monospace;font-size:10px;color:#8888a0;background:#2a2a38;padding:1px 5px;border-radius:3px}
+
+/* Vowel highlight */
+.vow{font-weight:700;text-decoration:underline;text-underline-offset:2px}
+
+/* Group header row */
+.group-header td{background:#2a1848!important;border-color:#3a2060!important;padding:6px 10px}
+.group-header .gh-text{font-family:'JetBrains Mono',monospace;font-size:14px;font-weight:700;color:#c8a8ff}
+.group-header .gh-pattern{font-family:'JetBrains Mono',monospace;font-size:12px;color:#8888a0;margin-left:8px}
+
+/* ─── Section label ─── */
+.sec-label{font-family:'JetBrains Mono',monospace;font-size:18px;font-weight:700;color:#e0e0e4;margin:24px 0 10px;display:flex;align-items:center;gap:8px}
+.sec-label .dot{width:8px;height:8px;border-radius:50%;display:inline-block}
+
+/* Notes */
+.notes{margin:16px 0;padding:14px 18px;background:#343438;border-radius:10px;border:1px solid #44444c;font-size:14px;line-height:1.8;color:#c0c0c8}
+.notes .notes-title{font-weight:700;font-family:'JetBrains Mono',monospace;color:#e0e0e4;margin-bottom:6px;font-size:13px}
+
+.empty{display:none;text-align:center;padding:40px;color:#8888a0;font-size:15px}
+
+@media(max-width:700px){
+  .top-bar h1{font-size:20px}
+  .vtable{font-size:12px}
+  .vtable td{padding:6px 6px}
+  .v-inf{font-size:13px}
+  .v-prat,.v-part{font-size:12px}
+  .v-pres{font-size:11px}
+  .v-mean{font-size:11px}
+  .pat-card{min-width:70px;padding:6px 8px}
+  .pat-card .vowels{font-size:13px}
+  .controls{gap:3px}
+  .fbtn{font-size:10px;padding:3px 5px}
+}
+</style>
+</head>
+<body>
+<div class="top-bar">
+  <h1>Konjugation</h1>
+  <div class="sub">Starke · Unregelmässige · Gemischte Verben</div>
+  <div class="controls">
+    <input type="text" class="search-box" id="search" placeholder="Suche Verb …">
+    <button class="fbtn active" data-f="all" onclick="setFilter(this)">Alle</button>
+    <button class="fbtn" data-f="hat" onclick="setFilter(this)">hat</button>
+    <button class="fbtn" data-f="ist" onclick="setFilter(this)">ist</button>
+    <button class="fbtn" data-f="sc" onclick="setFilter(this)">Stammwechsel</button>
+  </div>
+  <div class="stats">Showing <span id="stats">0</span></div>
+</div>
+
+<div class="container">
+  <div class="sec-label"><span class="dot" style="background:#c8a8ff"></span> Ablautmuster <span style="font-weight:400;font-size:13px;color:#ababba">— klicken zum Filtern</span></div>
+  <div class="patterns" id="patterns"></div>
+
+  <div class="sec-label"><span class="dot" style="background:#f08888"></span> Verben</div>
+  <table class="vtable" id="vtable">
+    <thead><tr>
+      <th>Infinitiv</th>
+      <th>er/sie</th>
+      <th>Präteritum</th>
+      <th>Partizip II</th>
+      <th></th>
+      <th>Bedeutung</th>
+    </tr></thead>
+    <tbody id="tbody"></tbody>
+  </table>
+  <div class="empty" id="empty">Keine Verben gefunden.</div>
+
+  <div class="notes" style="margin-top:24px;">
+    <div class="notes-title">📌 Legende</div>
+    <span class="v-pres">lila</span> = Präsens-Stammwechsel (er/sie Form) ·
+    <span class="v-prat">orange</span> = Präteritum ·
+    <span class="v-part">grün</span> = Partizip II ·
+    <span class="v-ist">blau</span> = mit <em>sein</em> ·
+    Muster wie <span style="font-family:'JetBrains Mono',monospace;color:#c8a8ff">ei→ie→ie</span> zeigen den Vokalwechsel: Infinitiv → Präteritum → Partizip
+  </div>
+  <div class="notes">
+    <div class="notes-title">💡 haben oder sein?</div>
+    <strong>sein</strong> bei: Bewegung mit Richtung (gehen, fahren, fliegen, kommen, laufen …), Zustandsänderung (werden, sterben, wachsen, einschlafen …), und die Ausnahmen <em>sein</em>, <em>bleiben</em>, <em>passieren</em>, <em>gelingen</em>, <em>geschehen</em>.<br>
+    <strong>haben</strong> bei: allem anderen.
+  </div>
+</div>
+
+<script>
+// Data: [infinitiv, er/sie_präsens, präteritum_3sg, partizip_II, aux(h/i), meaning, pattern, stemChange]
+// pattern: ablaut group label
+// stemChange: present tense vowel change or ""
+const V = [
+// ═══ ei → ie → ie ═══
+["bleiben","bleibt","blieb","geblieben","i","to stay, remain","ei→ie→ie",""],
+["erscheinen","erscheint","erschien","erschienen","i","to appear","ei→ie→ie",""],
+["leihen","leiht","lieh","geliehen","h","to lend","ei→ie→ie",""],
+["scheinen","scheint","schien","geschienen","h","to seem, shine","ei→ie→ie",""],
+["schreiben","schreibt","schrieb","geschrieben","h","to write","ei→ie→ie",""],
+["schreien","schreit","schrie","geschrien","h","to scream","ei→ie→ie",""],
+["schweigen","schweigt","schwieg","geschwiegen","h","to be silent","ei→ie→ie",""],
+["steigen","steigt","stieg","gestiegen","i","to climb, rise","ei→ie→ie",""],
+["treiben","treibt","trieb","getrieben","h","to drive, do (sport)","ei→ie→ie",""],
+["entscheiden","entscheidet","entschied","entschieden","h","to decide","ei→ie→ie",""],
+// ═══ ei → i → i ═══
+["beissen","beisst","biss","gebissen","h","to bite","ei→i→i",""],
+["greifen","greift","griff","gegriffen","h","to grab","ei→i→i",""],
+["leiden","leidet","litt","gelitten","h","to suffer","ei→i→i",""],
+["pfeifen","pfeift","pfiff","gepfiffen","h","to whistle","ei→i→i",""],
+["reiten","reitet","ritt","geritten","i","to ride (horse)","ei→i→i",""],
+["schneiden","schneidet","schnitt","geschnitten","h","to cut","ei→i→i",""],
+["streiten","streitet","stritt","gestritten","h","to argue","ei→i→i",""],
+// ═══ ie → o → o ═══
+["biegen","biegt","bog","gebogen","h","to bend","ie→o→o",""],
+["bieten","bietet","bot","geboten","h","to offer","ie→o→o",""],
+["fliegen","fliegt","flog","geflogen","i","to fly","ie→o→o",""],
+["fliehen","flieht","floh","geflohen","i","to flee","ie→o→o",""],
+["fliessen","fliesst","floss","geflossen","i","to flow","ie→o→o",""],
+["giessen","giesst","goss","gegossen","h","to pour, water","ie→o→o",""],
+["schieben","schiebt","schob","geschoben","h","to push","ie→o→o",""],
+["schiessen","schiesst","schoss","geschossen","h","to shoot","ie→o→o",""],
+["schliessen","schliesst","schloss","geschlossen","h","to close","ie→o→o",""],
+["verlieren","verliert","verlor","verloren","h","to lose","ie→o→o",""],
+["ziehen","zieht","zog","gezogen","h","to pull, move","ie→o→o",""],
+// ═══ i → a → u ═══
+["binden","bindet","band","gebunden","h","to tie, bind","i→a→u",""],
+["finden","findet","fand","gefunden","h","to find","i→a→u",""],
+["gelingen","gelingt","gelang","gelungen","i","to succeed","i→a→u",""],
+["klingen","klingt","klang","geklungen","h","to sound","i→a→u",""],
+["singen","singt","sang","gesungen","h","to sing","i→a→u",""],
+["sinken","sinkt","sank","gesunken","i","to sink","i→a→u",""],
+["springen","springt","sprang","gesprungen","i","to jump","i→a→u",""],
+["trinken","trinkt","trank","getrunken","h","to drink","i→a→u",""],
+["verschwinden","verschwindet","verschwand","verschwunden","i","to disappear","i→a→u",""],
+["zwingen","zwingt","zwang","gezwungen","h","to force","i→a→u",""],
+// ═══ i → a → o ═══
+["beginnen","beginnt","begann","begonnen","h","to begin","i→a→o",""],
+["gewinnen","gewinnt","gewann","gewonnen","h","to win","i→a→o",""],
+["schwimmen","schwimmt","schwamm","geschwommen","i","to swim","i→a→o",""],
+// ═══ e → a → o ═══
+["brechen","bricht","brach","gebrochen","h","to break","e→a→o","e→i"],
+["empfehlen","empfiehlt","empfahl","empfohlen","h","to recommend","e→a→o","e→ie"],
+["helfen","hilft","half","geholfen","h","to help","e→a→o","e→i"],
+["nehmen","nimmt","nahm","genommen","h","to take","e→a→o","e→i"],
+["sprechen","spricht","sprach","gesprochen","h","to speak","e→a→o","e→i"],
+["sterben","stirbt","starb","gestorben","i","to die","e→a→o","e→i"],
+["treffen","trifft","traf","getroffen","h","to meet, hit","e→a→o","e→i"],
+["werfen","wirft","warf","geworfen","h","to throw","e→a→o","e→i"],
+// ═══ e → a → e ═══
+["essen","isst","ass","gegessen","h","to eat","e→a→e","e→i"],
+["geben","gibt","gab","gegeben","h","to give","e→a→e","e→i"],
+["geschehen","geschieht","geschah","geschehen","i","to happen","e→a→e","e→ie"],
+["lesen","liest","las","gelesen","h","to read","e→a→e","e→ie"],
+["sehen","sieht","sah","gesehen","h","to see","e→a→e","e→ie"],
+["treten","tritt","trat","getreten","i","to step, kick","e→a→e","e→i"],
+["vergessen","vergisst","vergass","vergessen","h","to forget","e→a→e","e→i"],
+["messen","misst","mass","gemessen","h","to measure","e→a→e","e→i"],
+// ═══ a → u → a ═══
+["backen","bäckt","buk","gebacken","h","to bake","a→u→a","a→ä"],
+["fahren","fährt","fuhr","gefahren","i","to drive, go","a→u→a","a→ä"],
+["graben","gräbt","grub","gegraben","h","to dig","a→u→a","a→ä"],
+["laden","lädt","lud","geladen","h","to load, invite","a→u→a","a→ä"],
+["schlagen","schlägt","schlug","geschlagen","h","to hit, beat","a→u→a","a→ä"],
+["tragen","trägt","trug","getragen","h","to carry, wear","a→u→a","a→ä"],
+["wachsen","wächst","wuchs","gewachsen","i","to grow","a→u→a","a→ä"],
+["waschen","wäscht","wusch","gewaschen","h","to wash","a→u→a","a→ä"],
+// ═══ a → ie → a ═══
+["fallen","fällt","fiel","gefallen","i","to fall","a→ie→a","a→ä"],
+["gefallen","gefällt","gefiel","gefallen","h","to please","a→ie→a","a→ä"],
+["halten","hält","hielt","gehalten","h","to hold, stop","a→ie→a","a→ä"],
+["lassen","lässt","liess","gelassen","h","to let, leave","a→ie→a","a→ä"],
+["raten","rät","riet","geraten","h","to guess, advise","a→ie→a","a→ä"],
+["schlafen","schläft","schlief","geschlafen","h","to sleep","a→ie→a","a→ä"],
+["laufen","läuft","lief","gelaufen","i","to run, walk","a→ie→a","au→äu"],
+// ═══ Sonderfälle (stark) ═══
+["gehen","geht","ging","gegangen","i","to go, walk","Sonder",""],
+["kommen","kommt","kam","gekommen","i","to come","Sonder",""],
+["rufen","ruft","rief","gerufen","h","to call, shout","Sonder",""],
+["stehen","steht","stand","gestanden","h","to stand","Sonder",""],
+["tun","tut","tat","getan","h","to do","Sonder",""],
+["liegen","liegt","lag","gelegen","h","to lie (position)","Sonder",""],
+["sitzen","sitzt","sass","gesessen","h","to sit","Sonder",""],
+["sein","ist","war","gewesen","i","to be","Sonder",""],
+["werden","wird","wurde","geworden","i","to become","Sonder","e→i"],
+["haben","hat","hatte","gehabt","h","to have","Sonder",""],
+["wissen","weiss","wusste","gewusst","h","to know (fact)","Sonder",""],
+["stossen","stösst","stiess","gestossen","h","to push, bump","Sonder","o→ö"],
+// ═══ Gemischt ═══
+["bringen","bringt","brachte","gebracht","h","to bring","gemischt",""],
+["denken","denkt","dachte","gedacht","h","to think","gemischt",""],
+["kennen","kennt","kannte","gekannt","h","to know (person)","gemischt",""],
+["nennen","nennt","nannte","genannt","h","to name, call","gemischt",""],
+["rennen","rennt","rannte","gerannt","i","to run (fast)","gemischt",""],
+["senden","sendet","sandte","gesandt","h","to send","gemischt",""],
+["wenden","wendet","wandte","gewandt","h","to turn","gemischt",""],
+["brennen","brennt","brannte","gebrannt","h","to burn","gemischt",""],
+];
+
+// Build pattern overview
+const patGroups = {};
+V.forEach(v => {
+  const p = v[6];
+  if (!patGroups[p]) patGroups[p] = 0;
+  patGroups[p]++;
+});
+const patOrder = ["ei→ie→ie","ei→i→i","ie→o→o","i→a→u","i→a→o","e→a→o","e→a→e","a→u→a","a→ie→a","Sonder","gemischt"];
+
+let currentPat = 'all', currentAux = 'all', onlySC = false, searchTerm = '';
+
+const patsEl = document.getElementById('patterns');
+let pp = '<div class="pat-card pc-active" data-p="all" onclick="setPat(this)"><div class="vowels" style="color:#e0e0e4">Alle</div><div class="count">'+V.length+' Verben</div></div>';
+patOrder.forEach(p => {
+  if (patGroups[p]) {
+    const label = p === 'gemischt' ? 'Gem.' : p === 'Sonder' ? 'Sonder' : p;
+    const col = p === 'gemischt' ? '#c8a8ff' : p === 'Sonder' ? '#f08888' : '#e0e0e4';
+    pp += `<div class="pat-card" data-p="${p}" onclick="setPat(this)"><div class="vowels" style="color:${col}">${label}</div><div class="count">${patGroups[p]}</div></div>`;
+  }
+});
+patsEl.innerHTML = pp;
+
+function setPat(el) {
+  document.querySelectorAll('.pat-card').forEach(c => c.classList.remove('pc-active'));
+  el.classList.add('pc-active');
+  currentPat = el.dataset.p;
+  render();
+}
+function setFilter(btn) {
+  document.querySelectorAll('.fbtn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  const f = btn.dataset.f;
+  if (f === 'all') { currentAux = 'all'; onlySC = false; }
+  else if (f === 'hat') { currentAux = 'h'; onlySC = false; }
+  else if (f === 'ist') { currentAux = 'i'; onlySC = false; }
+  else if (f === 'sc') { currentAux = 'all'; onlySC = true; }
+  render();
+}
+document.getElementById('search').addEventListener('input', function() {
+  searchTerm = this.value.toLowerCase().trim();
+  render();
+});
+
+function render() {
+  const tbody = document.getElementById('tbody');
+  const empty = document.getElementById('empty');
+  const stats = document.getElementById('stats');
+
+  let f = V;
+  if (currentPat !== 'all') f = f.filter(v => v[6] === currentPat);
+  if (currentAux !== 'all') f = f.filter(v => v[4] === currentAux);
+  if (onlySC) f = f.filter(v => v[7] !== '');
+  if (searchTerm) f = f.filter(v => v[0].toLowerCase().includes(searchTerm) || v[5].toLowerCase().includes(searchTerm));
+
+  if (!f.length) { tbody.innerHTML = ''; empty.style.display = 'block'; stats.textContent = '0'; return; }
+  empty.style.display = 'none';
+  stats.textContent = f.length + ' Verben';
+
+  let h = '';
+  let lastPat = '';
+
+  // Sort by pattern order
+  const order = {};
+  patOrder.forEach((p,i) => order[p] = i);
+  const sorted = [...f].sort((a,b) => (order[a[6]]||99) - (order[b[6]]||99) || a[0].localeCompare(b[0]));
+
+  sorted.forEach(v => {
+    const [inf, pres, prat, part, aux, mean, pat, sc] = v;
+
+    // Group header
+    if (pat !== lastPat && !searchTerm) {
+      const label = pat === 'gemischt' ? 'Gemischte Verben' : pat === 'Sonder' ? 'Sonderfälle' : pat;
+      h += `<tr class="group-header"><td colspan="6"><span class="gh-text">${label}</span></td></tr>`;
+      lastPat = pat;
+    }
+
+    const auxClass = aux === 'i' ? 'v-ist' : 'v-hat';
+    const auxText = aux === 'i' ? 'ist' : 'hat';
+    const scBadge = sc ? `<span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#c8a8ff;background:#2a1848;padding:1px 4px;border-radius:3px;margin-left:4px">${sc}</span>` : '';
+
+    h += `<tr>`;
+    h += `<td><span class="v-inf">${inf}</span>${scBadge}</td>`;
+    h += `<td><span class="v-pres">${pres}</span></td>`;
+    h += `<td><span class="v-prat">${prat}</span></td>`;
+    h += `<td><span class="v-part">${part}</span></td>`;
+    h += `<td><span class="v-aux ${auxClass}">${auxText}</span></td>`;
+    h += `<td><span class="v-mean">${mean}</span></td>`;
+    h += `</tr>`;
+  });
+
+  tbody.innerHTML = h;
+}
+render();
+</script>
+</body>
+</html>

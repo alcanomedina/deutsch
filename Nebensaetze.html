@@ -1,0 +1,1148 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nebensätze — dass · damit · um…zu · Infinitivsätze</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: 'Inter', Arial, Helvetica, sans-serif;
+  background: #2b2b2f;
+  min-height: 100vh;
+  padding: 0 0 48px;
+  color: #e0e0e4;
+}
+
+/* ─── Header ─── */
+header {
+  position: sticky; top: 0; z-index: 100;
+  background: #232327ee;
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid #3e3e44;
+  padding: 14px 20px;
+  display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: 8px;
+}
+h1 {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 26px; font-weight: 700;
+  color: #f0f0f4; letter-spacing: -0.5px;
+}
+nav { display: flex; gap: 6px; flex-wrap: wrap; }
+nav a {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px; font-weight: 500;
+  padding: 5px 10px;
+  border-radius: 8px;
+  background: #343438;
+  color: #8888a0;
+  text-decoration: none;
+  border: 1px solid #44444c;
+  transition: all .15s;
+}
+nav a:hover, nav a.active {
+  background: #1a6070;
+  color: #fff;
+  border-color: #40b8d0;
+}
+
+.container { max-width: 880px; margin: 0 auto; padding: 0 16px; }
+
+/* ─── Sections ─── */
+.section { margin-top: 32px; scroll-margin-top: 70px; }
+.section-title {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 26px; font-weight: 700;
+  color: #e0e0e4;
+  display: flex; align-items: center; gap: 8px;
+  margin-bottom: 2px;
+}
+.section-title .dot {
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+}
+.section-sub {
+  font-size: 14px;
+  color: #ababba;
+  margin-bottom: 16px;
+  font-style: italic;
+}
+
+/* ─── Accent colors for clause types ─── */
+.c-dass  { color: #60d0e8; }
+.bg-dass { background: #133040; border-color: #2a7088; }
+.c-final { color: #e8a840; }
+.bg-final { background: #3a2e10; border-color: #9a7a20; }
+.c-damit { color: #f0a070; }
+.bg-damit { background: #3a2518; border-color: #a06030; }
+.c-infzu { color: #70d890; }
+.bg-infzu { background: #1a3a22; border-color: #40a060; }
+.c-nom   { color: #c8a8ff; }
+.bg-nom  { background: #2a1848; border-color: #7a60c0; }
+.c-mein  { color: #f08888; }
+.bg-mein { background: #3a1818; border-color: #a04040; }
+
+/* ─── Decision Flow ─── */
+.flow {
+  display: flex; flex-direction: column; gap: 0;
+  align-items: center; margin: 20px 0;
+}
+.flow-box {
+  background: #343438;
+  border: 2px solid #44444c;
+  border-radius: 12px;
+  padding: 14px 22px;
+  text-align: center;
+  max-width: 520px;
+  width: 100%;
+  position: relative;
+  transition: all .15s;
+}
+.flow-box:hover {
+  border-color: #60606a;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.3);
+}
+.flow-question {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 15px; font-weight: 700;
+  color: #e0e0e4;
+  margin-bottom: 6px;
+}
+.flow-answer {
+  font-size: 14px; color: #ababba;
+  line-height: 1.5;
+}
+.flow-arrow {
+  font-size: 24px; color: #55555e;
+  margin: 4px 0;
+  line-height: 1;
+}
+.flow-branch {
+  display: flex; gap: 16px; width: 100%;
+  max-width: 560px; justify-content: center;
+}
+.flow-branch .flow-box {
+  flex: 1; min-width: 0;
+}
+
+/* Keyword highlights */
+kw {
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 700;
+  padding: 1px 5px;
+  border-radius: 4px;
+  font-size: 0.95em;
+}
+kw.dass  { background: #133040; color: #60d0e8; }
+kw.umzu  { background: #3a2e10; color: #e8a840; }
+kw.damit { background: #3a2518; color: #f0a070; }
+kw.zu    { background: #1a3a22; color: #70d890; }
+kw.zum   { background: #2a1848; color: #c8a8ff; }
+kw.verb  { background: #2a1a1a; color: #f08888; }
+
+/* ─── Rule cards ─── */
+.rule-cards {
+  display: flex; gap: 10px; flex-wrap: wrap;
+  margin-top: 14px;
+}
+.rule-card {
+  flex: 1 1 260px;
+  background: #343438;
+  border: 1px solid #44444c;
+  border-left: 3px solid #60d0e8;
+  border-radius: 10px;
+  padding: 12px 16px;
+}
+.rule-card.final { border-left-color: #e8a840; }
+.rule-card.infzu { border-left-color: #70d890; }
+.rule-card.nom   { border-left-color: #c8a8ff; }
+.rule-card.mein  { border-left-color: #f08888; }
+.rule-card .rule-title {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 14px; font-weight: 700;
+  margin-bottom: 5px;
+}
+.rule-card p, .rule-card .desc {
+  font-size: 14px; color: #c0c0c8; line-height: 1.6;
+}
+.rule-card .example {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px; color: #ababba;
+  margin-top: 6px; font-style: italic;
+  line-height: 1.6;
+}
+
+/* ─── Verb / Word tiles ─── */
+.tile-grid {
+  display: flex; flex-wrap: wrap; gap: 8px;
+  justify-content: flex-start;
+  margin: 12px 0;
+}
+.tile {
+  position: relative;
+  border-radius: 9px;
+  height: 48px;
+  padding: 0 16px;
+  display: flex; align-items: center; justify-content: center;
+  cursor: default;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  border: 2px solid;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 15px; font-weight: 600;
+}
+.tile:hover { transform: scale(1.06); z-index: 10; }
+
+.tile.t-dass { background: #133040; border-color: #2a7088; color: #60d0e8; }
+.tile.t-dass:hover { box-shadow: 0 4px 14px #2a708866; }
+
+.tile.t-infzu { background: #1a3a22; border-color: #40a060; color: #70d890; }
+.tile.t-infzu:hover { box-shadow: 0 4px 14px #40a06066; }
+
+.tile.t-mein { background: #3a1818; border-color: #a04040; color: #f08888; }
+.tile.t-mein:hover { box-shadow: 0 4px 14px #a0404066; }
+
+.tile.t-neu { background: #3a3a42; border-color: #60606a; color: #e8e8f0; }
+.tile.t-neu:hover { box-shadow: 0 4px 14px #58585e66; }
+
+/* ─── Tooltips (below) ─── */
+.tile .tip {
+  display: none;
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: #111115; color: #e8e8ec;
+  padding: 5px 12px; border-radius: 7px;
+  font-size: 13px; font-style: italic;
+  white-space: nowrap;
+  font-family: 'Inter', Arial, Helvetica, sans-serif;
+  font-weight: 400;
+  z-index: 200;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.5);
+  pointer-events: none;
+}
+.tile .tip::before {
+  content: ''; position: absolute;
+  bottom: 100%; left: 50%; transform: translateX(-50%);
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-bottom: 5px solid #111115;
+}
+.tile:hover .tip { display: block; }
+
+/* ─── Example sentences ─── */
+.ex-list {
+  margin: 14px 0;
+  display: flex; flex-direction: column; gap: 10px;
+}
+.ex {
+  background: #343438;
+  border: 1px solid #44444c;
+  border-radius: 10px;
+  padding: 12px 16px;
+  font-size: 15px;
+  line-height: 1.7;
+}
+.ex .de {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 14px; font-weight: 500;
+  color: #e0e0e4;
+}
+.ex .en {
+  font-size: 13px; color: #8888a0;
+  font-style: italic; margin-top: 3px;
+}
+.ex .note {
+  font-size: 12px; color: #ababba;
+  margin-top: 4px;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* ─── Info boxes ─── */
+.notes {
+  margin-top: 16px; padding: 14px 18px;
+  background: #343438; border-radius: 10px;
+  border: 1px solid #44444c;
+  font-size: 15px; line-height: 1.8; color: #c0c0c8;
+}
+.notes .notes-title {
+  font-weight: 700;
+  font-family: 'JetBrains Mono', monospace;
+  color: #e0e0e4; margin-bottom: 6px; font-size: 13px;
+}
+
+.warn {
+  background: #3a2e10;
+  border-color: #9a7a20;
+}
+.warn .notes-title { color: #e8a840; }
+
+/* ─── Pattern table ─── */
+.pattern-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 4px;
+  margin: 14px 0;
+}
+.pattern-table th {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px; font-weight: 700;
+  color: #8888a0;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 6px 12px;
+  text-align: left;
+}
+.pattern-table td {
+  background: #343438;
+  padding: 10px 14px;
+  font-size: 14px;
+  color: #e0e0e4;
+  border: 1px solid #44444c;
+}
+.pattern-table td:first-child {
+  border-radius: 8px 0 0 8px;
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 600;
+}
+.pattern-table td:last-child {
+  border-radius: 0 8px 8px 0;
+  color: #ababba;
+  font-style: italic;
+}
+
+/* ─── Sub-labels ─── */
+.sub-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 17px; font-weight: 700;
+  margin-bottom: 8px; margin-top: 22px;
+  color: #e0e0e4;
+}
+.sub-label .hint {
+  font-weight: 400; font-size: 13px; color: #ababba;
+}
+
+/* ─── Verb list cards ─── */
+.verb-cards {
+  display: flex; flex-direction: column; gap: 6px;
+  margin: 12px 0;
+}
+.verb-row {
+  display: flex; gap: 0;
+  background: #343438;
+  border: 1px solid #44444c;
+  border-radius: 10px;
+  overflow: hidden;
+  transition: all .15s;
+}
+.verb-row:hover {
+  border-color: #40a060;
+  box-shadow: 0 2px 8px #40a06033;
+}
+.verb-row .verb-name {
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 700; font-size: 14px;
+  color: #70d890;
+  min-width: 160px;
+  padding: 10px 14px;
+  display: flex; align-items: center;
+  border-right: 1px solid #44444c;
+  background: #1a3a22;
+}
+.verb-row .verb-ex {
+  padding: 10px 14px;
+  font-size: 14px; color: #c0c0c8;
+  flex: 1;
+  line-height: 1.5;
+}
+.verb-row .verb-ex kw {
+  font-size: 13px;
+}
+
+/* ─── Redemittel cards ─── */
+.redemittel-grid {
+  display: flex; flex-wrap: wrap; gap: 10px;
+  margin: 12px 0;
+}
+.redemittel-card {
+  flex: 1 1 300px;
+  background: #343438;
+  border: 1px solid #44444c;
+  border-radius: 10px;
+  padding: 14px 18px;
+  transition: all .15s;
+}
+.redemittel-card:hover {
+  border-color: #a04040;
+  box-shadow: 0 2px 8px #a0404033;
+}
+.redemittel-card .phrase {
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 700; font-size: 15px;
+  color: #f08888;
+  margin-bottom: 4px;
+}
+.redemittel-card .meaning {
+  font-size: 13px; color: #ababba;
+}
+
+/* ─── Word Order Diagram ─── */
+.wo-diagram {
+  display: flex; align-items: stretch; gap: 3px;
+  margin: 12px 0;
+  overflow-x: auto;
+  padding-bottom: 4px;
+}
+.wo-slot {
+  display: flex; flex-direction: column;
+  align-items: center; gap: 4px;
+  min-width: 80px;
+}
+.wo-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px; font-weight: 700;
+  color: #8888a0;
+  text-transform: uppercase;
+  text-align: center;
+}
+.wo-val {
+  background: #343438;
+  border: 2px solid #44444c;
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 14px; font-weight: 600;
+  color: #e0e0e4;
+  text-align: center;
+  width: 100%;
+  min-height: 42px;
+  display: flex; align-items: center; justify-content: center;
+}
+.wo-val.v { border-color: #f08888; color: #f08888; background: #3a1818; }
+.wo-val.kw-d { border-color: #60d0e8; color: #60d0e8; background: #133040; }
+.wo-val.kw-u { border-color: #e8a840; color: #e8a840; background: #3a2e10; }
+.wo-val.kw-dm { border-color: #f0a070; color: #f0a070; background: #3a2518; }
+
+.wo-connector {
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px; color: #55555e;
+  min-width: 24px;
+}
+
+@media (max-width: 700px) {
+  header { padding: 10px 12px; }
+  h1 { font-size: 18px; }
+  .container { padding: 0 10px; }
+  .tile { height: 42px; font-size: 13px; padding: 0 10px; }
+  nav a { font-size: 10px; padding: 4px 7px; }
+  .flow-branch { flex-direction: column; }
+  .flow-box { padding: 10px 14px; }
+  .verb-row { flex-direction: column; }
+  .verb-row .verb-name { min-width: auto; border-right: none; border-bottom: 1px solid #44444c; }
+  .section-title { font-size: 22px; }
+  .sub-label { font-size: 15px; }
+  .wo-diagram { gap: 2px; }
+  .wo-slot { min-width: 60px; }
+  .wo-val { font-size: 12px; padding: 6px 8px; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Nebensätze</h1>
+  <nav>
+    <a href="#ueberblick" class="active">Überblick</a>
+    <a href="#dass">dass</a>
+    <a href="#final">Finalsätze</a>
+    <a href="#infinitiv">Infinitivsätze</a>
+    <a href="#nominal">Nominalisiert</a>
+    <a href="#wortstellung">Wortstellung</a>
+    <a href="#redemittel">Redemittel</a>
+  </nav>
+</header>
+
+<div class="container">
+
+<!-- ═══════════════════════════════════════ -->
+<!-- SECTION 1: ÜBERBLICK                    -->
+<!-- ═══════════════════════════════════════ -->
+<div class="section" id="ueberblick">
+  <div class="section-title">
+    <span class="dot" style="background:#60d0e8;"></span>
+    Überblick
+  </div>
+  <div class="section-sub">Welchen Nebensatz brauche ich? — Entscheidungshilfe</div>
+
+  <div class="flow">
+    <div class="flow-box">
+      <div class="flow-question">Was will ich ausdrücken?</div>
+    </div>
+    <div class="flow-arrow">↓</div>
+    <div class="flow-branch">
+      <div class="flow-box" style="border-color:#2a7088;">
+        <div class="flow-question c-dass">Gedanke · Meinung · Tatsache</div>
+        <div class="flow-answer">→ <kw class="dass">dass</kw>-Satz</div>
+      </div>
+      <div class="flow-box" style="border-color:#9a7a20;">
+        <div class="flow-question c-final">Absicht · Ziel · Zweck</div>
+        <div class="flow-answer">→ Finalsatz<br><kw class="umzu">um…zu</kw> / <kw class="damit">damit</kw></div>
+      </div>
+    </div>
+    <div class="flow-arrow">↓</div>
+    <div class="flow-box" style="border-color:#60606a;">
+      <div class="flow-question">Gleiche Subjekte in Hauptsatz und Nebensatz?</div>
+    </div>
+    <div class="flow-arrow">↓</div>
+    <div class="flow-branch">
+      <div class="flow-box" style="border-color:#40a060;">
+        <div class="flow-question c-infzu">Ja, gleich</div>
+        <div class="flow-answer">Infinitivsatz mit <kw class="zu">zu</kw><br>oder <kw class="umzu">um…zu</kw> (Zweck)</div>
+      </div>
+      <div class="flow-box" style="border-color:#a06030;">
+        <div class="flow-question c-damit">Nein, verschieden</div>
+        <div class="flow-answer"><kw class="dass">dass</kw>-Satz<br>oder <kw class="damit">damit</kw>-Satz (Zweck)</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="notes">
+    <div class="notes-title">⚡ Goldene Regel</div>
+    In allen Nebensätzen (<kw class="dass">dass</kw>, <kw class="damit">damit</kw>, Relativsätze, <em>weil</em>, <em>wenn</em> …) steht das konjugierte Verb <strong>am Ende</strong>.<br>
+    Bei Infinitivsätzen (<kw class="zu">zu</kw> + Infinitiv, <kw class="umzu">um…zu</kw>) steht <kw class="zu">zu</kw> + Infinitiv ebenfalls <strong>am Ende</strong>.
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- SECTION 2: DASS-SÄTZE                   -->
+<!-- ═══════════════════════════════════════ -->
+<div class="section" id="dass">
+  <div class="section-title">
+    <span class="dot" style="background:#60d0e8;"></span>
+    Nebensätze mit <kw class="dass">dass</kw>
+  </div>
+  <div class="section-sub">Gedanken, Meinungen, Tatsachen — Subjekte sind verschieden</div>
+
+  <div class="rule-cards">
+    <div class="rule-card">
+      <div class="rule-title c-dass">Regel 1: Verschiedene Subjekte</div>
+      <p>Subjekt Hauptsatz ≠ Subjekt Nebensatz → <kw class="dass">dass</kw></p>
+      <div class="example"><strong>Wir</strong> hoffen, dass <strong>der Techniker</strong> bald kommt.</div>
+    </div>
+    <div class="rule-card">
+      <div class="rule-title c-dass">Regel 2: Akk./Dat.-Ergänzung</div>
+      <p>Die Ergänzung im HS wird zum Subjekt im NS</p>
+      <div class="example">Der Polizist warnt <strong>die Frau</strong>, dass <strong>ihr Auto</strong> im Parkverbot steht.</div>
+    </div>
+  </div>
+
+  <div class="sub-label">Verben <span class="hint">— nur mit <kw class="dass">dass</kw></span></div>
+  <div class="tile-grid">
+    <div class="tile t-dass">sagen<span class="tip">Ich sage, dass …</span></div>
+    <div class="tile t-dass">denken<span class="tip">Ich denke, dass …</span></div>
+    <div class="tile t-dass">finden<span class="tip">Ich finde, dass …</span></div>
+    <div class="tile t-dass">hören<span class="tip">Ich höre, dass …</span></div>
+    <div class="tile t-dass">erzählen<span class="tip">Sie erzählt, dass …</span></div>
+    <div class="tile t-dass">glauben<span class="tip">Er glaubt, dass …</span></div>
+    <div class="tile t-dass">erkennen<span class="tip">Wir erkennen, dass …</span></div>
+    <div class="tile t-dass">sehen<span class="tip">Ich sehe, dass …</span></div>
+    <div class="tile t-dass">antworten<span class="tip">Er antwortet, dass …</span></div>
+    <div class="tile t-dass">wissen<span class="tip">Ich weiss, dass …</span></div>
+    <div class="tile t-dass">einfallen<span class="tip">Mir fällt ein, dass …</span></div>
+    <div class="tile t-dass">riechen<span class="tip">Ich rieche, dass …</span></div>
+    <div class="tile t-dass">stimmen<span class="tip">Es stimmt, dass …</span></div>
+    <div class="tile t-dass">vermuten<span class="tip">Ich vermute, dass …</span></div>
+    <div class="tile t-dass">bemerken<span class="tip">Sie bemerkt, dass …</span></div>
+    <div class="tile t-dass">spüren<span class="tip">Ich spüre, dass …</span></div>
+  </div>
+
+  <div class="sub-label">Adjektive + <kw class="dass">dass</kw></div>
+  <div class="ex-list">
+    <div class="ex">
+      <div class="de"><kw class="verb">Es</kw> ist <strong>wichtig</strong>, <kw class="dass">dass</kw> die Wohnung zwei Badezimmer <kw class="verb">hat</kw>.</div>
+    </div>
+    <div class="ex">
+      <div class="de">Ich finde <kw class="verb">es</kw> <strong>interessant</strong>, <kw class="dass">dass</kw> heisses Wasser schneller <kw class="verb">gefriert</kw> als kaltes.</div>
+    </div>
+  </div>
+
+  <div class="notes warn">
+    <div class="notes-title">⚠ Achtung — wichtig / (un)möglich</div>
+    Bei den Adjektiven <strong>„wichtig"</strong> und <strong>„(un)möglich"</strong> gelten <kw class="verb">es</kw> und <kw class="verb">man</kw> als <em>gleiche Subjekte</em>.<br>
+    Deshalb kann man auch einen Infinitivsatz benutzen:<br><br>
+    <kw class="dass">dass</kw>: Es ist wichtig, <kw class="dass">dass</kw> man viel trinkt.<br>
+    <kw class="zu">zu</kw>: → Es ist wichtig, viel <kw class="zu">zu</kw> trinken. ✓
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- SECTION 3: FINALSÄTZE                   -->
+<!-- ═══════════════════════════════════════ -->
+<div class="section" id="final">
+  <div class="section-title">
+    <span class="dot" style="background:#e8a840;"></span>
+    Finalsätze
+  </div>
+  <div class="section-sub">Absicht und Zweck — Wozu? → um…zu / damit</div>
+
+  <div class="rule-cards">
+    <div class="rule-card final">
+      <div class="rule-title c-final">Gleiche Subjekte → um…zu</div>
+      <p>Wenn das Subjekt im Hauptsatz und Nebensatz <strong>gleich</strong> ist</p>
+      <div class="example">
+        <strong>Ich</strong> benutze mein Handy, <kw class="umzu">um</kw> im Internet <kw class="umzu">zu</kw> surfen.<br>
+        <span style="color:#8888a0;">= Ich benutze mein Handy, denn <strong>ich</strong> will im Internet surfen.</span>
+      </div>
+    </div>
+    <div class="rule-card final" style="border-left-color:#f0a070;">
+      <div class="rule-title c-damit">Verschiedene Subjekte → damit</div>
+      <p>Wenn die Subjekte <strong>verschieden</strong> sind</p>
+      <div class="example">
+        <strong>Chiara</strong> hat ihrem Mann einen Sprachkurs geschenkt, <kw class="damit">damit</kw> <strong>er</strong> Italienisch lernt.<br>
+        <span style="color:#8888a0;">= …, denn er soll Italienisch lernen.</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="notes warn" style="margin-top:16px;">
+    <div class="notes-title">🚫 Keine Modalverben in Finalsätzen</div>
+    Die Modalverben <strong>wollen</strong>, <strong>sollen</strong> und <strong>möchten</strong> sind in Finalsätzen <strong>nicht möglich</strong>.<br>
+    Der Zweck wird durch <kw class="umzu">um…zu</kw> oder <kw class="damit">damit</kw> schon ausgedrückt.
+  </div>
+
+  <div class="sub-label">Beispiele <span class="hint">— Sabrina geht in die USA, …</span></div>
+  <div class="ex-list">
+    <div class="ex">
+      <div class="de">…<kw class="umzu">um</kw> dort <kw class="umzu">zu</kw> studieren.</div>
+      <div class="note">gleiche Subjekte → um…zu</div>
+    </div>
+    <div class="ex">
+      <div class="de">…<kw class="damit">damit</kw> ihre Berufschancen später besser <kw class="verb">sind</kw>.</div>
+      <div class="note">versch. Subjekte (ihre Berufschancen) → damit, Verb am Ende</div>
+    </div>
+    <div class="ex">
+      <div class="de">…<kw class="damit">damit</kw> Englisch keine Fremdsprache mehr für sie <kw class="verb">ist</kw>.</div>
+      <div class="note">versch. Subjekte (Englisch) → damit</div>
+    </div>
+    <div class="ex">
+      <div class="de">…<kw class="damit">damit</kw> ihr Lebenslauf interessanter <kw class="verb">wird</kw>.</div>
+      <div class="note">versch. Subjekte (ihr Lebenslauf) → damit</div>
+    </div>
+    <div class="ex">
+      <div class="de">…<kw class="umzu">um</kw> eine andere Kultur kennen<kw class="umzu">zu</kw>lernen.</div>
+      <div class="note">gleiche Subjekte → um…zu (trennbar: kennenlernen)</div>
+    </div>
+    <div class="ex">
+      <div class="de">…<kw class="umzu">um</kw> selbstständiger <kw class="umzu">zu</kw> werden.</div>
+      <div class="note">gleiche Subjekte → um…zu</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- SECTION 4: INFINITIVSÄTZE               -->
+<!-- ═══════════════════════════════════════ -->
+<div class="section" id="infinitiv">
+  <div class="section-title">
+    <span class="dot" style="background:#70d890;"></span>
+    Infinitivsätze
+  </div>
+  <div class="section-sub">Verben · Nomen · Adjektive + zu + Infinitiv</div>
+
+  <!-- Pattern a -->
+  <div class="sub-label" style="color:#70d890;">
+    a) Subjekt HS = Subjekt Infinitivsatz <span class="hint">→ Subjekt fällt weg</span>
+  </div>
+  <div class="ex-list">
+    <div class="ex">
+      <div class="de">Er <strong>hört auf</strong>, <kw class="zu">zu</kw> bohren.</div>
+      <div class="note">aufhören + zu + Inf.</div>
+    </div>
+    <div class="ex">
+      <div class="de">Sie <strong>beginnt</strong>, die Sahne <kw class="zu">zu</kw> schlagen.</div>
+    </div>
+    <div class="ex">
+      <div class="de">Er <strong>hat vergessen</strong>, das Fenster <kw class="zu">zu</kw><kw class="zu">zu</kw>machen.</div>
+      <div class="note">trennbar → „zu" zwischen Präfix und Stamm: zu|zu|machen</div>
+    </div>
+  </div>
+
+  <!-- Pattern b -->
+  <div class="sub-label" style="color:#70d890;">
+    b) Dativergänzung HS = Subjekt Infinitivsatz <span class="hint">→ Subjekt fällt weg</span>
+  </div>
+  <div class="ex-list">
+    <div class="ex">
+      <div class="de">Er <strong>hilft</strong> <kw class="verb">ihr</kw>, den Tisch <kw class="zu">zu</kw> decken.</div>
+      <div class="note">= Er hilft ihr: <strong>Sie</strong> deckt den Tisch.</div>
+    </div>
+    <div class="ex">
+      <div class="de">Es <strong>gelingt</strong> <kw class="verb">ihnen</kw> nicht, die Tür <kw class="zu">zu</kw><kw class="zu">zu</kw>machen.</div>
+      <div class="note">= Es gelingt ihnen nicht: Sie machen die Tür nicht zu.</div>
+    </div>
+  </div>
+  <div class="notes" style="margin-top:8px;">
+    <div class="notes-title">Auch mit Dativ</div>
+    erlauben · verbieten · empfehlen
+  </div>
+
+  <!-- Pattern c -->
+  <div class="sub-label" style="color:#70d890;">
+    c) Akkusativergänzung HS = Subjekt Infinitivsatz <span class="hint">→ Subjekt fällt weg</span>
+  </div>
+  <div class="ex-list">
+    <div class="ex">
+      <div class="de">Der Lehrer <strong>bittet</strong> <kw class="verb">den Schüler</kw>, das Handy aus<kw class="zu">zu</kw>machen.</div>
+      <div class="note">= Der Lehrer bittet den Schüler: <strong>Er</strong> macht das Handy aus.</div>
+    </div>
+  </div>
+  <div class="notes" style="margin-top:8px;">
+    <div class="notes-title">Auch mit Akkusativ</div>
+    warnen · einladen
+  </div>
+
+  <!-- Trennbare Verben -->
+  <div class="notes" style="margin-top:16px; border-left:3px solid #70d890;">
+    <div class="notes-title" style="color:#70d890;">📌 Trennbare Verben</div>
+    Bei trennbaren Verben steht <kw class="zu">zu</kw> <strong>zwischen</strong> dem Präfix und dem Verbstamm:<br>
+    <span style="font-family:'JetBrains Mono',monospace; color:#ababba;">
+      zumachen → <kw class="zu">zu</kw>zumachen &nbsp;·&nbsp;
+      aufpassen → auf<kw class="zu">zu</kw>passen &nbsp;·&nbsp;
+      abschliessen → ab<kw class="zu">zu</kw>schliessen
+    </span>
+  </div>
+
+  <!-- es + Adjektiv -->
+  <div class="sub-label" style="color:#70d890;">
+    2. es + Adjektiv + Infinitivsatz
+  </div>
+  <div class="ex-list">
+    <div class="ex">
+      <div class="de"><kw class="verb">Es</kw> ist <strong>wichtig</strong>, viel Sport <kw class="zu">zu</kw> machen.</div>
+    </div>
+    <div class="ex">
+      <div class="de">Ich finde <kw class="verb">es</kw> <strong>lustig</strong>, das Handy von meinem Mann <kw class="zu">zu</kw> verstecken.</div>
+    </div>
+  </div>
+
+  <!-- Nomen + haben -->
+  <div class="sub-label" style="color:#70d890;">
+    3. Nomen + haben + Infinitivsatz
+  </div>
+  <div class="ex-list">
+    <div class="ex">
+      <div class="de">Ich <strong>habe</strong> keine <strong>Zeit</strong>, das Auto <kw class="zu">zu</kw> waschen.</div>
+    </div>
+  </div>
+
+  <!-- Comma rule -->
+  <div class="notes" style="margin-top:16px;">
+    <div class="notes-title">📝 Kommaregel</div>
+    Oft ist das Komma im Infinitivsatz <em>fakultativ</em>, aber es ist am besten, <strong>immer ein Komma zu machen</strong>.
+  </div>
+
+  <!-- ─── Complete verb list ─── -->
+  <div class="sub-label" style="margin-top:28px;">
+    Verben + <kw class="zu">zu</kw> + Infinitiv <span class="hint">— vollständige Liste</span>
+  </div>
+  <div class="verb-cards">
+    <div class="verb-row">
+      <div class="verb-name">anbieten</div>
+      <div class="verb-ex">Sie hat mir angeboten, nach dem Fest bei ihr <kw class="zu">zu</kw> übernachten.</div>
+    </div>
+    <div class="verb-row">
+      <div class="verb-name">anfangen</div>
+      <div class="verb-ex">Vor zwei Monaten habe ich angefangen, Yoga <kw class="zu">zu</kw> machen.</div>
+    </div>
+    <div class="verb-row">
+      <div class="verb-name">aufhören</div>
+      <div class="verb-ex">Mark hat endlich aufgehört <kw class="zu">zu</kw> rauchen.</div>
+    </div>
+    <div class="verb-row">
+      <div class="verb-name">aufpassen</div>
+      <div class="verb-ex">Du musst aufpassen, die Gläser nicht <kw class="zu">zu</kw> zerbrechen.</div>
+    </div>
+    <div class="verb-row">
+      <div class="verb-name">beginnen</div>
+      <div class="verb-ex">Morgen beginnen wir, die Umzugskisten <kw class="zu">zu</kw> packen.</div>
+    </div>
+    <div class="verb-row">
+      <div class="verb-name">bitten</div>
+      <div class="verb-ex">Eva hat ihre Freundin gebeten, ihr <kw class="zu">zu</kw> helfen.</div>
+    </div>
+    <div class="verb-row">
+      <div class="verb-name">empfehlen</div>
+      <div class="verb-ex">Wir empfehlen Ihnen, einen Abendkurs <kw class="zu">zu</kw> besuchen.</div>
+    </div>
+    <div class="verb-row">
+      <div class="verb-name">erlauben</div>
+      <div class="verb-ex">Mein Vater erlaubt mir nicht, in die Disco <kw class="zu">zu</kw> gehen.</div>
+    </div>
+    <div class="verb-row">
+      <div class="verb-name">es gefällt</div>
+      <div class="verb-ex"><kw class="verb">Es</kw> gefällt <kw class="verb">den Schülern</kw> nicht, eine Schuluniform <kw class="zu">zu</kw> tragen.</div>
+    </div>
+    <div class="verb-row">
+      <div class="verb-name">es gelingt</div>
+      <div class="verb-ex"><kw class="verb">Es</kw> gelingt <kw class="verb">mir</kw> nicht, sie telefonisch <kw class="zu">zu</kw> kontaktieren.</div>
+    </div>
+    <div class="verb-row">
+      <div class="verb-name">helfen *</div>
+      <div class="verb-ex">Könnt ihr mir helfen, die Kisten <kw class="zu">zu</kw> tragen?</div>
+    </div>
+    <div class="verb-row">
+      <div class="verb-name">hoffen</div>
+      <div class="verb-ex">Emilia hofft, die Stelle im Restaurant <kw class="zu">zu</kw> bekommen.</div>
+    </div>
+    <div class="verb-row">
+      <div class="verb-name">lernen *</div>
+      <div class="verb-ex">Du musst lernen, vorsichtiger <kw class="zu">zu</kw> fahren.</div>
+    </div>
+    <div class="verb-row">
+      <div class="verb-name">planen</div>
+      <div class="verb-ex">Mein Mann und ich planen, in drei Jahren eine Weltreise <kw class="zu">zu</kw> machen.</div>
+    </div>
+    <div class="verb-row">
+      <div class="verb-name">probieren</div>
+      <div class="verb-ex">Hast du schon probiert, den Rotweinfleck mit Salz <kw class="zu">zu</kw> entfernen?</div>
+    </div>
+    <div class="verb-row">
+      <div class="verb-name">schaffen + es</div>
+      <div class="verb-ex"><kw class="verb">Er</kw> hat <kw class="verb">es</kw> nicht geschafft, den Mount Everest <kw class="zu">zu</kw> besteigen.</div>
+    </div>
+    <div class="verb-row">
+      <div class="verb-name">verbieten</div>
+      <div class="verb-ex">Unsere Eltern haben uns verboten, die Handys <kw class="zu">zu</kw> benutzen.</div>
+    </div>
+    <div class="verb-row">
+      <div class="verb-name">vergessen</div>
+      <div class="verb-ex">Ich habe vergessen, die Haustür ab<kw class="zu">zu</kw>schliessen.</div>
+    </div>
+    <div class="verb-row">
+      <div class="verb-name">versprechen</div>
+      <div class="verb-ex">Ich verspreche dir, immer für dich da <kw class="zu">zu</kw> sein.</div>
+    </div>
+    <div class="verb-row">
+      <div class="verb-name">versuchen</div>
+      <div class="verb-ex">Kathrin will versuchen, einen Marathon <kw class="zu">zu</kw> laufen.</div>
+    </div>
+    <div class="verb-row">
+      <div class="verb-name">vorhaben</div>
+      <div class="verb-ex">Wir haben vor, ein Haus auf dem Land <kw class="zu">zu</kw> kaufen.</div>
+    </div>
+    <div class="verb-row">
+      <div class="verb-name">vorschlagen</div>
+      <div class="verb-ex">Meine Verlobte hat vorgeschlagen, unsere Hochzeit in einer Burg <kw class="zu">zu</kw> feiern.</div>
+    </div>
+    <div class="verb-row">
+      <div class="verb-name">warnen</div>
+      <div class="verb-ex">Ich warne dich, betrunken Auto <kw class="zu">zu</kw> fahren.</div>
+    </div>
+  </div>
+
+  <div class="notes" style="margin-top:8px;">
+    <div class="notes-title">* helfen · lernen</div>
+    Diese Verben kann man auch mit einem Infinitiv <strong>ohne „zu"</strong> verwenden:<br>
+    <span style="font-family:'JetBrains Mono',monospace; color:#ababba;">
+      Ihr helfe dir(,) die Kisten (zu) tragen.<br>
+      Die Kinder lernen(,) Fahrrad (zu) fahren.
+    </span>
+  </div>
+
+  <!-- Nomen + zu + Infinitiv list -->
+  <div class="sub-label" style="margin-top:28px;">
+    Nomen + <kw class="zu">zu</kw> + Infinitiv
+  </div>
+  <div class="verb-cards">
+    <div class="verb-row">
+      <div class="verb-name">Angst haben</div>
+      <div class="verb-ex">Jim hat Angst, seinen Job <kw class="zu">zu</kw> verlieren.</div>
+    </div>
+    <div class="verb-row">
+      <div class="verb-name">die Chance haben</div>
+      <div class="verb-ex">Mein Bruder hat die Chance, ein Jahr im Ausland <kw class="zu">zu</kw> arbeiten.</div>
+    </div>
+    <div class="verb-row">
+      <div class="verb-name">die Möglichkeit haben</div>
+      <div class="verb-ex">Er hat die Möglichkeit, einen kostenlosen Sprachkurs <kw class="zu">zu</kw> machen.</div>
+    </div>
+    <div class="verb-row">
+      <div class="verb-name">es macht Spass</div>
+      <div class="verb-ex"><kw class="verb">Es</kw> macht (mir) Spass, <kw class="zu">zu</kw> schnorcheln und bunte Fische <kw class="zu">zu</kw> sehen.</div>
+    </div>
+    <div class="verb-row">
+      <div class="verb-name">Lust haben</div>
+      <div class="verb-ex">Jessica hat heute keine Lust, joggen <kw class="zu">zu</kw> gehen.</div>
+    </div>
+    <div class="verb-row">
+      <div class="verb-name">Probleme haben</div>
+      <div class="verb-ex">Sie hat Probleme, in Zürich eine Wohnung <kw class="zu">zu</kw> finden.</div>
+    </div>
+    <div class="verb-row">
+      <div class="verb-name">Zeit haben</div>
+      <div class="verb-ex">Leider habe ich keine Zeit, dir <kw class="zu">zu</kw> helfen.</div>
+    </div>
+  </div>
+
+  <!-- Adjektive + zu + Infinitiv list -->
+  <div class="sub-label" style="margin-top:28px;">
+    Adjektive + <kw class="zu">zu</kw> + Infinitiv
+  </div>
+  <div class="rule-cards">
+    <div class="rule-card infzu">
+      <div class="rule-title c-infzu">Es ist + Adjektiv</div>
+      <div class="example">
+        <kw class="verb">Es</kw> ist interessant/schön/wichtig …<br>
+        <kw class="verb">Es</kw> ist schön, am Strand <kw class="zu">zu</kw> liegen.
+      </div>
+    </div>
+    <div class="rule-card infzu">
+      <div class="rule-title c-infzu">Ich finde es + Adjektiv</div>
+      <div class="example">
+        Ich finde <kw class="verb">es</kw> interessant/schön/wichtig …<br>
+        Ich finde <kw class="verb">es</kw> schön, wieder <kw class="zu">zu</kw> Hause <kw class="zu">zu</kw> sein!
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- SECTION 5: NOMINALISIERTER INFINITIV    -->
+<!-- ═══════════════════════════════════════ -->
+<div class="section" id="nominal">
+  <div class="section-title">
+    <span class="dot" style="background:#c8a8ff;"></span>
+    Der nominalisierte Infinitiv
+  </div>
+  <div class="section-sub">um…zu → zum + Infinitiv — eine kürzere Alternative</div>
+
+  <div class="ex-list">
+    <div class="ex" style="border-left:3px solid #e8a840;">
+      <div class="de"><kw class="umzu">um zu</kw> telefonieren / <kw class="umzu">um</kw> Musik <kw class="umzu">zu</kw> hören</div>
+      <div class="en">Infinitivsatz mit um…zu</div>
+    </div>
+    <div class="ex" style="border-left:3px solid #c8a8ff;">
+      <div class="de"><kw class="zum">zum</kw> <strong>T</strong>elefonieren / <kw class="zum">zum</kw> <strong>M</strong>usikhören</div>
+      <div class="en">Nominalisierter Infinitiv</div>
+    </div>
+  </div>
+
+  <div class="ex-list">
+    <div class="ex">
+      <div class="de">Ich benutze mein Handy <kw class="zum">zum</kw> <strong>T</strong>elefonieren.</div>
+      <div class="note">= Ich benutze mein Handy, um zu telefonieren.</div>
+    </div>
+    <div class="ex">
+      <div class="de">Ich benutze mein Handy <kw class="zum">zum</kw> <strong>M</strong>usikhören.</div>
+      <div class="note">= Ich benutze mein Handy, um Musik zu hören.</div>
+    </div>
+  </div>
+
+  <div class="rule-cards">
+    <div class="rule-card nom">
+      <div class="rule-title c-nom">Artikel = „das"</div>
+      <p>Der nominalisierte Infinitiv hat immer den Artikel <strong>das</strong>.<br>
+      <span style="font-family:'JetBrains Mono',monospace;font-size:13px;color:#ababba;">das Telefonieren · das Musikhören · das Lesen</span></p>
+    </div>
+    <div class="rule-card nom">
+      <div class="rule-title c-nom">Position = Finalangabe</div>
+      <p>Der nominalisierte Infinitiv ist eine <strong>Finalangabe</strong>. Finalangaben stehen auf der gleichen Position wie <strong>Modalangaben</strong>.</p>
+    </div>
+    <div class="rule-card nom">
+      <div class="rule-title c-nom">Grossschreibung</div>
+      <p>Als Nomen wird der Infinitiv <strong>gross</strong> geschrieben.<br>
+      Zusammengesetzte Formen werden <strong>ein Wort</strong>:<br>
+      <span style="font-family:'JetBrains Mono',monospace;font-size:13px;color:#ababba;">Musik hören → das Musikhören</span></p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- SECTION 6: WORTSTELLUNG                 -->
+<!-- ═══════════════════════════════════════ -->
+<div class="section" id="wortstellung">
+  <div class="section-title">
+    <span class="dot" style="background:#f08888;"></span>
+    Wortstellung
+  </div>
+  <div class="section-sub">Wo steht das Verb? — Vergleich der Satztypen</div>
+
+  <div class="sub-label">Hauptsatz <span class="hint">— Verb in Position 2</span></div>
+  <div class="wo-diagram">
+    <div class="wo-slot">
+      <div class="wo-label">Pos. 1</div>
+      <div class="wo-val">Ich</div>
+    </div>
+    <div class="wo-slot">
+      <div class="wo-label">Verb</div>
+      <div class="wo-val v">hoffe</div>
+    </div>
+    <div class="wo-slot" style="flex:2;">
+      <div class="wo-label">Mittelfeld</div>
+      <div class="wo-val">…</div>
+    </div>
+  </div>
+
+  <div class="sub-label"><kw class="dass">dass</kw>-Satz <span class="hint">— Verb am Ende</span></div>
+  <div class="wo-diagram">
+    <div class="wo-slot">
+      <div class="wo-label">Konj.</div>
+      <div class="wo-val kw-d">dass</div>
+    </div>
+    <div class="wo-slot">
+      <div class="wo-label">Subj.</div>
+      <div class="wo-val">er</div>
+    </div>
+    <div class="wo-slot" style="flex:2;">
+      <div class="wo-label">Mittelfeld</div>
+      <div class="wo-val">bald</div>
+    </div>
+    <div class="wo-slot">
+      <div class="wo-label">Verb ⟶ Ende</div>
+      <div class="wo-val v">kommt</div>
+    </div>
+  </div>
+
+  <div class="sub-label"><kw class="damit">damit</kw>-Satz <span class="hint">— Verb am Ende</span></div>
+  <div class="wo-diagram">
+    <div class="wo-slot">
+      <div class="wo-label">Konj.</div>
+      <div class="wo-val kw-dm">damit</div>
+    </div>
+    <div class="wo-slot">
+      <div class="wo-label">Subj.</div>
+      <div class="wo-val">er</div>
+    </div>
+    <div class="wo-slot" style="flex:2;">
+      <div class="wo-label">Mittelfeld</div>
+      <div class="wo-val">Italienisch</div>
+    </div>
+    <div class="wo-slot">
+      <div class="wo-label">Verb ⟶ Ende</div>
+      <div class="wo-val v">lernt</div>
+    </div>
+  </div>
+
+  <div class="sub-label"><kw class="umzu">um…zu</kw> <span class="hint">— zu + Infinitiv am Ende</span></div>
+  <div class="wo-diagram">
+    <div class="wo-slot">
+      <div class="wo-label">um</div>
+      <div class="wo-val kw-u">um</div>
+    </div>
+    <div class="wo-slot" style="flex:2;">
+      <div class="wo-label">Mittelfeld</div>
+      <div class="wo-val">im Internet</div>
+    </div>
+    <div class="wo-slot">
+      <div class="wo-label">zu + Inf. ⟶ Ende</div>
+      <div class="wo-val v">zu surfen</div>
+    </div>
+  </div>
+
+  <div class="sub-label">Infinitivsatz <span class="hint">— zu + Infinitiv am Ende</span></div>
+  <div class="wo-diagram">
+    <div class="wo-slot" style="flex:2;">
+      <div class="wo-label">Mittelfeld</div>
+      <div class="wo-val">die Sahne</div>
+    </div>
+    <div class="wo-slot">
+      <div class="wo-label">zu + Inf. ⟶ Ende</div>
+      <div class="wo-val v">zu schlagen</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- SECTION 7: REDEMITTEL                   -->
+<!-- ═══════════════════════════════════════ -->
+<div class="section" id="redemittel">
+  <div class="section-title">
+    <span class="dot" style="background:#f08888;"></span>
+    Redemittel
+  </div>
+  <div class="section-sub">Seine Meinung äussern — mit dass-Satz oder Infinitivsatz</div>
+
+  <div class="sub-label" style="color:#f08888;">Einfache Meinungsäusserung</div>
+  <div class="redemittel-grid">
+    <div class="redemittel-card">
+      <div class="phrase">Ich denke, dass …</div>
+      <div class="meaning">I think that …</div>
+    </div>
+    <div class="redemittel-card">
+      <div class="phrase">Ich finde, dass …</div>
+      <div class="meaning">I find that … / I think …</div>
+    </div>
+    <div class="redemittel-card">
+      <div class="phrase">Ich bin der Meinung, dass …</div>
+      <div class="meaning">I am of the opinion that …</div>
+    </div>
+  </div>
+
+  <div class="sub-label" style="color:#f08888;">Mit Bewertung <span class="hint">— Ich finde es + Adjektiv</span></div>
+  <div class="redemittel-grid">
+    <div class="redemittel-card">
+      <div class="phrase">Ich finde es wichtig, dass …</div>
+      <div class="meaning">I find it important that …</div>
+    </div>
+    <div class="redemittel-card">
+      <div class="phrase">Ich finde es gut, dass …</div>
+      <div class="meaning">I think it's good that …</div>
+    </div>
+    <div class="redemittel-card">
+      <div class="phrase">Ich finde es toll, dass …</div>
+      <div class="meaning">I think it's great that …</div>
+    </div>
+    <div class="redemittel-card">
+      <div class="phrase">Ich finde es nicht gut, dass …</div>
+      <div class="meaning">I don't think it's good that …</div>
+    </div>
+    <div class="redemittel-card">
+      <div class="phrase">Ich finde es schrecklich, dass …</div>
+      <div class="meaning">I find it terrible that …</div>
+    </div>
+  </div>
+
+  <div class="notes">
+    <div class="notes-title">💡 Tipp</div>
+    Bei „Ich finde es wichtig" mit <kw class="verb">man</kw> als Subjekt im Nebensatz kann man auch einen <strong>Infinitivsatz</strong> benutzen:<br>
+    <span style="font-family:'JetBrains Mono',monospace;font-size:13px;color:#ababba;">
+      Ich finde es wichtig, <kw class="dass">dass</kw> man Sport macht.<br>
+      → Ich finde es wichtig, Sport <kw class="zu">zu</kw> machen. ✓
+    </span>
+  </div>
+</div>
+
+</div><!-- /.container -->
+
+<script>
+// Nav highlight on scroll
+const sections = document.querySelectorAll('.section[id]');
+const navLinks = document.querySelectorAll('nav a');
+
+function updateNav() {
+  let current = '';
+  const offset = 90;
+  sections.forEach(s => {
+    if (window.scrollY >= s.offsetTop - offset) current = s.id;
+  });
+  navLinks.forEach(a => {
+    a.classList.toggle('active', a.getAttribute('href') === '#' + current);
+  });
+}
+window.addEventListener('scroll', updateNav, { passive: true });
+updateNav();
+
+// Smooth scroll
+navLinks.forEach(a => {
+  a.addEventListener('click', e => {
+    e.preventDefault();
+    const target = document.querySelector(a.getAttribute('href'));
+    if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+});
+</script>
+</body>
+</html>

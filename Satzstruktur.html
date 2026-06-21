@@ -1,0 +1,957 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Satzstruktur — Wie baut man einen deutschen Satz?</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: 'Inter', Arial, Helvetica, sans-serif;
+  background: #2b2b2f;
+  min-height: 100vh;
+  padding: 0 0 48px;
+  color: #e0e0e4;
+}
+
+/* ─── Header ─── */
+header {
+  position: sticky; top: 0; z-index: 100;
+  background: #232327ee;
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid #3e3e44;
+  padding: 14px 20px;
+  display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: 8px;
+}
+h1 {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 26px; font-weight: 700;
+  color: #f0f0f4; letter-spacing: -0.5px;
+}
+nav { display: flex; gap: 6px; flex-wrap: wrap; }
+nav a {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px; font-weight: 500;
+  padding: 5px 9px;
+  border-radius: 8px;
+  background: #343438;
+  color: #8888a0;
+  text-decoration: none;
+  border: 1px solid #44444c;
+  transition: all .15s;
+}
+nav a:hover, nav a.active {
+  background: #6b2020;
+  color: #fff;
+  border-color: #f08888;
+}
+
+.container { max-width: 880px; margin: 0 auto; padding: 0 16px; }
+
+/* ─── Sections ─── */
+.section { margin-top: 32px; scroll-margin-top: 70px; }
+.section-title {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 26px; font-weight: 700;
+  color: #e0e0e4;
+  display: flex; align-items: center; gap: 8px;
+  margin-bottom: 2px;
+}
+.section-title .dot {
+  width: 10px; height: 10px;
+  border-radius: 50%; display: inline-block;
+}
+.section-sub {
+  font-size: 14px; color: #ababba;
+  margin-bottom: 16px; font-style: italic;
+}
+.sub-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 17px; font-weight: 700;
+  margin-bottom: 8px; margin-top: 24px;
+  color: #e0e0e4;
+}
+.sub-label .hint {
+  font-weight: 400; font-size: 13px; color: #ababba;
+}
+
+/* ─── Keyword highlights ─── */
+kw {
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 700; padding: 1px 5px;
+  border-radius: 4px; font-size: 0.95em;
+}
+kw.v   { background: #3a1818; color: #f08888; }
+kw.s   { background: #1e2e45; color: #8ec4ff; }
+kw.a   { background: #3a2e10; color: #e8a840; }
+kw.d   { background: #1a3a22; color: #70d890; }
+kw.te  { background: #133040; color: #60d0e8; }
+kw.ka  { background: #3a1830; color: #ffa0c8; }
+kw.mo  { background: #2a1848; color: #c8a8ff; }
+kw.lo  { background: #3a3010; color: #f0d060; }
+kw.n   { background: #3a1010; color: #ff6060; }
+kw.conj { background: #133040; color: #60d0e8; }
+
+/* ─── Sentence diagrams ─── */
+.satz {
+  display: flex; align-items: stretch; gap: 3px;
+  margin: 10px 0 16px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+}
+.pos {
+  display: flex; flex-direction: column;
+  align-items: center; gap: 3px;
+  min-width: 70px; flex-shrink: 0;
+}
+.pos.wide { flex: 1; min-width: 100px; }
+
+.pos-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px; font-weight: 700;
+  color: #8888a0; text-transform: uppercase;
+  letter-spacing: 0.3px;
+  text-align: center; white-space: nowrap;
+}
+.pos-val {
+  width: 100%;
+  background: #343438;
+  border: 2px solid #44444c;
+  border-radius: 8px;
+  padding: 8px 10px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 15px; font-weight: 600;
+  color: #e0e0e4;
+  text-align: center;
+  min-height: 44px;
+  display: flex; align-items: center; justify-content: center;
+  transition: all .15s;
+  line-height: 1.3;
+}
+
+.pos-val.verb    { border-color: #a04040; color: #f08888; background: #3a1818; }
+.pos-val.subj    { border-color: #3a6ea8; color: #8ec4ff; background: #1e2e45; }
+.pos-val.akk     { border-color: #9a7a20; color: #e8a840; background: #3a2e10; }
+.pos-val.dat     { border-color: #40a060; color: #70d890; background: #1a3a22; }
+.pos-val.temp    { border-color: #2a7088; color: #60d0e8; background: #133040; }
+.pos-val.kaus    { border-color: #a04070; color: #ffa0c8; background: #3a1830; }
+.pos-val.modal   { border-color: #7a60c0; color: #c8a8ff; background: #2a1848; }
+.pos-val.lok     { border-color: #9a7a20; color: #f0d060; background: #3a3010; }
+.pos-val.neg     { border-color: #c03030; color: #ff6060; background: #3a1010; }
+.pos-val.bracket { border-color: #a04040; color: #f08888; background: #3a1818; border-style: dashed; }
+.pos-val.conj    { border-color: #2a7088; color: #60d0e8; background: #133040; }
+
+.satz-label {
+  font-size: 13px; color: #8888a0;
+  margin-top: -8px; margin-bottom: 12px;
+  font-style: italic;
+}
+
+/* ─── Legend ─── */
+.legend {
+  display: flex; flex-wrap: wrap; gap: 8px;
+  margin: 14px 0;
+}
+.legend-item {
+  display: flex; align-items: center; gap: 5px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px; color: #ababba;
+}
+.legend-dot {
+  width: 12px; height: 12px;
+  border-radius: 4px; border: 2px solid;
+}
+
+/* ─── Rule cards ─── */
+.rule-cards {
+  display: flex; gap: 10px; flex-wrap: wrap;
+  margin-top: 14px;
+}
+.rule-card {
+  flex: 1 1 260px;
+  background: #343438;
+  border: 1px solid #44444c;
+  border-left: 3px solid #f08888;
+  border-radius: 10px;
+  padding: 12px 16px;
+}
+.rule-card .rule-title {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 14px; font-weight: 700;
+  margin-bottom: 5px;
+}
+.rule-card p {
+  font-size: 14px; color: #c0c0c8; line-height: 1.6;
+}
+.rule-card .example {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px; color: #ababba;
+  margin-top: 6px; font-style: italic;
+  line-height: 1.6;
+}
+
+/* ─── Notes ─── */
+.notes {
+  margin-top: 16px; padding: 14px 18px;
+  background: #343438; border-radius: 10px;
+  border: 1px solid #44444c;
+  font-size: 15px; line-height: 1.8; color: #c0c0c8;
+}
+.notes .notes-title {
+  font-weight: 700;
+  font-family: 'JetBrains Mono', monospace;
+  color: #e0e0e4; margin-bottom: 6px; font-size: 13px;
+}
+.warn { background: #3a2e10; border-color: #9a7a20; }
+.warn .notes-title { color: #e8a840; }
+
+/* ─── Example sentences ─── */
+.ex-list {
+  margin: 12px 0;
+  display: flex; flex-direction: column; gap: 8px;
+}
+.ex {
+  background: #343438;
+  border: 1px solid #44444c;
+  border-radius: 10px;
+  padding: 10px 16px;
+  font-size: 15px; line-height: 1.6;
+}
+.ex .de {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 14px; font-weight: 500;
+  color: #e0e0e4;
+}
+.ex .note {
+  font-size: 12px; color: #ababba;
+  margin-top: 3px;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* ─── TeKaMoLo visual ─── */
+.tekamolo {
+  display: flex; gap: 3px;
+  margin: 16px 0;
+  align-items: stretch;
+}
+.tekamolo-col {
+  flex: 1;
+  border-radius: 10px;
+  padding: 14px 10px;
+  text-align: center;
+  border: 2px solid;
+  transition: all .15s;
+}
+.tekamolo-col:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 14px rgba(0,0,0,0.3);
+}
+.tekamolo-col .tk-letter {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 32px; font-weight: 700;
+  margin-bottom: 4px;
+}
+.tekamolo-col .tk-name {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px; font-weight: 600;
+  margin-bottom: 6px;
+}
+.tekamolo-col .tk-q {
+  font-size: 12px; font-weight: 700;
+  margin-bottom: 6px;
+}
+.tekamolo-col .tk-examples {
+  font-size: 12px; color: inherit; opacity: 0.7;
+  line-height: 1.6;
+}
+.tk-te { background: #133040; border-color: #2a7088; color: #60d0e8; }
+.tk-ka { background: #3a1830; border-color: #a04070; color: #ffa0c8; }
+.tk-mo { background: #2a1848; border-color: #7a60c0; color: #c8a8ff; }
+.tk-lo { background: #3a3010; border-color: #9a7a20; color: #f0d060; }
+
+/* ─── Object pattern ─── */
+.obj-pattern {
+  background: #343438;
+  border: 1px solid #44444c;
+  border-radius: 10px;
+  padding: 14px 18px;
+  margin: 8px 0;
+}
+.obj-pattern .op-title {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 14px; font-weight: 700;
+  color: #e0e0e4; margin-bottom: 8px;
+}
+.obj-pattern .op-rule {
+  font-size: 14px; color: #ababba;
+  margin-top: 4px;
+}
+
+/* ─── Summary grid ─── */
+.summary-grid {
+  display: flex; flex-direction: column; gap: 4px;
+  margin: 14px 0;
+}
+.summary-row {
+  display: flex; gap: 0;
+  background: #343438;
+  border: 1px solid #44444c;
+  border-radius: 10px;
+  overflow: hidden;
+}
+.summary-row .sr-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 700; font-size: 13px;
+  min-width: 120px; padding: 10px 14px;
+  display: flex; align-items: center;
+  border-right: 1px solid #44444c;
+}
+.summary-row .sr-content {
+  padding: 10px 14px;
+  font-size: 14px; color: #c0c0c8;
+  flex: 1; line-height: 1.5;
+}
+
+/* ─── Responsive ─── */
+@media (max-width: 700px) {
+  header { padding: 10px 12px; }
+  h1 { font-size: 18px; }
+  .container { padding: 0 10px; }
+  nav a { font-size: 10px; padding: 4px 6px; }
+  .section-title { font-size: 22px; }
+  .sub-label { font-size: 15px; }
+  .pos-val { font-size: 13px; padding: 6px 6px; min-height: 38px; }
+  .pos { min-width: 55px; }
+  .pos-label { font-size: 9px; }
+  .tekamolo { flex-wrap: wrap; }
+  .tekamolo-col { flex: 1 1 45%; }
+  .tekamolo-col .tk-letter { font-size: 24px; }
+  .summary-row { flex-direction: column; }
+  .summary-row .sr-label { min-width: auto; border-right: none; border-bottom: 1px solid #44444c; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Satzstruktur</h1>
+  <nav>
+    <a href="#modell">Modell</a>
+    <a href="#v2">V2-Regel</a>
+    <a href="#inversion">Inversion</a>
+    <a href="#klammer">Satzklammer</a>
+    <a href="#objekte">Objekte</a>
+    <a href="#tekamolo">TeKaMoLo</a>
+    <a href="#negation">Negation</a>
+    <a href="#nebensatz">Nebensatz</a>
+  </nav>
+</header>
+
+<div class="container">
+
+<!-- ═══════════════════════════════════════ -->
+<!-- SECTION 1: DAS SATZMODELL               -->
+<!-- ═══════════════════════════════════════ -->
+<div class="section" id="modell">
+  <div class="section-title">
+    <span class="dot" style="background:#f08888;"></span>
+    Das Satzmodell
+  </div>
+  <div class="section-sub">Die vier Felder eines deutschen Hauptsatzes</div>
+
+  <div class="satz">
+    <div class="pos">
+      <div class="pos-label">Vorfeld</div>
+      <div class="pos-val subj">Position 1</div>
+    </div>
+    <div class="pos">
+      <div class="pos-label">Verb</div>
+      <div class="pos-val verb">Position 2</div>
+    </div>
+    <div class="pos wide">
+      <div class="pos-label">Mittelfeld</div>
+      <div class="pos-val">Objekte · Angaben · …</div>
+    </div>
+    <div class="pos">
+      <div class="pos-label">Satzende</div>
+      <div class="pos-val bracket">Verb₂ / Präfix</div>
+    </div>
+  </div>
+
+  <div class="legend">
+    <div class="legend-item"><div class="legend-dot" style="background:#1e2e45;border-color:#3a6ea8;"></div> Subjekt</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#3a1818;border-color:#a04040;"></div> Verb</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#3a2e10;border-color:#9a7a20;"></div> Akkusativ</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#1a3a22;border-color:#40a060;"></div> Dativ</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#133040;border-color:#2a7088;"></div> Temporal</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#3a1830;border-color:#a04070;"></div> Kausal</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#2a1848;border-color:#7a60c0;"></div> Modal</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#3a3010;border-color:#9a7a20;"></div> Lokal</div>
+  </div>
+
+  <div class="notes">
+    <div class="notes-title">📌 Das Wichtigste</div>
+    Das konjugierte Verb steht <strong>immer auf Position 2</strong>. Alles andere ist flexibel — aber es gibt Muster für die optimale Reihenfolge im Mittelfeld.
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- SECTION 2: V2-REGEL                     -->
+<!-- ═══════════════════════════════════════ -->
+<div class="section" id="v2">
+  <div class="section-title">
+    <span class="dot" style="background:#f08888;"></span>
+    V2-Regel
+  </div>
+  <div class="section-sub">Das konjugierte Verb steht immer auf Position 2</div>
+
+  <div class="satz">
+    <div class="pos">
+      <div class="pos-label">Pos. 1</div>
+      <div class="pos-val subj">Ich</div>
+    </div>
+    <div class="pos">
+      <div class="pos-label">Pos. 2</div>
+      <div class="pos-val verb">lerne</div>
+    </div>
+    <div class="pos wide">
+      <div class="pos-label">Mittelfeld</div>
+      <div class="pos-val akk">Deutsch</div>
+    </div>
+  </div>
+  <div class="satz-label">Einfacher Satz: Subjekt → Verb → Rest</div>
+
+  <div class="satz">
+    <div class="pos">
+      <div class="pos-label">Pos. 1</div>
+      <div class="pos-val subj">Wir</div>
+    </div>
+    <div class="pos">
+      <div class="pos-label">Pos. 2</div>
+      <div class="pos-val verb">essen</div>
+    </div>
+    <div class="pos">
+      <div class="pos-label">Te</div>
+      <div class="pos-val temp">heute Abend</div>
+    </div>
+    <div class="pos">
+      <div class="pos-label">Mo</div>
+      <div class="pos-val modal">zusammen</div>
+    </div>
+    <div class="pos">
+      <div class="pos-label">Lo</div>
+      <div class="pos-val lok">im Restaurant</div>
+    </div>
+  </div>
+  <div class="satz-label">Mehr Elemente — Verb bleibt auf Pos. 2</div>
+
+  <div class="notes warn">
+    <div class="notes-title">⚠ Häufiger Fehler</div>
+    <kw class="s">Ich</kw> <kw class="te">heute</kw> <kw class="v">lerne</kw> Deutsch. ✗ — Das Verb muss auf Position 2!<br>
+    <kw class="s">Ich</kw> <kw class="v">lerne</kw> <kw class="te">heute</kw> Deutsch. ✓
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- SECTION 3: INVERSION                    -->
+<!-- ═══════════════════════════════════════ -->
+<div class="section" id="inversion">
+  <div class="section-title">
+    <span class="dot" style="background:#8ec4ff;"></span>
+    Inversion
+  </div>
+  <div class="section-sub">Wenn etwas anderes als das Subjekt auf Position 1 steht</div>
+
+  <div class="notes" style="margin-bottom:16px;">
+    <div class="notes-title">Regel</div>
+    Position 1 kann <strong>jedes Element</strong> sein — nicht nur das Subjekt. Aber das Verb bleibt auf Position 2, also <strong>tauschen Subjekt und Verb den Platz</strong>.
+  </div>
+
+  <div class="sub-label">Normal <span class="hint">— Subjekt auf Pos. 1</span></div>
+  <div class="satz">
+    <div class="pos">
+      <div class="pos-label">Pos. 1</div>
+      <div class="pos-val subj">Ich</div>
+    </div>
+    <div class="pos">
+      <div class="pos-label">Pos. 2</div>
+      <div class="pos-val verb">gehe</div>
+    </div>
+    <div class="pos">
+      <div class="pos-label">Te</div>
+      <div class="pos-val temp">heute</div>
+    </div>
+    <div class="pos">
+      <div class="pos-label">Lo</div>
+      <div class="pos-val lok">ins Kino</div>
+    </div>
+  </div>
+
+  <div class="sub-label">Inversion <span class="hint">— Temporal auf Pos. 1</span></div>
+  <div class="satz">
+    <div class="pos">
+      <div class="pos-label">Pos. 1</div>
+      <div class="pos-val temp">Heute</div>
+    </div>
+    <div class="pos">
+      <div class="pos-label">Pos. 2</div>
+      <div class="pos-val verb">gehe</div>
+    </div>
+    <div class="pos">
+      <div class="pos-label">Subj. ↗</div>
+      <div class="pos-val subj">ich</div>
+    </div>
+    <div class="pos">
+      <div class="pos-label">Lo</div>
+      <div class="pos-val lok">ins Kino</div>
+    </div>
+  </div>
+
+  <div class="sub-label">Inversion <span class="hint">— Lokal auf Pos. 1</span></div>
+  <div class="satz">
+    <div class="pos">
+      <div class="pos-label">Pos. 1</div>
+      <div class="pos-val lok">In Zürich</div>
+    </div>
+    <div class="pos">
+      <div class="pos-label">Pos. 2</div>
+      <div class="pos-val verb">wohne</div>
+    </div>
+    <div class="pos">
+      <div class="pos-label">Subj. ↗</div>
+      <div class="pos-val subj">ich</div>
+    </div>
+    <div class="pos wide">
+      <div class="pos-label">Te</div>
+      <div class="pos-val temp">seit zwei Jahren</div>
+    </div>
+  </div>
+
+  <div class="sub-label">Inversion <span class="hint">— Objekt auf Pos. 1 (Betonung)</span></div>
+  <div class="satz">
+    <div class="pos">
+      <div class="pos-label">Pos. 1</div>
+      <div class="pos-val akk">Den Film</div>
+    </div>
+    <div class="pos">
+      <div class="pos-label">Pos. 2</div>
+      <div class="pos-val verb">finde</div>
+    </div>
+    <div class="pos">
+      <div class="pos-label">Subj. ↗</div>
+      <div class="pos-val subj">ich</div>
+    </div>
+    <div class="pos wide">
+      <div class="pos-label">&nbsp;</div>
+      <div class="pos-val">langweilig</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- SECTION 4: SATZKLAMMER                  -->
+<!-- ═══════════════════════════════════════ -->
+<div class="section" id="klammer">
+  <div class="section-title">
+    <span class="dot" style="background:#f08888;"></span>
+    Satzklammer
+  </div>
+  <div class="section-sub">Das Verb „umarmt" den Satz — Verb₁ auf Pos. 2, Verb₂ am Ende</div>
+
+  <div class="notes" style="margin-bottom:16px;">
+    <div class="notes-title">Regel</div>
+    Bei Modalverben, Perfekt, trennbaren Verben und Futur teilt sich das Verb in zwei Teile: der konjugierte Teil auf <strong>Position 2</strong>, der Rest am <strong>Satzende</strong>. Dazwischen liegt das Mittelfeld — das ist die „Klammer".
+  </div>
+
+  <div class="sub-label" style="color:#c8a8ff;">Modalverben</div>
+  <div class="satz">
+    <div class="pos">
+      <div class="pos-label">Pos. 1</div>
+      <div class="pos-val subj">Ich</div>
+    </div>
+    <div class="pos">
+      <div class="pos-label">Verb₁</div>
+      <div class="pos-val verb">kann</div>
+    </div>
+    <div class="pos">
+      <div class="pos-label">Mo</div>
+      <div class="pos-val modal">gut</div>
+    </div>
+    <div class="pos wide">
+      <div class="pos-label">Akk.</div>
+      <div class="pos-val akk">Deutsch</div>
+    </div>
+    <div class="pos">
+      <div class="pos-label">Verb₂</div>
+      <div class="pos-val bracket">sprechen</div>
+    </div>
+  </div>
+
+  <div class="sub-label" style="color:#70d890;">Perfekt</div>
+  <div class="satz">
+    <div class="pos">
+      <div class="pos-label">Pos. 1</div>
+      <div class="pos-val subj">Ich</div>
+    </div>
+    <div class="pos">
+      <div class="pos-label">Verb₁</div>
+      <div class="pos-val verb">habe</div>
+    </div>
+    <div class="pos">
+      <div class="pos-label">Te</div>
+      <div class="pos-val temp">gestern</div>
+    </div>
+    <div class="pos wide">
+      <div class="pos-label">Akk.</div>
+      <div class="pos-val akk">Tennis</div>
+    </div>
+    <div class="pos">
+      <div class="pos-label">Verb₂</div>
+      <div class="pos-val bracket">gespielt</div>
+    </div>
+  </div>
+
+  <div class="sub-label" style="color:#e8a840;">Trennbare Verben</div>
+  <div class="satz">
+    <div class="pos">
+      <div class="pos-label">Pos. 1</div>
+      <div class="pos-val subj">Ich</div>
+    </div>
+    <div class="pos">
+      <div class="pos-label">Verb₁</div>
+      <div class="pos-val verb">stehe</div>
+    </div>
+    <div class="pos wide">
+      <div class="pos-label">Te</div>
+      <div class="pos-val temp">um 7 Uhr</div>
+    </div>
+    <div class="pos">
+      <div class="pos-label">Präfix</div>
+      <div class="pos-val bracket">auf</div>
+    </div>
+  </div>
+
+  <div class="sub-label" style="color:#60d0e8;">Futur</div>
+  <div class="satz">
+    <div class="pos">
+      <div class="pos-label">Pos. 1</div>
+      <div class="pos-val subj">Wir</div>
+    </div>
+    <div class="pos">
+      <div class="pos-label">Verb₁</div>
+      <div class="pos-val verb">werden</div>
+    </div>
+    <div class="pos">
+      <div class="pos-label">Te</div>
+      <div class="pos-val temp">morgen</div>
+    </div>
+    <div class="pos wide">
+      <div class="pos-label">Lo</div>
+      <div class="pos-val lok">nach Berlin</div>
+    </div>
+    <div class="pos">
+      <div class="pos-label">Verb₂</div>
+      <div class="pos-val bracket">fahren</div>
+    </div>
+  </div>
+
+  <div class="sub-label" style="color:#ffa0c8;">Perfekt + Modalverb</div>
+  <div class="satz">
+    <div class="pos">
+      <div class="pos-label">Pos. 1</div>
+      <div class="pos-val subj">Sie</div>
+    </div>
+    <div class="pos">
+      <div class="pos-label">Verb₁</div>
+      <div class="pos-val verb">hat</div>
+    </div>
+    <div class="pos wide">
+      <div class="pos-label">Mittelfeld</div>
+      <div class="pos-val">nicht kommen</div>
+    </div>
+    <div class="pos">
+      <div class="pos-label">Verb₂₊₃</div>
+      <div class="pos-val bracket">können</div>
+    </div>
+  </div>
+  <div class="satz-label">Doppelter Infinitiv: hat … kommen können (nicht: gekonnt)</div>
+</div>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- SECTION 5: OBJEKTE                      -->
+<!-- ═══════════════════════════════════════ -->
+<div class="section" id="objekte">
+  <div class="section-title">
+    <span class="dot" style="background:#70d890;"></span>
+    Objekte im Mittelfeld
+  </div>
+  <div class="section-sub">Dativ und Akkusativ — wer kommt zuerst?</div>
+
+  <div class="obj-pattern">
+    <div class="op-title">Zwei Nomen → <kw class="d">Dativ</kw> vor <kw class="a">Akkusativ</kw></div>
+    <div class="satz" style="margin:10px 0 4px;">
+      <div class="pos"><div class="pos-label">Pos. 1</div><div class="pos-val subj">Ich</div></div>
+      <div class="pos"><div class="pos-label">Verb</div><div class="pos-val verb">gebe</div></div>
+      <div class="pos"><div class="pos-label">Dat.</div><div class="pos-val dat">dem Mann</div></div>
+      <div class="pos wide"><div class="pos-label">Akk.</div><div class="pos-val akk">den Schlüssel</div></div>
+    </div>
+  </div>
+
+  <div class="obj-pattern">
+    <div class="op-title">Pronomen vor Nomen <span class="hint" style="font-size:13px;">— egal welcher Kasus</span></div>
+    <div class="satz" style="margin:10px 0 4px;">
+      <div class="pos"><div class="pos-label">Pos. 1</div><div class="pos-val subj">Ich</div></div>
+      <div class="pos"><div class="pos-label">Verb</div><div class="pos-val verb">gebe</div></div>
+      <div class="pos"><div class="pos-label">Akk. Pron.</div><div class="pos-val akk">ihn</div></div>
+      <div class="pos wide"><div class="pos-label">Dat. Nomen</div><div class="pos-val dat">dem Mann</div></div>
+    </div>
+    <div class="op-rule">Pronomen <kw class="a">ihn</kw> springt vor das Nomen <kw class="d">dem Mann</kw></div>
+  </div>
+
+  <div class="obj-pattern">
+    <div class="op-title">Zwei Pronomen → <kw class="a">Akkusativ</kw> vor <kw class="d">Dativ</kw></div>
+    <div class="satz" style="margin:10px 0 4px;">
+      <div class="pos"><div class="pos-label">Pos. 1</div><div class="pos-val subj">Ich</div></div>
+      <div class="pos"><div class="pos-label">Verb</div><div class="pos-val verb">gebe</div></div>
+      <div class="pos"><div class="pos-label">Akk.</div><div class="pos-val akk">ihn</div></div>
+      <div class="pos wide"><div class="pos-label">Dat.</div><div class="pos-val dat">ihm</div></div>
+    </div>
+    <div class="op-rule">Umgekehrt! Bei zwei Pronomen: Akk vor Dat.</div>
+  </div>
+
+  <div class="notes" style="margin-top:14px; border-left:3px solid #70d890;">
+    <div class="notes-title" style="color:#70d890;">📌 Zusammenfassung</div>
+    <strong>Nomen + Nomen:</strong> Dativ → Akkusativ<br>
+    <strong>Pronomen + Nomen:</strong> Pronomen zuerst (egal welcher Kasus)<br>
+    <strong>Pronomen + Pronomen:</strong> Akkusativ → Dativ
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- SECTION 6: TEKAMOLO                     -->
+<!-- ═══════════════════════════════════════ -->
+<div class="section" id="tekamolo">
+  <div class="section-title">
+    <span class="dot" style="background:#c8a8ff;"></span>
+    TeKaMoLo
+  </div>
+  <div class="section-sub">Die Reihenfolge der Angaben im Mittelfeld</div>
+
+  <div class="tekamolo">
+    <div class="tekamolo-col tk-te">
+      <div class="tk-letter">Te</div>
+      <div class="tk-name">Temporal</div>
+      <div class="tk-q">Wann?</div>
+      <div class="tk-examples">heute · gestern<br>morgens · oft<br>seit zwei Jahren<br>um 8 Uhr</div>
+    </div>
+    <div class="tekamolo-col tk-ka">
+      <div class="tk-letter">Ka</div>
+      <div class="tk-name">Kausal</div>
+      <div class="tk-q">Warum?</div>
+      <div class="tk-examples">wegen des Wetters<br>aus Liebe<br>deshalb<br>trotzdem</div>
+    </div>
+    <div class="tekamolo-col tk-mo">
+      <div class="tk-letter">Mo</div>
+      <div class="tk-name">Modal</div>
+      <div class="tk-q">Wie?</div>
+      <div class="tk-examples">gern · schnell<br>mit dem Bus<br>zusammen<br>allein</div>
+    </div>
+    <div class="tekamolo-col tk-lo">
+      <div class="tk-letter">Lo</div>
+      <div class="tk-name">Lokal</div>
+      <div class="tk-q">Wo? Wohin?</div>
+      <div class="tk-examples">in Zürich<br>nach Hause<br>im Büro<br>zur Schule</div>
+    </div>
+  </div>
+
+  <div class="sub-label">Vollständiges Beispiel</div>
+  <div class="satz">
+    <div class="pos"><div class="pos-label">Pos. 1</div><div class="pos-val subj">Ich</div></div>
+    <div class="pos"><div class="pos-label">Verb</div><div class="pos-val verb">fahre</div></div>
+    <div class="pos"><div class="pos-label">Te</div><div class="pos-val temp">morgen</div></div>
+    <div class="pos"><div class="pos-label">Ka</div><div class="pos-val kaus">wegen der Arbeit</div></div>
+    <div class="pos"><div class="pos-label">Mo</div><div class="pos-val modal">mit dem Zug</div></div>
+    <div class="pos"><div class="pos-label">Lo</div><div class="pos-val lok">nach Bern</div></div>
+  </div>
+
+  <div class="sub-label">Mit Satzklammer</div>
+  <div class="satz">
+    <div class="pos"><div class="pos-label">Pos. 1</div><div class="pos-val subj">Ich</div></div>
+    <div class="pos"><div class="pos-label">Verb₁</div><div class="pos-val verb">bin</div></div>
+    <div class="pos"><div class="pos-label">Te</div><div class="pos-val temp">letzten Monat</div></div>
+    <div class="pos"><div class="pos-label">Mo</div><div class="pos-val modal">allein</div></div>
+    <div class="pos"><div class="pos-label">Lo</div><div class="pos-val lok">nach Wien</div></div>
+    <div class="pos"><div class="pos-label">Verb₂</div><div class="pos-val bracket">geflogen</div></div>
+  </div>
+
+  <div class="notes">
+    <div class="notes-title">💡 Tipp</div>
+    TeKaMoLo ist eine <strong>Faustregel</strong>, kein striktes Gesetz. Aber wenn du unsicher bist, ist diese Reihenfolge fast immer richtig. Die <strong>wichtigste Information</strong> im Satz wandert oft nach hinten (vor das Satzende).
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- SECTION 7: NEGATION                     -->
+<!-- ═══════════════════════════════════════ -->
+<div class="section" id="negation">
+  <div class="section-title">
+    <span class="dot" style="background:#ff6060;"></span>
+    Negation
+  </div>
+  <div class="section-sub">Wo steht „nicht"?</div>
+
+  <div class="rule-cards">
+    <div class="rule-card" style="border-left-color:#ff6060;">
+      <div class="rule-title" style="color:#ff6060;">Satznegation</div>
+      <p>Negiert den ganzen Satz → <kw class="n">nicht</kw> am <strong>Ende</strong> oder <strong>vor Verb₂</strong></p>
+      <div class="example">Ich verstehe das <kw class="n">nicht</kw>.<br>Er hat mich <kw class="n">nicht</kw> angerufen.</div>
+    </div>
+    <div class="rule-card" style="border-left-color:#ff6060;">
+      <div class="rule-title" style="color:#ff6060;">Teilnegation</div>
+      <p>Negiert ein Element → <kw class="n">nicht</kw> <strong>direkt davor</strong></p>
+      <div class="example"><kw class="n">Nicht</kw> <kw class="s">ich</kw> habe das gesagt (sondern er).<br>Ich fahre <kw class="n">nicht</kw> <kw class="te">heute</kw> (sondern morgen).</div>
+    </div>
+  </div>
+
+  <div class="sub-label"><kw class="n">nicht</kw> steht vor … <span class="hint">— Faustregel</span></div>
+  <div class="ex-list">
+    <div class="ex">
+      <div class="de">… vor dem <strong>zweiten Verbteil</strong>: Ich kann heute <kw class="n">nicht</kw> <kw class="v">kommen</kw>.</div>
+    </div>
+    <div class="ex">
+      <div class="de">… vor <strong>Adjektiven</strong>: Das Essen ist <kw class="n">nicht</kw> gut.</div>
+    </div>
+    <div class="ex">
+      <div class="de">… vor <strong>Lokalangaben</strong>: Ich gehe <kw class="n">nicht</kw> <kw class="lo">ins Kino</kw>.</div>
+    </div>
+    <div class="ex">
+      <div class="de">… vor <strong>Modalangaben</strong>: Sie singt <kw class="n">nicht</kw> <kw class="mo">gern</kw>.</div>
+    </div>
+    <div class="ex">
+      <div class="de">… am <strong>Satzende</strong> (ohne Verb₂): Ich verstehe das <kw class="n">nicht</kw>.</div>
+    </div>
+  </div>
+
+  <div class="notes" style="border-left:3px solid #ff6060;">
+    <div class="notes-title" style="color:#ff6060;">nicht vs. kein</div>
+    <strong>kein</strong> negiert Nomen mit unbestimmtem Artikel oder ohne Artikel:<br>
+    <span style="font-family:'JetBrains Mono',monospace;font-size:13px;color:#ababba;">
+      Ich habe <strong>einen</strong> Hund → Ich habe <kw class="n">keinen</kw> Hund.<br>
+      Ich trinke _ Kaffee → Ich trinke <kw class="n">keinen</kw> Kaffee.
+    </span><br><br>
+    <strong>nicht</strong> negiert Verben, Adjektive, best. Artikel, Eigennamen, alles andere:<br>
+    <span style="font-family:'JetBrains Mono',monospace;font-size:13px;color:#ababba;">
+      Ich kenne <strong>den</strong> Mann <kw class="n">nicht</kw>.<br>
+      Das ist <kw class="n">nicht</kw> mein Auto.
+    </span>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- SECTION 8: NEBENSATZ (PREVIEW)          -->
+<!-- ═══════════════════════════════════════ -->
+<div class="section" id="nebensatz">
+  <div class="section-title">
+    <span class="dot" style="background:#60d0e8;"></span>
+    Im Nebensatz
+  </div>
+  <div class="section-sub">Das Verb wandert ans Ende — die wichtigste Änderung</div>
+
+  <div class="sub-label">Hauptsatz</div>
+  <div class="satz">
+    <div class="pos"><div class="pos-label">Pos. 1</div><div class="pos-val subj">Er</div></div>
+    <div class="pos"><div class="pos-label">Verb</div><div class="pos-val verb">kommt</div></div>
+    <div class="pos"><div class="pos-label">Te</div><div class="pos-val temp">heute</div></div>
+    <div class="pos wide"><div class="pos-label">Lo</div><div class="pos-val lok">nach Hause</div></div>
+  </div>
+
+  <div class="sub-label">Nebensatz <span class="hint">— Verb → Ende</span></div>
+  <div class="satz">
+    <div class="pos"><div class="pos-label">Konj.</div><div class="pos-val conj">weil</div></div>
+    <div class="pos"><div class="pos-label">Subj.</div><div class="pos-val subj">er</div></div>
+    <div class="pos"><div class="pos-label">Te</div><div class="pos-val temp">heute</div></div>
+    <div class="pos"><div class="pos-label">Lo</div><div class="pos-val lok">nach Hause</div></div>
+    <div class="pos"><div class="pos-label">Verb → Ende</div><div class="pos-val verb">kommt</div></div>
+  </div>
+
+  <div class="sub-label">Nebensatz mit Satzklammer</div>
+  <div class="satz">
+    <div class="pos"><div class="pos-label">Konj.</div><div class="pos-val conj">weil</div></div>
+    <div class="pos"><div class="pos-label">Subj.</div><div class="pos-val subj">er</div></div>
+    <div class="pos"><div class="pos-label">Te</div><div class="pos-val temp">gestern</div></div>
+    <div class="pos"><div class="pos-label">Lo</div><div class="pos-val lok">nach Hause</div></div>
+    <div class="pos"><div class="pos-label">V₂ + V₁</div><div class="pos-val verb">gekommen ist</div></div>
+  </div>
+  <div class="satz-label">Im Nebensatz: Partizip vor Hilfsverb am Ende (umgekehrt zum Hauptsatz)</div>
+
+  <div class="notes" style="margin-top:14px;">
+    <div class="notes-title">📖 Weiter</div>
+    Details zu <strong>dass</strong>-Sätzen, <strong>damit</strong>-Sätzen, <strong>um…zu</strong>, Infinitivsätzen → siehe <strong>Nebensätze.html</strong>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- QUICK REFERENCE                         -->
+<!-- ═══════════════════════════════════════ -->
+<div class="section" id="ref" style="margin-top:40px;">
+  <div class="section-title">
+    <span class="dot" style="background:#ababba;"></span>
+    Kurzreferenz
+  </div>
+  <div class="section-sub">Alles auf einen Blick</div>
+
+  <div class="summary-grid">
+    <div class="summary-row">
+      <div class="sr-label" style="color:#f08888;background:#3a1818;">V2-Regel</div>
+      <div class="sr-content">Konjugiertes Verb <strong>immer auf Position 2</strong> im Hauptsatz.</div>
+    </div>
+    <div class="summary-row">
+      <div class="sr-label" style="color:#8ec4ff;background:#1e2e45;">Inversion</div>
+      <div class="sr-content">Pos. 1 ≠ Subjekt → Subjekt rutscht hinter das Verb.</div>
+    </div>
+    <div class="summary-row">
+      <div class="sr-label" style="color:#f08888;background:#3a1818;">Satzklammer</div>
+      <div class="sr-content">Verb₁ auf Pos. 2, Verb₂ (Inf. / Partizip / Präfix) am <strong>Ende</strong>.</div>
+    </div>
+    <div class="summary-row">
+      <div class="sr-label" style="color:#70d890;background:#1a3a22;">Objekte</div>
+      <div class="sr-content">Nomen: Dat → Akk · Pronomen vor Nomen · Zwei Pronomen: Akk → Dat</div>
+    </div>
+    <div class="summary-row">
+      <div class="sr-label" style="color:#c8a8ff;background:#2a1848;">TeKaMoLo</div>
+      <div class="sr-content"><strong>Te</strong>mporal → <strong>Ka</strong>usal → <strong>Mo</strong>dal → <strong>Lo</strong>kal</div>
+    </div>
+    <div class="summary-row">
+      <div class="sr-label" style="color:#ff6060;background:#3a1010;">Negation</div>
+      <div class="sr-content"><em>nicht</em> am Ende / vor Verb₂ / vor negiertem Element · <em>kein</em> bei unbest. Artikel</div>
+    </div>
+    <div class="summary-row">
+      <div class="sr-label" style="color:#60d0e8;background:#133040;">Nebensatz</div>
+      <div class="sr-content">Konjunktion → Subjekt → Mittelfeld → Verb <strong>am Ende</strong></div>
+    </div>
+  </div>
+</div>
+
+</div>
+
+<script>
+const sections = document.querySelectorAll('.section[id]');
+const navLinks = document.querySelectorAll('nav a');
+function updateNav() {
+  let current = '';
+  sections.forEach(s => { if (window.scrollY >= s.offsetTop - 90) current = s.id; });
+  navLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + current));
+}
+window.addEventListener('scroll', updateNav, { passive: true });
+updateNav();
+navLinks.forEach(a => {
+  a.addEventListener('click', e => {
+    e.preventDefault();
+    document.querySelector(a.getAttribute('href'))?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+});
+</script>
+</body>
+</html>

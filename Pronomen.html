@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Deutsche Pronomen — Referenz</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: 'Inter', Arial, Helvetica, sans-serif;
+  background: #2b2b2f;
+  min-height: 100vh;
+  padding: 0 0 48px;
+  color: #e0e0e4;
+}
+
+/* ─── Header ─── */
+header {
+  position: sticky; top: 0; z-index: 100;
+  background: #232327ee;
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid #3e3e44;
+  padding: 14px 20px;
+  display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: 8px;
+}
+h1 {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 28px; font-weight: 700;
+  color: #f0f0f4; letter-spacing: -0.5px;
+}
+nav { display: flex; gap: 6px; flex-wrap: wrap; }
+nav a {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px; font-weight: 500;
+  padding: 5px 10px;
+  border-radius: 8px;
+  background: #343438;
+  color: #8888a0;
+  text-decoration: none;
+  border: 1px solid #44444c;
+  transition: all .15s;
+}
+nav a:hover, nav a.active {
+  background: #6b21a8;
+  color: #fff;
+  border-color: #c8a8ff;
+}
+
+.container { max-width: 860px; margin: 0 auto; padding: 0 16px; }
+
+/* ─── Sections ─── */
+.section { margin-top: 28px; }
+.section-title {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 28px; font-weight: 700;
+  color: #e0e0e4;
+  display: flex; align-items: center; gap: 8px;
+  margin-bottom: 2px;
+}
+.section-title .dot {
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+}
+.section-sub {
+  font-size: 14px;
+  color: #ababba;
+  margin-bottom: 16px;
+  font-style: italic;
+}
+
+/* ─── Grid Tables ─── */
+.grid-wrap { overflow-x: auto; margin-bottom: 20px; }
+
+.grid-table {
+  display: grid; gap: 3px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+}
+.grid-table.cols-5 { grid-template-columns: 50px repeat(4, 1fr); }
+.grid-table.cols-4 { grid-template-columns: 50px repeat(3, 1fr); }
+.grid-table.cols-9 { grid-template-columns: 50px repeat(8, 1fr); }
+
+.col-header {
+  text-align: center; font-size: 13px; font-weight: 700;
+  color: #ababba;
+  font-family: 'JetBrains Mono', monospace;
+  text-transform: uppercase; letter-spacing: 0.5px;
+  height: 24px;
+  display: flex; align-items: center; justify-content: center;
+}
+.col-header.m { color: #8ec4ff; }
+.col-header.f { color: #ffa0c8; }
+.col-header.n { color: #f0d060; }
+.col-header.pl { color: #80e8a0; }
+
+.row-label {
+  font-size: 13px; font-weight: 700; color: #8888a0;
+  font-family: 'JetBrains Mono', monospace;
+  text-align: right; padding-right: 4px;
+  display: flex; align-items: center; justify-content: flex-end;
+}
+
+.corner { }
+
+/* ─── Tiles ─── */
+.tile {
+  position: relative;
+  border-radius: 9px;
+  height: 56px;
+  display: flex; align-items: center; justify-content: center;
+  cursor: default;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  border: 2px solid;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 18px; font-weight: 700;
+}
+.tile:hover { transform: scale(1.08); z-index: 10; }
+
+/* Color classes */
+.tile.c-m   { background: #1e3a5f; border-color: #3a6ea8; color: #8ec4ff; }
+.tile.c-m:hover { box-shadow: 0 4px 16px #3a6ea866; }
+
+.tile.c-f   { background: #5a1e3a; border-color: #a84070; color: #ffa0c8; }
+.tile.c-f:hover { box-shadow: 0 4px 16px #a8407066; }
+
+.tile.c-n   { background: #4a3a10; border-color: #9a7a20; color: #f0d060; }
+.tile.c-n:hover { box-shadow: 0 4px 16px #9a7a2066; }
+
+.tile.c-pl  { background: #1a4a2a; border-color: #40a060; color: #80e8a0; }
+.tile.c-pl:hover { box-shadow: 0 4px 16px #40a06066; }
+
+.tile.c-neu { background: #3a3a42; border-color: #60606a; color: #e8e8f0; }
+.tile.c-neu:hover { box-shadow: 0 4px 16px #58585e66; }
+
+.tile.c-pur { background: #3a2060; border-color: #7a60c0; color: #c8a8ff; }
+.tile.c-pur:hover { box-shadow: 0 4px 14px #c4b5fd99; }
+
+.tile.c-org { background: #ffedd5; border-color: #fdba74; color: #f0b878; }
+.tile.c-org:hover { box-shadow: 0 4px 14px #fdba7499; }
+
+/* Underline for endings */
+.end { text-decoration: underline; text-underline-offset: 2px; }
+
+/* ─── Tooltips (below tile) ─── */
+.tile .tip {
+  display: none;
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: #111115; color: #e8e8ec;
+  padding: 5px 12px; border-radius: 7px;
+  font-size: 13px; font-style: italic;
+  white-space: nowrap;
+  font-family: 'Inter', Arial, Helvetica, sans-serif;
+  font-weight: 400;
+  z-index: 200;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.5);
+  pointer-events: none;
+}
+.tile .tip::before {
+  content: ''; position: absolute;
+  bottom: 100%; left: 50%; transform: translateX(-50%);
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-bottom: 5px solid #111115;
+}
+.tile:hover .tip { display: block; }
+
+/* ─── Owner cards ─── */
+.owner-grid {
+  display: flex; flex-wrap: wrap; gap: 8px;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+.owner-card {
+  background: #343438;
+  border: 1px solid #44444c;
+  border-radius: 10px;
+  padding: 8px 14px;
+  text-align: center;
+  min-width: 90px;
+  transition: all .15s;
+}
+.owner-card:hover {
+  border-color: #7a60c0;
+  box-shadow: 0 2px 8px #c4b5fd44;
+}
+.owner-card .pronoun {
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 700; font-size: 17px;
+  color: #c8a8ff;
+}
+.owner-card .meaning {
+  font-size: 12px; color: #ababba;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* ─── Info boxes ─── */
+.notes {
+  margin-top: 16px; padding: 14px 18px;
+  background: #343438; border-radius: 10px;
+  border: 1px solid #44444c;
+  font-size: 15px; line-height: 1.8; color: #c0c0c8;
+}
+.notes .notes-title {
+  font-weight: 700;
+  font-family: 'JetBrains Mono', monospace;
+  color: #e0e0e4; margin-bottom: 6px; font-size: 13px;
+}
+
+.rule-cards {
+  display: flex; gap: 10px; flex-wrap: wrap;
+  margin-top: 14px;
+}
+.rule-card {
+  flex: 1 1 240px;
+  background: #343438;
+  border: 1px solid #44444c;
+  border-left: 3px solid #c4b5fd;
+  border-radius: 10px;
+  padding: 12px 16px;
+}
+.rule-card .rule-title {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 14px; font-weight: 700;
+  color: #c8a8ff;
+  margin-bottom: 4px;
+}
+.rule-card p {
+  font-size: 14px; color: #c0c0c8; line-height: 1.5;
+}
+.rule-card .example {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px; color: #ababba;
+  margin-top: 5px; font-style: italic;
+}
+
+.sub-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 16px; font-weight: 700;
+  margin-bottom: 8px; margin-top: 20px;
+}
+.sub-label .hint {
+  font-weight: 400; font-size: 13px; color: #ababba;
+}
+
+.template-note {
+  font-size: 14px; color: #8888a0;
+  margin-bottom: 10px; font-style: italic;
+}
+
+/* ─── Summary boxes ─── */
+.summary-cards {
+  display: flex; gap: 12px; flex-wrap: wrap;
+  margin-top: 14px;
+}
+.summary-card {
+  flex: 1 1 280px;
+  background: #343438;
+  border: 1px solid #44444c;
+  border-radius: 10px;
+  padding: 14px 18px;
+}
+.summary-card .sc-title {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 16px; font-weight: 700;
+  margin-bottom: 6px;
+}
+.summary-card .sc-list {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px; color: #8888a0;
+  line-height: 1.9;
+}
+.summary-card .sc-endings {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px; color: #ababba;
+  margin-top: 6px; line-height: 1.6;
+}
+
+@media (max-width: 700px) {
+  header { padding: 10px 12px; }
+  h1 { font-size: 16px; }
+  .container { padding: 0 10px; }
+  .tile { height: 46px; font-size: 14px; }
+  .grid-table.cols-9 { grid-template-columns: 32px repeat(8, 1fr); }
+  .grid-table.cols-5 { grid-template-columns: 32px repeat(4, 1fr); }
+  nav a { font-size: 10px; padding: 5px 8px; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Pronomen</h1>
+  <nav>
+    <a href="#personal" class="active">Personal</a>
+    <a href="#possessiv">Possessiv</a>
+    <a href="#demonstrativ">Demonstrativ</a>
+    <a href="#interrogativ">Interrogativ</a>
+    <a href="#zusammenfassung">Muster</a>
+  </nav>
+</header>
+
+<div class="container">
+
+<!-- ═══════════════════════════════════════ -->
+<!-- PERSONAL PRONOUNS                      -->
+<!-- ═══════════════════════════════════════ -->
+<div class="section" id="personal">
+  <div class="section-title">
+    <span class="dot" style="background:#6366f1"></span>
+    Personalpronomen
+  </div>
+  <div class="section-sub">ich, du, er, sie, es, wir, ihr, sie/Sie — in allen vier Fällen · hover for examples</div>
+
+  <div class="grid-wrap">
+    <div class="grid-table cols-9">
+      <div class="corner"></div>
+      <div class="col-header">ich</div>
+      <div class="col-header">du</div>
+      <div class="col-header m">er</div>
+      <div class="col-header f">sie</div>
+      <div class="col-header n">es</div>
+      <div class="col-header">wir</div>
+      <div class="col-header">ihr</div>
+      <div class="col-header">sie/Sie</div>
+
+      <div class="row-label">NOM</div>
+      <div class="tile c-neu"><span>ich</span><div class="tip">Ich bin müde.</div></div>
+      <div class="tile c-neu"><span>du</span><div class="tip">Du bist nett.</div></div>
+      <div class="tile c-m"><span>er</span><div class="tip">Er arbeitet hier.</div></div>
+      <div class="tile c-f"><span>sie</span><div class="tip">Sie kommt morgen.</div></div>
+      <div class="tile c-n"><span>es</span><div class="tip">Es regnet.</div></div>
+      <div class="tile c-neu"><span>wir</span><div class="tip">Wir gehen essen.</div></div>
+      <div class="tile c-neu"><span>ihr</span><div class="tip">Ihr seid willkommen.</div></div>
+      <div class="tile c-neu"><span>sie/Sie</span><div class="tip">Sie kommen spät.</div></div>
+
+      <div class="row-label">AKK</div>
+      <div class="tile c-neu"><span>mich</span><div class="tip">Er sieht mich.</div></div>
+      <div class="tile c-neu"><span>dich</span><div class="tip">Ich rufe dich an.</div></div>
+      <div class="tile c-m"><span>ihn</span><div class="tip">Kennst du ihn?</div></div>
+      <div class="tile c-f"><span>sie</span><div class="tip">Ich besuche sie.</div></div>
+      <div class="tile c-n"><span>es</span><div class="tip">Ich nehme es.</div></div>
+      <div class="tile c-neu"><span>uns</span><div class="tip">Sie besucht uns.</div></div>
+      <div class="tile c-neu"><span>euch</span><div class="tip">Ich lade euch ein.</div></div>
+      <div class="tile c-neu"><span>sie/Sie</span><div class="tip">Darf ich Sie fragen?</div></div>
+
+      <div class="row-label">DAT</div>
+      <div class="tile c-neu"><span>mir</span><div class="tip">Gibst du mir das?</div></div>
+      <div class="tile c-neu"><span>dir</span><div class="tip">Ich helfe dir.</div></div>
+      <div class="tile c-m"><span>ihm</span><div class="tip">Ich gebe ihm das Buch.</div></div>
+      <div class="tile c-f"><span>ihr</span><div class="tip">Das gehört ihr.</div></div>
+      <div class="tile c-n"><span>ihm</span><div class="tip">Dem Kind — ich gebe ihm Milch.</div></div>
+      <div class="tile c-neu"><span>uns</span><div class="tip">Er hilft uns.</div></div>
+      <div class="tile c-neu"><span>euch</span><div class="tip">Ich bringe euch Kaffee.</div></div>
+      <div class="tile c-neu"><span>ihnen</span><div class="tip">Ich danke ihnen.</div></div>
+
+      <div class="row-label">GEN</div>
+      <div class="tile c-neu"><span>meiner</span><div class="tip">selten — erinnerst du dich meiner?</div></div>
+      <div class="tile c-neu"><span>deiner</span><div class="tip">selten — wir gedenken deiner</div></div>
+      <div class="tile c-m"><span>seiner</span><div class="tip">selten — man bedarf seiner</div></div>
+      <div class="tile c-f"><span>ihrer</span><div class="tip">selten — wir gedenken ihrer</div></div>
+      <div class="tile c-n"><span>seiner</span><div class="tip">selten — man bedarf seiner</div></div>
+      <div class="tile c-neu"><span>unser</span><div class="tip">selten — er erbarmt sich unser</div></div>
+      <div class="tile c-neu"><span>euer</span><div class="tip">selten — wir gedenken euer</div></div>
+      <div class="tile c-neu"><span>ihrer</span><div class="tip">selten — man gedenkt ihrer</div></div>
+    </div>
+  </div>
+
+  <div class="notes">
+    <div class="notes-title">💡 Tipp</div>
+    Genitiv-Personalpronomen sind im Alltag praktisch ausgestorben. Du brauchst fast immer nur Nom/Akk/Dat. Der Genitiv wird durch Präpositionen ersetzt: <em>«Erinnerst du dich <strong>an mich</strong>?»</em> statt <em>«Erinnerst du dich meiner?»</em>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- POSSESSIVE PRONOUNS                    -->
+<!-- ═══════════════════════════════════════ -->
+<div class="section" id="possessiv">
+  <div class="section-title">
+    <span class="dot" style="background:#6b21a8"></span>
+    Possessivpronomen
+  </div>
+  <div class="section-sub">mein, dein, sein, ihr, unser, euer, ihr/Ihr — Besitz anzeigen</div>
+
+  <div class="owner-grid">
+    <div class="owner-card"><div class="pronoun">mein</div><div class="meaning">ich →</div></div>
+    <div class="owner-card"><div class="pronoun">dein</div><div class="meaning">du →</div></div>
+    <div class="owner-card"><div class="pronoun" style="color:#8ec4ff">sein</div><div class="meaning">er / es →</div></div>
+    <div class="owner-card"><div class="pronoun" style="color:#ffa0c8">ihr</div><div class="meaning">sie (Sg.) →</div></div>
+    <div class="owner-card"><div class="pronoun">unser</div><div class="meaning">wir →</div></div>
+    <div class="owner-card"><div class="pronoun">euer</div><div class="meaning">ihr →</div></div>
+    <div class="owner-card"><div class="pronoun" style="color:#80e8a0">ihr / Ihr</div><div class="meaning">sie (Pl.) / Sie →</div></div>
+  </div>
+
+  <div class="template-note">Deklination am Beispiel <strong style="color:#c8a8ff">mein</strong> — alle anderen folgen dem gleichen Muster:</div>
+
+  <div class="grid-wrap">
+    <div class="grid-table cols-5">
+      <div class="corner"></div>
+      <div class="col-header m">Maskulin</div>
+      <div class="col-header f">Feminin</div>
+      <div class="col-header n">Neutrum</div>
+      <div class="col-header pl">Plural</div>
+
+      <div class="row-label">NOM</div>
+      <div class="tile c-m"><span>mein</span><div class="tip">Mein Bruder ist Arzt.</div></div>
+      <div class="tile c-f"><span>mein<span class="end">e</span></span><div class="tip">Meine Schwester wohnt in Bern.</div></div>
+      <div class="tile c-n"><span>mein</span><div class="tip">Mein Kind schläft.</div></div>
+      <div class="tile c-pl"><span>mein<span class="end">e</span></span><div class="tip">Meine Eltern kommen morgen.</div></div>
+
+      <div class="row-label">AKK</div>
+      <div class="tile c-m"><span>mein<span class="end">en</span></span><div class="tip">Ich rufe meinen Bruder an.</div></div>
+      <div class="tile c-f"><span>mein<span class="end">e</span></span><div class="tip">Ich besuche meine Schwester.</div></div>
+      <div class="tile c-n"><span>mein</span><div class="tip">Ich suche mein Handy.</div></div>
+      <div class="tile c-pl"><span>mein<span class="end">e</span></span><div class="tip">Ich vermisse meine Freunde.</div></div>
+
+      <div class="row-label">DAT</div>
+      <div class="tile c-m"><span>mein<span class="end">em</span></span><div class="tip">Ich helfe meinem Bruder.</div></div>
+      <div class="tile c-f"><span>mein<span class="end">er</span></span><div class="tip">Ich gebe meiner Mutter ein Geschenk.</div></div>
+      <div class="tile c-n"><span>mein<span class="end">em</span></span><div class="tip">Mit meinem Kind gehe ich in den Park.</div></div>
+      <div class="tile c-pl"><span>mein<span class="end">en</span></span><div class="tip">Ich schreibe meinen Freunden.</div></div>
+
+      <div class="row-label">GEN</div>
+      <div class="tile c-m"><span>mein<span class="end">es</span></span><div class="tip">Das Auto meines Vaters.</div></div>
+      <div class="tile c-f"><span>mein<span class="end">er</span></span><div class="tip">Die Tasche meiner Mutter.</div></div>
+      <div class="tile c-n"><span>mein<span class="end">es</span></span><div class="tip">Das Spielzeug meines Kindes.</div></div>
+      <div class="tile c-pl"><span>mein<span class="end">er</span></span><div class="tip">Die Meinung meiner Kollegen.</div></div>
+    </div>
+  </div>
+
+  <div class="rule-cards">
+    <div class="rule-card">
+      <div class="rule-title">⚠ Sonderfall: euer</div>
+      <p>Bei <em>euer</em> fällt das innere <em>e</em> weg, sobald eine Endung kommt:</p>
+      <div class="example">euer → eure, euren, eurem, eurer (NICHT: euere)</div>
+    </div>
+    <div class="rule-card">
+      <div class="rule-title">🔑 Endungen = ein-Wörter</div>
+      <p>Possessivpronomen deklinieren exakt wie <em>ein/kein</em>. Wenn du die ein-Endungen kennst, kennst du alle.</p>
+      <div class="example">ein grosser Mann → mein grosser Mann · kein neues Buch → sein neues Buch</div>
+    </div>
+    <div class="rule-card" style="border-left-color:#fdba74">
+      <div class="rule-title" style="color:#f0b878">🎯 Besitzer ≠ Endung</div>
+      <p>Der Besitzer bestimmt den <strong>Stamm</strong> (mein/dein/sein...). Die Endung richtet sich nach <strong>Genus und Kasus des besessenen Objekts</strong>.</p>
+      <div class="example">Sie liebt ihren Mann. (ihr← sie, -en ← Mask. Akk.)</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- DEMONSTRATIVE PRONOUNS                 -->
+<!-- ═══════════════════════════════════════ -->
+<div class="section" id="demonstrativ">
+  <div class="section-title">
+    <span class="dot" style="background:#d97706"></span>
+    Demonstrativpronomen
+  </div>
+  <div class="section-sub">dieser/diese/dieses, jener/jene/jenes, betonte der/die/das — auf etwas zeigen</div>
+
+  <!-- dieser -->
+  <div class="sub-label" style="color:#f0b878">dieser / diese / dieses <span class="hint">— this / these (alltäglich)</span></div>
+
+  <div class="grid-wrap">
+    <div class="grid-table cols-5">
+      <div class="corner"></div>
+      <div class="col-header m">Maskulin</div>
+      <div class="col-header f">Feminin</div>
+      <div class="col-header n">Neutrum</div>
+      <div class="col-header pl">Plural</div>
+
+      <div class="row-label">NOM</div>
+      <div class="tile c-m"><span>dies<span class="end">er</span></span><div class="tip">Dieser Mann ist mein Chef.</div></div>
+      <div class="tile c-f"><span>dies<span class="end">e</span></span><div class="tip">Diese Frau kenne ich.</div></div>
+      <div class="tile c-n"><span>dies<span class="end">es</span></span><div class="tip">Dieses Buch ist spannend.</div></div>
+      <div class="tile c-pl"><span>dies<span class="end">e</span></span><div class="tip">Diese Leute sind nett.</div></div>
+
+      <div class="row-label">AKK</div>
+      <div class="tile c-m"><span>dies<span class="end">en</span></span><div class="tip">Ich nehme diesen Kaffee.</div></div>
+      <div class="tile c-f"><span>dies<span class="end">e</span></span><div class="tip">Ich kaufe diese Jacke.</div></div>
+      <div class="tile c-n"><span>dies<span class="end">es</span></span><div class="tip">Ich lese dieses Buch.</div></div>
+      <div class="tile c-pl"><span>dies<span class="end">e</span></span><div class="tip">Ich kenne diese Leute.</div></div>
+
+      <div class="row-label">DAT</div>
+      <div class="tile c-m"><span>dies<span class="end">em</span></span><div class="tip">Mit diesem Zug fahre ich.</div></div>
+      <div class="tile c-f"><span>dies<span class="end">er</span></span><div class="tip">In dieser Stadt wohne ich.</div></div>
+      <div class="tile c-n"><span>dies<span class="end">em</span></span><div class="tip">In diesem Hotel bleiben wir.</div></div>
+      <div class="tile c-pl"><span>dies<span class="end">en</span></span><div class="tip">Mit diesen Leuten arbeite ich.</div></div>
+
+      <div class="row-label">GEN</div>
+      <div class="tile c-m"><span>dies<span class="end">es</span></span><div class="tip">Die Farbe dieses Autos.</div></div>
+      <div class="tile c-f"><span>dies<span class="end">er</span></span><div class="tip">Der Preis dieser Wohnung.</div></div>
+      <div class="tile c-n"><span>dies<span class="end">es</span></span><div class="tip">Der Name dieses Restaurants?</div></div>
+      <div class="tile c-pl"><span>dies<span class="end">er</span></span><div class="tip">Die Qualität dieser Schuhe.</div></div>
+    </div>
+  </div>
+
+  <!-- jener -->
+  <div class="sub-label" style="color:#f0b878">jener / jene / jenes <span class="hint">— that / those (formell, eher schriftlich)</span></div>
+
+  <div class="grid-wrap">
+    <div class="grid-table cols-5">
+      <div class="corner"></div>
+      <div class="col-header m">Maskulin</div>
+      <div class="col-header f">Feminin</div>
+      <div class="col-header n">Neutrum</div>
+      <div class="col-header pl">Plural</div>
+
+      <div class="row-label">NOM</div>
+      <div class="tile c-m"><span>jen<span class="end">er</span></span><div class="tip">Jener Tag war unvergesslich.</div></div>
+      <div class="tile c-f"><span>jen<span class="end">e</span></span><div class="tip">Jene Zeit war schwierig.</div></div>
+      <div class="tile c-n"><span>jen<span class="end">es</span></span><div class="tip">Jenes Ergebnis überraschte alle.</div></div>
+      <div class="tile c-pl"><span>jen<span class="end">e</span></span><div class="tip">Jene Jahre waren hart.</div></div>
+
+      <div class="row-label">AKK</div>
+      <div class="tile c-m"><span>jen<span class="end">en</span></span><div class="tip">Ich erinnere mich an jenen Moment.</div></div>
+      <div class="tile c-f"><span>jen<span class="end">e</span></span><div class="tip">Ich vermisse jene Zeit.</div></div>
+      <div class="tile c-n"><span>jen<span class="end">es</span></span><div class="tip">Ich vergesse jenes Erlebnis nie.</div></div>
+      <div class="tile c-pl"><span>jen<span class="end">e</span></span><div class="tip">Ich kannte jene Leute nicht.</div></div>
+
+      <div class="row-label">DAT</div>
+      <div class="tile c-m"><span>jen<span class="end">em</span></span><div class="tip">Seit jenem Tag lebe ich anders.</div></div>
+      <div class="tile c-f"><span>jen<span class="end">er</span></span><div class="tip">In jener Nacht passierte es.</div></div>
+      <div class="tile c-n"><span>jen<span class="end">em</span></span><div class="tip">In jenem Haus wuchs ich auf.</div></div>
+      <div class="tile c-pl"><span>jen<span class="end">en</span></span><div class="tip">Von jenen Ereignissen erzählt man noch.</div></div>
+
+      <div class="row-label">GEN</div>
+      <div class="tile c-m"><span>jen<span class="end">es</span></span><div class="tip">Die Folgen jenes Entscheids.</div></div>
+      <div class="tile c-f"><span>jen<span class="end">er</span></span><div class="tip">Die Ursache jener Krise.</div></div>
+      <div class="tile c-n"><span>jen<span class="end">es</span></span><div class="tip">Die Bedeutung jenes Wortes.</div></div>
+      <div class="tile c-pl"><span>jen<span class="end">er</span></span><div class="tip">Die Geschichten jener Menschen.</div></div>
+    </div>
+  </div>
+
+  <!-- Stressed der/die/das -->
+  <div class="sub-label" style="color:#f0b878">der / die / das <span class="hint">— betont als Demonstrativpronomen (≈ «DER da!»)</span></div>
+
+  <div class="grid-wrap">
+    <div class="grid-table cols-5">
+      <div class="corner"></div>
+      <div class="col-header m">Maskulin</div>
+      <div class="col-header f">Feminin</div>
+      <div class="col-header n">Neutrum</div>
+      <div class="col-header pl">Plural</div>
+
+      <div class="row-label">NOM</div>
+      <div class="tile c-m"><span>der</span><div class="tip">Der ist wirklich nett!</div></div>
+      <div class="tile c-f"><span>die</span><div class="tip">Die kenne ich!</div></div>
+      <div class="tile c-n"><span>das</span><div class="tip">Das ist unglaublich.</div></div>
+      <div class="tile c-pl"><span>die</span><div class="tip">Die sind immer spät.</div></div>
+
+      <div class="row-label">AKK</div>
+      <div class="tile c-m"><span>den</span><div class="tip">Den mag ich nicht.</div></div>
+      <div class="tile c-f"><span>die</span><div class="tip">Die habe ich gestern gesehen.</div></div>
+      <div class="tile c-n"><span>das</span><div class="tip">Das nehme ich!</div></div>
+      <div class="tile c-pl"><span>die</span><div class="tip">Die will ich alle probieren.</div></div>
+
+      <div class="row-label">DAT</div>
+      <div class="tile c-m"><span>dem</span><div class="tip">Dem vertraue ich nicht.</div></div>
+      <div class="tile c-f"><span>der</span><div class="tip">Der glaube ich kein Wort.</div></div>
+      <div class="tile c-n"><span>dem</span><div class="tip">Dem Kind gebe ich nichts.</div></div>
+      <div class="tile c-pl"><span>denen</span><div class="tip">Denen sage ich nichts mehr.</div></div>
+
+      <div class="row-label">GEN</div>
+      <div class="tile c-m"><span>dessen</span><div class="tip">Dessen Meinung ist mir egal.</div></div>
+      <div class="tile c-f"><span>deren</span><div class="tip">Deren Problem, nicht meins.</div></div>
+      <div class="tile c-n"><span>dessen</span><div class="tip">Dessen bin ich mir sicher.</div></div>
+      <div class="tile c-pl"><span>deren</span><div class="tip">Deren Kinder sind laut.</div></div>
+    </div>
+  </div>
+
+  <div class="rule-cards">
+    <div class="rule-card">
+      <div class="rule-title">🔑 dieser = der-Endungen</div>
+      <p>Die Endungen von <em>dieser/jener</em> sind identisch mit den bestimmten Artikeln. Wenn du die Artikel kennst, kennst du die Demonstrativpronomen.</p>
+      <div class="example">der → dieser · den → diesen · dem → diesem · des → dieses</div>
+    </div>
+    <div class="rule-card">
+      <div class="rule-title">📍 dieser vs. jener</div>
+      <p><em>Dieser</em> = nah (räumlich/zeitlich). <em>Jener</em> = fern, eher schriftlich. Im Alltag benutzt man fast nur <em>dieser</em>.</p>
+      <div class="example">Dieses Bier schmeckt gut. (= das hier) · In jener Epoche... (= damals)</div>
+    </div>
+    <div class="rule-card" style="border-left-color:#fdba74">
+      <div class="rule-title" style="color:#f0b878">⚡ der/die/das betont</div>
+      <p>Im Gespräch betont = Demonstrativpronomen. Achtung: Dat. Pl. = <strong>denen</strong>, Gen. = <strong>dessen/deren</strong> (wie Relativpronomen!).</p>
+      <div class="example">«Der da!» · «Die meine ich!» · «Denen vertraue ich nicht.»</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- INTERROGATIVE PRONOUNS                 -->
+<!-- ═══════════════════════════════════════ -->
+<div class="section" id="interrogativ">
+  <div class="section-title">
+    <span class="dot" style="background:#dc2626"></span>
+    Interrogativpronomen
+  </div>
+  <div class="section-sub">wer, wen, wem, wessen — Fragepronomen für Personen · welcher — Auswahl</div>
+
+  <div class="sub-label" style="color:#dc2626">wer / wen / wem / wessen <span class="hint">— who / whom / whose (nur Personen)</span></div>
+
+  <div class="grid-wrap">
+    <div class="grid-table cols-4">
+      <div class="corner"></div>
+      <div class="col-header">Pronomen</div>
+      <div class="col-header">Funktion</div>
+      <div class="col-header">Beispiel</div>
+
+      <div class="row-label">NOM</div>
+      <div class="tile c-pur"><span>wer</span><div class="tip">Wer hat das gemacht?</div></div>
+      <div class="tile c-neu"><span style="font-size:13px">Subjekt</span></div>
+      <div class="tile c-neu"><span style="font-size:13px">Wer hat das gemacht?</span></div>
+
+      <div class="row-label">AKK</div>
+      <div class="tile c-pur"><span>wen</span><div class="tip">Wen hast du eingeladen?</div></div>
+      <div class="tile c-neu"><span style="font-size:13px">dir. Objekt</span></div>
+      <div class="tile c-neu"><span style="font-size:13px">Wen hast du eingeladen?</span></div>
+
+      <div class="row-label">DAT</div>
+      <div class="tile c-pur"><span>wem</span><div class="tip">Wem gehört das?</div></div>
+      <div class="tile c-neu"><span style="font-size:13px">ind. Objekt</span></div>
+      <div class="tile c-neu"><span style="font-size:13px">Wem gehört das?</span></div>
+
+      <div class="row-label">GEN</div>
+      <div class="tile c-pur"><span>wessen</span><div class="tip">Wessen Tasche ist das?</div></div>
+      <div class="tile c-neu"><span style="font-size:13px">Besitz</span></div>
+      <div class="tile c-neu"><span style="font-size:13px">Wessen Tasche ist das?</span></div>
+    </div>
+  </div>
+
+  <!-- welcher -->
+  <div class="sub-label" style="color:#dc2626">welcher / welche / welches <span class="hint">— which (Auswahl aus mehreren)</span></div>
+
+  <div class="grid-wrap">
+    <div class="grid-table cols-5">
+      <div class="corner"></div>
+      <div class="col-header m">Maskulin</div>
+      <div class="col-header f">Feminin</div>
+      <div class="col-header n">Neutrum</div>
+      <div class="col-header pl">Plural</div>
+
+      <div class="row-label">NOM</div>
+      <div class="tile c-m"><span>welch<span class="end">er</span></span><div class="tip">Welcher Zug fährt nach Zürich?</div></div>
+      <div class="tile c-f"><span>welch<span class="end">e</span></span><div class="tip">Welche Strasse suchst du?</div></div>
+      <div class="tile c-n"><span>welch<span class="end">es</span></span><div class="tip">Welches Bier möchtest du?</div></div>
+      <div class="tile c-pl"><span>welch<span class="end">e</span></span><div class="tip">Welche Schuhe gefallen dir?</div></div>
+
+      <div class="row-label">AKK</div>
+      <div class="tile c-m"><span>welch<span class="end">en</span></span><div class="tip">Welchen Kurs besuchst du?</div></div>
+      <div class="tile c-f"><span>welch<span class="end">e</span></span><div class="tip">Welche Sprache lernst du?</div></div>
+      <div class="tile c-n"><span>welch<span class="end">es</span></span><div class="tip">Welches Restaurant empfiehlst du?</div></div>
+      <div class="tile c-pl"><span>welch<span class="end">e</span></span><div class="tip">Welche Bücher liest du gerade?</div></div>
+
+      <div class="row-label">DAT</div>
+      <div class="tile c-m"><span>welch<span class="end">em</span></span><div class="tip">In welchem Kanton wohnst du?</div></div>
+      <div class="tile c-f"><span>welch<span class="end">er</span></span><div class="tip">Mit welcher Bahn fährst du?</div></div>
+      <div class="tile c-n"><span>welch<span class="end">em</span></span><div class="tip">In welchem Hotel wohnst du?</div></div>
+      <div class="tile c-pl"><span>welch<span class="end">en</span></span><div class="tip">Mit welchen Kollegen arbeitest du?</div></div>
+
+      <div class="row-label">GEN</div>
+      <div class="tile c-m"><span>welch<span class="end">es</span></span><div class="tip">Welches Mannes Schuld? (selten)</div></div>
+      <div class="tile c-f"><span>welch<span class="end">er</span></span><div class="tip">Welcher Firma gehört das Gebäude?</div></div>
+      <div class="tile c-n"><span>welch<span class="end">es</span></span><div class="tip">Welches Landes Hauptstadt? (selten)</div></div>
+      <div class="tile c-pl"><span>welch<span class="end">er</span></span><div class="tip">Welcher Kantone Flaggen? (selten)</div></div>
+    </div>
+  </div>
+
+  <div class="notes">
+    <div class="notes-title">💡 Muster erkennen</div>
+    <em>welcher</em> und <em>dieser</em> nehmen exakt die gleichen Endungen — und die sind identisch mit den bestimmten Artikeln (<em>der/die/das</em>). Drei Pronomengruppen, <strong>ein Endungsmuster</strong>. Lern eins, kannst du alle drei.
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- PATTERN SUMMARY                        -->
+<!-- ═══════════════════════════════════════ -->
+<div class="section" id="zusammenfassung">
+  <div class="section-title">
+    <span class="dot" style="background:#94a3b8"></span>
+    Endungsmuster — Zusammenfassung
+  </div>
+  <div class="section-sub">Zwei Muster decken fast alle Pronomen und Artikel ab</div>
+
+  <div class="summary-cards">
+    <div class="summary-card" style="border-left:3px solid #d97706">
+      <div class="sc-title" style="color:#d97706">Muster A · der-Wörter</div>
+      <div class="sc-list">
+        Endungen wie der bestimmte Artikel.<br>
+        Gilt für: <strong>dieser, jener, welcher, mancher, solcher, jeder</strong>
+      </div>
+      <div class="sc-endings">
+        NOM: -er · -e · -es · -e<br>
+        AKK: -en · -e · -es · -e<br>
+        DAT: -em · -er · -em · -en<br>
+        GEN: -es · -er · -es · -er
+      </div>
+    </div>
+    <div class="summary-card" style="border-left:3px solid #6b21a8">
+      <div class="sc-title" style="color:#c8a8ff">Muster B · ein-Wörter</div>
+      <div class="sc-list">
+        Endungen wie der unbestimmte Artikel.<br>
+        Gilt für: <strong>mein, dein, sein, ihr, unser, euer, kein</strong>
+      </div>
+      <div class="sc-endings">
+        NOM: — · -e · — · -e<br>
+        AKK: -en · -e · — · -e<br>
+        DAT: -em · -er · -em · -en<br>
+        GEN: -es · -er · -es · -er
+      </div>
+    </div>
+  </div>
+
+  <div class="notes" style="margin-top:14px; border-left:3px solid #6366f1">
+    <div class="notes-title">🎯 Der Unterschied</div>
+    Muster A und B sind fast identisch — sie unterscheiden sich <strong>nur in drei Zellen</strong>: Nom. Mask., Nom. Neut., und Akk. Neut. Bei Muster A stehen dort die Endungen <em>-er, -es, -es</em>. Bei Muster B steht dort <strong>keine Endung</strong> (Nullendung). Überall sonst: gleich.
+  </div>
+</div>
+
+</div><!-- /container -->
+
+<script>
+document.querySelectorAll('nav a').forEach(link => {
+  link.addEventListener('click', e => {
+    e.preventDefault();
+    const id = link.getAttribute('href').slice(1);
+    document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+    document.querySelectorAll('nav a').forEach(l => l.classList.remove('active'));
+    link.classList.add('active');
+  });
+});
+
+const sections = document.querySelectorAll('.section[id]');
+const navLinks = document.querySelectorAll('nav a');
+window.addEventListener('scroll', () => {
+  let current = '';
+  sections.forEach(s => {
+    if (window.scrollY >= s.offsetTop - 80) current = s.id;
+  });
+  navLinks.forEach(l => {
+    l.classList.toggle('active', l.getAttribute('href') === '#' + current);
+  });
+});
+</script>
+</body>
+</html>

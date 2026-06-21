@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Deutsche Adjektive — Referenz</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: 'Inter', Arial, Helvetica, sans-serif;
+  background: #2b2b2f;
+  color: #e0e0e4;
+  min-height: 100vh;
+  padding: 0 0 48px;
+}
+
+/* ─── Header ─── */
+.top-bar {
+  position: sticky; top: 0; z-index: 100;
+  background: #232327ee;
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid #3e3e44;
+  padding: 16px 20px 14px;
+  text-align: center;
+}
+.top-bar h1 {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 28px; font-weight: 700;
+  color: #f0f0f4;
+}
+.top-bar .sub {
+  font-size: 14px; color: #ababba; margin-top: 4px;
+}
+
+/* ─── Controls ─── */
+.controls {
+  max-width: 960px; margin: 20px auto 0; padding: 0 20px;
+  text-align: center;
+}
+.search-row {
+  display: flex; gap: 10px; justify-content: center;
+  flex-wrap: wrap; margin-bottom: 12px;
+}
+.search-box {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 15px;
+  padding: 10px 16px;
+  border: 1.5px solid #58585e;
+  border-radius: 8px;
+  background: #3a3a42;
+  color: #e0e0e4;
+  width: 340px; max-width: 100%;
+  outline: none;
+  transition: border-color 0.2s;
+}
+.search-box:focus { border-color: #7a80f0; }
+.search-box::placeholder { color: #ababba; }
+
+.filter-row {
+  display: flex; gap: 6px; flex-wrap: wrap;
+  justify-content: center; margin-bottom: 8px;
+}
+.filter-btn {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px; font-weight: 600;
+  padding: 6px 14px;
+  border: 2px solid #58585e;
+  border-radius: 7px;
+  background: #343438;
+  color: #8888a0;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.filter-btn:hover { border-color: #ababba; }
+.filter-btn.active-all { background: #3a3a42; border-color: #ababba; color: #e0e0e4; }
+.filter-btn.active-umlaut { background: #4a2810; border-color: #a06830; color: #f0b878; }
+.filter-btn.active-irreg { background: #4a1035; border-color: #a03060; color: #ff90b8; }
+.filter-btn.active-regular { background: #1a3a25; border-color: #40a060; color: #80e8a0; }
+
+.cat-row {
+  display: flex; gap: 5px; flex-wrap: wrap;
+  justify-content: center; margin-bottom: 6px;
+}
+.cat-btn {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px; font-weight: 500;
+  padding: 4px 10px;
+  border: 1.5px solid #58585e;
+  border-radius: 6px;
+  background: #343438;
+  color: #8888a0;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.cat-btn:hover { border-color: #ababba; }
+.cat-btn.active-cat { background: #2a2a50; border-color: #7a80f0; color: #a0a8ff; }
+
+.count {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px; color: #ababba; margin-top: 8px; margin-bottom: 16px;
+}
+
+/* ─── Card Grid ─── */
+.grid {
+  max-width: 960px; margin: 0 auto; padding: 0 20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 10px;
+}
+
+/* ─── Cards ─── */
+.card {
+  background: #343438;
+  border: 1.5px solid #44444c;
+  border-radius: 10px;
+  padding: 14px 16px;
+  position: relative;
+  cursor: default;
+  transition: border-color 0.2s;
+}
+.card:hover { border-color: #6a6a78; }
+
+.card.t-umlaut { border-left: 3px solid #a06830; }
+.card.t-irreg { border-left: 3px solid #a03060; }
+.card.t-regular { border-left: 3px solid #40a060; }
+
+.card-top {
+  display: flex; justify-content: space-between; align-items: baseline;
+  margin-bottom: 2px;
+}
+.card-cat {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px; font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 1px 6px;
+  border-radius: 4px;
+  background: #2a2a38;
+}
+.card-cat.umlaut { color: #f0b878; }
+.card-cat.irreg { color: #ff90b8; }
+.card-cat.regular { color: #80e8a0; }
+
+.card-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px; color: #8888a0;
+  text-transform: uppercase;
+}
+
+.card-word {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 22px; font-weight: 700;
+  color: #f0f0f4;
+  margin: 4px 0 2px;
+}
+
+.card-english {
+  font-size: 14px; color: #ababba;
+  margin-bottom: 8px;
+}
+
+.card-forms {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+}
+.form-box {
+  background: #2a2a32;
+  border-radius: 6px;
+  padding: 6px 10px;
+}
+.form-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px; font-weight: 600;
+  color: #8888a0;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 2px;
+}
+.form-value {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 15px; font-weight: 700;
+}
+.form-value.komp { color: #7ab3f0; }
+.form-value.super { color: #f0d060; }
+
+/* Tooltip */
+.card .tip {
+  display: none;
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 50%; transform: translateX(-50%);
+  background: #111115; color: #e8e8ec;
+  padding: 6px 14px; border-radius: 7px;
+  font-size: 13px; font-style: italic;
+  white-space: nowrap;
+  z-index: 50;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.5);
+  border: 1px solid #3e3e44;
+  pointer-events: none;
+}
+.card .tip::before {
+  content: ''; position: absolute;
+  bottom: 100%; left: 50%; transform: translateX(-50%);
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-bottom: 5px solid #111115;
+}
+.card:hover .tip { display: block; }
+
+/* ─── Legend ─── */
+.legend {
+  max-width: 960px; margin: 0 auto 20px; padding: 0 20px;
+  display: flex; gap: 16px; flex-wrap: wrap;
+  justify-content: center;
+}
+.legend-item {
+  display: flex; align-items: center; gap: 6px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px; color: #ababba;
+}
+.legend-swatch {
+  width: 14px; height: 14px;
+  border-radius: 3px;
+  border: 2px solid;
+}
+
+@media (max-width: 600px) {
+  .top-bar h1 { font-size: 22px; }
+  .grid { grid-template-columns: 1fr; }
+  .search-box { width: 100%; }
+  .card-word { font-size: 18px; }
+}
+</style>
+</head>
+<body>
+
+<div class="top-bar">
+  <h1>Adjektive</h1>
+  <div class="sub">Komparativ · Superlativ · hover for example · search German or English</div>
+</div>
+
+<div class="controls">
+  <div class="search-row">
+    <input type="text" class="search-box" id="search" placeholder="Suchen ..." autocomplete="off">
+  </div>
+  <div class="filter-row" id="typeFilters"></div>
+  <div class="cat-row" id="catFilters"></div>
+  <div class="count" id="count"></div>
+</div>
+
+<div class="legend">
+  <div class="legend-item">
+    <div class="legend-swatch" style="background:#2a1808;border-color:#a06830;"></div>
+    <span>Umlaut im Komparativ</span>
+  </div>
+  <div class="legend-item">
+    <div class="legend-swatch" style="background:#3a1025;border-color:#a03060;"></div>
+    <span>Komplett unregelmässig</span>
+  </div>
+  <div class="legend-item">
+    <div class="legend-swatch" style="background:#0a2a15;border-color:#40a060;"></div>
+    <span>Regelmässig</span>
+  </div>
+</div>
+
+<div class="grid" id="grid"></div>
+
+<script>
+// [word, komparativ, superlativ, english, category, type, example]
+// type: "regular", "umlaut", "irreg"
+const DATA = [
+  // === IRREGULAR ===
+  ["gut", "besser", "am besten", "good", "quality", "irreg", "Das Essen schmeckt gut."],
+  ["viel", "mehr", "am meisten", "much, many", "quantity", "irreg", "Ich habe viel Arbeit."],
+  ["gern", "lieber", "am liebsten", "gladly", "preference", "irreg", "Ich trinke gern Kaffee."],
+  ["hoch", "höher", "am höchsten", "high, tall", "size", "irreg", "Der Berg ist hoch."],
+  ["nah", "näher", "am nächsten", "near, close", "distance", "irreg", "Der Bahnhof ist nah."],
+
+  // === UMLAUT ===
+  ["alt", "älter", "am ältesten", "old", "age", "umlaut", "Das Haus ist sehr alt."],
+  ["arm", "ärmer", "am ärmsten", "poor", "quality", "umlaut", "Die Familie ist arm."],
+  ["gesund", "gesünder", "am gesündesten", "healthy", "health", "umlaut", "Sport ist gesund."],
+  ["gross", "grösser", "am grössten", "big, tall", "size", "umlaut", "Die Wohnung ist gross."],
+  ["hart", "härter", "am härtesten", "hard", "quality", "umlaut", "Die Arbeit ist hart."],
+  ["jung", "jünger", "am jüngsten", "young", "age", "umlaut", "Mein Bruder ist jünger."],
+  ["kalt", "kälter", "am kältesten", "cold", "temperature", "umlaut", "Im Winter ist es kalt."],
+  ["krank", "kränker", "am kränksten", "sick, ill", "health", "umlaut", "Er ist seit Montag krank."],
+  ["kurz", "kürzer", "am kürzesten", "short", "size", "umlaut", "Der Weg ist kurz."],
+  ["lang", "länger", "am längsten", "long", "size", "umlaut", "Die Sitzung war lang."],
+  ["scharf", "schärfer", "am schärfsten", "sharp, spicy", "quality", "umlaut", "Die Sosse ist scharf."],
+  ["schwach", "schwächer", "am schwächsten", "weak", "quality", "umlaut", "Das Signal ist schwach."],
+  ["stark", "stärker", "am stärksten", "strong", "quality", "umlaut", "Der Kaffee ist stark."],
+  ["warm", "wärmer", "am wärmsten", "warm", "temperature", "umlaut", "Heute ist es warm."],
+  ["dumm", "dümmer", "am dümmsten", "stupid", "character", "umlaut", "Das war eine dumme Idee."],
+  ["grob", "gröber", "am gröbsten", "coarse, rude", "character", "umlaut", "Sei nicht so grob!"],
+  ["klug", "klüger", "am klügsten", "smart, clever", "character", "umlaut", "Sie ist sehr klug."],
+  ["schmal", "schmäler", "am schmälsten", "narrow", "size", "umlaut", "Die Strasse ist schmal."],
+
+  // === REGULAR (no Umlaut) ===
+  ["bequem", "bequemer", "am bequemsten", "comfortable", "quality", "regular", "Das Sofa ist bequem."],
+  ["berühmt", "berühmter", "am berühmtesten", "famous", "quality", "regular", "Die Stadt ist berühmt."],
+  ["billig", "billiger", "am billigsten", "cheap", "price", "regular", "Das Hostel ist billig."],
+  ["breit", "breiter", "am breitesten", "wide, broad", "size", "regular", "Die Strasse ist breit."],
+  ["bunt", "bunter", "am buntesten", "colorful", "appearance", "regular", "Die Blumen sind bunt."],
+  ["dick", "dicker", "am dicksten", "thick, fat", "size", "regular", "Das Buch ist dick."],
+  ["dunkel", "dunkler", "am dunkelsten", "dark", "appearance", "regular", "Das Zimmer ist dunkel."],
+  ["dünn", "dünner", "am dünnsten", "thin", "size", "regular", "Die Wand ist dünn."],
+  ["einfach", "einfacher", "am einfachsten", "simple, easy", "quality", "regular", "Die Aufgabe ist einfach."],
+  ["eng", "enger", "am engsten", "narrow, tight", "size", "regular", "Die Hose ist zu eng."],
+  ["ernst", "ernster", "am ernstesten", "serious", "character", "regular", "Die Lage ist ernst."],
+  ["falsch", "falscher", "am falschesten", "wrong, false", "quality", "regular", "Die Antwort ist falsch."],
+  ["faul", "fauler", "am faulsten", "lazy", "character", "regular", "Der Schüler ist faul."],
+  ["fein", "feiner", "am feinsten", "fine, delicate", "quality", "regular", "Der Stoff ist fein."],
+  ["fleissig", "fleissiger", "am fleissigsten", "hardworking", "character", "regular", "Sie ist sehr fleissig."],
+  ["freundlich", "freundlicher", "am freundlichsten", "friendly", "character", "regular", "Die Nachbarin ist freundlich."],
+  ["früh", "früher", "am frühesten", "early", "time", "regular", "Ich stehe früh auf."],
+  ["gefährlich", "gefährlicher", "am gefährlichsten", "dangerous", "quality", "regular", "Die Strasse ist gefährlich."],
+  ["genau", "genauer", "am genauesten", "exact, precise", "quality", "regular", "Die Analyse ist genau."],
+  ["glücklich", "glücklicher", "am glücklichsten", "happy", "emotion", "regular", "Ich bin glücklich."],
+  ["günstig", "günstiger", "am günstigsten", "affordable", "price", "regular", "Der Preis ist günstig."],
+  ["hässlich", "hässlicher", "am hässlichsten", "ugly", "appearance", "regular", "Das Gebäude ist hässlich."],
+  ["heiss", "heisser", "am heissesten", "hot", "temperature", "regular", "Der Sommer war heiss."],
+  ["hell", "heller", "am hellsten", "bright, light", "appearance", "regular", "Das Zimmer ist hell."],
+  ["höflich", "höflicher", "am höflichsten", "polite", "character", "regular", "Sei bitte höflich!"],
+  ["hübsch", "hübscher", "am hübschesten", "pretty", "appearance", "regular", "Die Stadt ist hübsch."],
+  ["interessant", "interessanter", "am interessantesten", "interesting", "quality", "regular", "Der Vortrag war interessant."],
+  ["klein", "kleiner", "am kleinsten", "small", "size", "regular", "Die Wohnung ist klein."],
+  ["langsam", "langsamer", "am langsamsten", "slow", "speed", "regular", "Das Internet ist langsam."],
+  ["langweilig", "langweiliger", "am langweiligsten", "boring", "quality", "regular", "Der Film war langweilig."],
+  ["laut", "lauter", "am lautesten", "loud", "quality", "regular", "Die Musik ist zu laut."],
+  ["lebendig", "lebendiger", "am lebendigsten", "lively", "character", "regular", "Die Stadt ist lebendig."],
+  ["leicht", "leichter", "am leichtesten", "light, easy", "quality", "regular", "Die Tasche ist leicht."],
+  ["leise", "leiser", "am leisesten", "quiet", "quality", "regular", "Bitte sprich leiser."],
+  ["lustig", "lustiger", "am lustigsten", "funny", "character", "regular", "Der Witz war lustig."],
+  ["modern", "moderner", "am modernsten", "modern", "quality", "regular", "Die Küche ist modern."],
+  ["möglich", "möglicher", "am möglichsten", "possible", "quality", "regular", "Ist das möglich?"],
+  ["müde", "müder", "am müdesten", "tired", "state", "regular", "Ich bin müde."],
+  ["nass", "nasser", "am nassesten", "wet", "state", "regular", "Die Strasse ist nass."],
+  ["nervös", "nervöser", "am nervösesten", "nervous", "emotion", "regular", "Ich bin nervös."],
+  ["nett", "netter", "am nettesten", "nice", "character", "regular", "Der Kollege ist nett."],
+  ["neu", "neuer", "am neuesten", "new", "age", "regular", "Das Auto ist neu."],
+  ["niedrig", "niedriger", "am niedrigsten", "low", "size", "regular", "Die Zinsen sind niedrig."],
+  ["offen", "offener", "am offensten", "open", "state", "regular", "Die Tür ist offen."],
+  ["pünktlich", "pünktlicher", "am pünktlichsten", "punctual", "quality", "regular", "Der Zug ist pünktlich."],
+  ["reich", "reicher", "am reichsten", "rich", "quality", "regular", "Die Schweiz ist reich."],
+  ["richtig", "richtiger", "am richtigsten", "correct, right", "quality", "regular", "Die Antwort ist richtig."],
+  ["ruhig", "ruhiger", "am ruhigsten", "calm, quiet", "character", "regular", "Die Strasse ist ruhig."],
+  ["sauber", "sauberer", "am saubersten", "clean", "quality", "regular", "Die Küche ist sauber."],
+  ["schlecht", "schlechter", "am schlechtesten", "bad", "quality", "regular", "Das Wetter ist schlecht."],
+  ["schlimm", "schlimmer", "am schlimmsten", "bad, severe", "quality", "regular", "Die Situation ist schlimm."],
+  ["schmutzig", "schmutziger", "am schmutzigsten", "dirty", "quality", "regular", "Die Schuhe sind schmutzig."],
+  ["schnell", "schneller", "am schnellsten", "fast", "speed", "regular", "Der Zug ist schnell."],
+  ["schön", "schöner", "am schönsten", "beautiful", "appearance", "regular", "Die Aussicht ist schön."],
+  ["schwer", "schwerer", "am schwersten", "heavy, difficult", "quality", "regular", "Die Prüfung war schwer."],
+  ["schwierig", "schwieriger", "am schwierigsten", "difficult", "quality", "regular", "Die Aufgabe ist schwierig."],
+  ["sicher", "sicherer", "am sichersten", "safe, certain", "quality", "regular", "Ich bin mir sicher."],
+  ["spät", "später", "am spätesten", "late", "time", "regular", "Es ist schon spät."],
+  ["süss", "süsser", "am süssesten", "sweet", "quality", "regular", "Der Kuchen ist süss."],
+  ["teuer", "teurer", "am teuersten", "expensive", "price", "regular", "Die Miete ist teuer."],
+  ["tief", "tiefer", "am tiefsten", "deep", "size", "regular", "Der See ist tief."],
+  ["traurig", "trauriger", "am traurigsten", "sad", "emotion", "regular", "Die Nachricht macht mich traurig."],
+  ["trocken", "trockener", "am trockensten", "dry", "state", "regular", "Das Wetter bleibt trocken."],
+  ["typisch", "typischer", "am typischsten", "typical", "quality", "regular", "Das ist typisch schweizerisch."],
+  ["verantwortlich", "verantwortlicher", "am verantwortlichsten", "responsible", "quality", "regular", "Wer ist dafür verantwortlich?"],
+  ["verschieden", "verschiedener", "am verschiedensten", "different", "quality", "regular", "Die Meinungen sind verschieden."],
+  ["vorsichtig", "vorsichtiger", "am vorsichtigsten", "careful", "character", "regular", "Sei vorsichtig!"],
+  ["wichtig", "wichtiger", "am wichtigsten", "important", "quality", "regular", "Das ist sehr wichtig."],
+  ["wild", "wilder", "am wildesten", "wild", "character", "regular", "Die Tiere sind wild."],
+  ["zufrieden", "zufriedener", "am zufriedensten", "satisfied", "emotion", "regular", "Ich bin zufrieden."],
+];
+
+const grid = document.getElementById("grid");
+const searchBox = document.getElementById("search");
+const typeFiltersEl = document.getElementById("typeFilters");
+const catFiltersEl = document.getElementById("catFilters");
+const countEl = document.getElementById("count");
+
+let activeType = "all";
+let activeCat = "all";
+
+// Build category list
+const cats = [...new Set(DATA.map(d => d[4]))].sort();
+
+// Type filter buttons
+const types = [
+  ["all", "All", "active-all"],
+  ["umlaut", "Umlaut", "active-umlaut"],
+  ["irreg", "Unregelmässig", "active-irreg"],
+  ["regular", "Regelmässig", "active-regular"],
+];
+
+types.forEach(([val, label, cls]) => {
+  const btn = document.createElement("button");
+  btn.className = "filter-btn" + (val === "all" ? " active-all" : "");
+  btn.textContent = label;
+  btn.onclick = () => {
+    activeType = val;
+    document.querySelectorAll(".filter-btn").forEach(b => b.className = "filter-btn");
+    btn.className = "filter-btn " + cls;
+    render();
+  };
+  typeFiltersEl.appendChild(btn);
+});
+
+// Category buttons
+const allCatBtn = document.createElement("button");
+allCatBtn.className = "cat-btn active-cat";
+allCatBtn.textContent = "all";
+allCatBtn.onclick = () => { activeCat = "all"; updateCatBtns(); render(); };
+catFiltersEl.appendChild(allCatBtn);
+
+cats.forEach(cat => {
+  const btn = document.createElement("button");
+  btn.className = "cat-btn";
+  btn.textContent = cat;
+  btn.onclick = () => { activeCat = cat; updateCatBtns(); render(); };
+  catFiltersEl.appendChild(btn);
+});
+
+function updateCatBtns() {
+  document.querySelectorAll(".cat-btn").forEach(b => {
+    b.className = b.textContent === activeCat ? "cat-btn active-cat" : "cat-btn";
+  });
+}
+
+function render() {
+  const q = searchBox.value.toLowerCase().trim();
+  const filtered = DATA.filter(d => {
+    if (activeType !== "all" && d[5] !== activeType) return false;
+    if (activeCat !== "all" && d[4] !== activeCat) return false;
+    if (q) {
+      const searchable = (d[0] + " " + d[1] + " " + d[2] + " " + d[3]).toLowerCase();
+      if (!searchable.includes(q)) return false;
+    }
+    return true;
+  });
+
+  grid.innerHTML = "";
+  filtered.forEach(d => {
+    const [word, komp, sup, eng, cat, type, example] = d;
+    const card = document.createElement("div");
+    card.className = "card t-" + type;
+
+    const typeLabel = type === "irreg" ? "IRREG" : type === "umlaut" ? "UMLAUT" : "REG";
+    const typeCls = type === "irreg" ? "irreg" : type === "umlaut" ? "umlaut" : "regular";
+
+    card.innerHTML = `
+      <div class="card-top">
+        <span class="card-cat ${typeCls}">${typeLabel}</span>
+        <span class="card-tag">${cat}</span>
+      </div>
+      <div class="card-word">${word}</div>
+      <div class="card-english">${eng}</div>
+      <div class="card-forms">
+        <div class="form-box">
+          <div class="form-label">Komparativ</div>
+          <div class="form-value komp">${komp}</div>
+        </div>
+        <div class="form-box">
+          <div class="form-label">Superlativ</div>
+          <div class="form-value super">${sup}</div>
+        </div>
+      </div>
+      <div class="tip">${example}</div>
+    `;
+    grid.appendChild(card);
+  });
+
+  countEl.textContent = filtered.length + " adjective" + (filtered.length !== 1 ? "s" : "");
+}
+
+searchBox.addEventListener("input", render);
+render();
+</script>
+</body>
+</html>

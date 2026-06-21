@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Deutsch — Cheatsheet-Bibliothek</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',Arial,sans-serif;background:#2b2b2f;color:#e0e0e4;min-height:100vh;padding:0 0 60px}
+
+/* ─── Hero ─── */
+.hero{text-align:center;padding:48px 20px 32px}
+.hero h1{font-family:'JetBrains Mono',monospace;font-size:36px;font-weight:700;color:#f0f0f4;letter-spacing:-1px;margin-bottom:6px}
+.hero .sub{font-size:16px;color:#ababba;margin-bottom:4px}
+.hero .count{font-family:'JetBrains Mono',monospace;font-size:13px;color:#8888a0;margin-top:8px}
+
+/* ─── Container ─── */
+.container{max-width:900px;margin:0 auto;padding:0 16px}
+
+/* ─── Section ─── */
+.group{margin-top:32px}
+.group-title{font-family:'JetBrains Mono',monospace;font-size:14px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#8888a0;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.group-title .dot{width:8px;height:8px;border-radius:50%;display:inline-block}
+
+/* ─── Cards ─── */
+.card-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px}
+.card{background:#343438;border:2px solid #44444c;border-radius:12px;padding:18px 20px;text-decoration:none;color:inherit;transition:all .2s;display:block;position:relative;overflow:hidden}
+.card:hover{border-color:#7a60c0;transform:translateY(-3px);box-shadow:0 8px 24px rgba(0,0,0,.4)}
+.card:active{transform:translateY(-1px)}
+.card .emoji{font-size:28px;margin-bottom:8px;display:block}
+.card .title{font-family:'JetBrains Mono',monospace;font-size:18px;font-weight:700;color:#f0f0f4;margin-bottom:4px}
+.card .desc{font-size:13px;color:#ababba;line-height:1.5}
+.card .badge{position:absolute;top:12px;right:12px;font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:600;padding:2px 7px;border-radius:5px;text-transform:uppercase;letter-spacing:.5px}
+.badge-search{background:#1a3a22;color:#70d890;border:1px solid #40a060}
+.badge-grid{background:#2a1848;color:#c8a8ff;border:1px solid #7a60c0}
+.badge-ref{background:#133040;color:#60d0e8;border:1px solid #2a7088}
+
+/* ─── Accent stripe on cards ─── */
+.card::before{content:'';position:absolute;top:0;left:0;width:100%;height:3px}
+.card.a-blue::before{background:linear-gradient(90deg,#3a6ea8,#8ec4ff)}
+.card.a-pink::before{background:linear-gradient(90deg,#a84070,#ffa0c8)}
+.card.a-gold::before{background:linear-gradient(90deg,#9a7a20,#f0d060)}
+.card.a-green::before{background:linear-gradient(90deg,#40a060,#70d890)}
+.card.a-purple::before{background:linear-gradient(90deg,#7a60c0,#c8a8ff)}
+.card.a-red::before{background:linear-gradient(90deg,#a04040,#f08888)}
+.card.a-cyan::before{background:linear-gradient(90deg,#2a7088,#60d0e8)}
+.card.a-orange::before{background:linear-gradient(90deg,#9a7a20,#e8a840)}
+
+/* ─── Footer ─── */
+.footer{text-align:center;margin-top:48px;padding:20px;font-size:12px;color:#55555e;font-family:'JetBrains Mono',monospace}
+
+@media(max-width:600px){
+  .hero h1{font-size:26px}
+  .hero{padding:32px 16px 24px}
+  .card-grid{grid-template-columns:1fr}
+  .card .title{font-size:16px}
+}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>Deutsch</h1>
+  <div class="sub">Cheatsheet-Bibliothek</div>
+  <div class="count">13 Referenzen · B1–B2 · Zürich-tauglich 🇨🇭</div>
+</div>
+
+<div class="container">
+
+<!-- ═══ WORTARTEN ═══ -->
+<div class="group">
+  <div class="group-title"><span class="dot" style="background:#8ec4ff"></span> Wortarten</div>
+  <div class="card-grid">
+
+    <a class="card a-blue" href="Substantive.html">
+      <span class="badge badge-search">843 · suche</span>
+      <span class="emoji">📦</span>
+      <div class="title">Substantive</div>
+      <div class="desc">843 Nomen nach Genus, Kategorie und Geschäfts&shy;vokabular. Suchbar, filterbar, mit Hover-Phrasen.</div>
+    </a>
+
+    <a class="card a-gold" href="Artikel.html">
+      <span class="badge badge-grid">Grids</span>
+      <span class="emoji">📐</span>
+      <div class="title">Artikel</div>
+      <div class="desc">Bestimmte, unbestimmte und kein-Artikel in allen 4 Kasus. Verschmelzungen (im, zum, zur …).</div>
+    </a>
+
+    <a class="card a-pink" href="Adjektive.html">
+      <span class="badge badge-ref">Referenz</span>
+      <span class="emoji">🎨</span>
+      <div class="title">Adjektive</div>
+      <div class="desc">Steigerung (Komparativ, Superlativ), Adjektive als Nomen, Partizip als Adjektiv.</div>
+    </a>
+
+    <a class="card a-orange" href="Adjektivendungen.html">
+      <span class="badge badge-grid">3 Grids</span>
+      <span class="emoji">🔤</span>
+      <div class="title">Adjektivendungen</div>
+      <div class="desc">3 farbcodierte Grids: nach bestimmtem Artikel, nach unbestimmtem Artikel, ohne Artikel.</div>
+    </a>
+
+    <a class="card a-purple" href="Pronomen.html">
+      <span class="badge badge-grid">Grids</span>
+      <span class="emoji">👤</span>
+      <div class="title">Pronomen</div>
+      <div class="desc">Personal-, Possessiv-, Demonstrativ- und Interrogativ&shy;pronomen in allen 4 Kasus.</div>
+    </a>
+
+    <a class="card a-purple" href="Relativpronomen.html">
+      <span class="badge badge-ref">Referenz</span>
+      <span class="emoji">🔗</span>
+      <div class="title">Relativpronomen</div>
+      <div class="desc">Pronomen-Tabelle, 4 Regeln, Präp.+Pronomen, dessen/deren, wo(r)-Komposita.</div>
+    </a>
+
+    <a class="card a-cyan" href="Praepositionen.html">
+      <span class="badge badge-ref">Referenz</span>
+      <span class="emoji">📍</span>
+      <div class="title">Präpositionen</div>
+      <div class="desc">Akkusativ, Dativ, Wechsel&shy;präpositionen, Genitiv. Eselsbrücken und Hover-Beispiele.</div>
+    </a>
+
+  </div>
+</div>
+
+<!-- ═══ VERBEN ═══ -->
+<div class="group">
+  <div class="group-title"><span class="dot" style="background:#f08888"></span> Verben</div>
+  <div class="card-grid">
+
+    <a class="card a-green" href="Verben.html">
+      <span class="badge badge-search">130 · suche</span>
+      <span class="emoji">🎯</span>
+      <div class="title">Verben</div>
+      <div class="desc">~130 Verben mit Präpositionen, Kasus, Perfekt und Beispielen. Suchbar, filterbar nach Präposition.</div>
+    </a>
+
+    <a class="card a-red" href="Konjugation.html">
+      <span class="badge badge-search">95 · suche</span>
+      <span class="emoji">🔀</span>
+      <div class="title">Konjugation</div>
+      <div class="desc">~95 starke, unregel&shy;mässige und gemischte Verben nach Ablautmuster. Präteritum, Partizip II, haben/sein.</div>
+    </a>
+
+    <a class="card a-purple" href="Modalverben.html">
+      <span class="badge badge-grid">Grids</span>
+      <span class="emoji">💪</span>
+      <div class="title">Modalverben</div>
+      <div class="desc">können, müssen, dürfen, sollen, wollen, möchten — Präsens, Präteritum, Konjunktiv II, Bedeutungs&shy;nuancen.</div>
+    </a>
+
+  </div>
+</div>
+
+<!-- ═══ SATZBAU ═══ -->
+<div class="group">
+  <div class="group-title"><span class="dot" style="background:#e8a840"></span> Satzbau</div>
+  <div class="card-grid">
+
+    <a class="card a-red" href="Satzstruktur.html">
+      <span class="badge badge-ref">Referenz</span>
+      <span class="emoji">🏗️</span>
+      <div class="title">Satzstruktur</div>
+      <div class="desc">V2-Regel, Inversion, Satzklammer, Objekt&shy;reihenfolge, TeKaMoLo, Negation — die Anatomie eines Satzes.</div>
+    </a>
+
+    <a class="card a-cyan" href="Nebensaetze.html">
+      <span class="badge badge-ref">Referenz</span>
+      <span class="emoji">🔀</span>
+      <div class="title">Nebensätze</div>
+      <div class="desc">dass-Sätze, Finalsätze (um…zu / damit), Infinitiv&shy;sätze, nominalisierter Infinitiv, Redemittel.</div>
+    </a>
+
+    <a class="card a-orange" href="Komposita.html">
+      <span class="badge badge-ref">Referenz</span>
+      <span class="emoji">🧩</span>
+      <div class="title">Komposita</div>
+      <div class="desc">Zusammen&shy;gesetzte Wörter: N+N, V+N, Adj+N. Fugenelemente, Genus-Regel, Praxis&shy;tipps.</div>
+    </a>
+
+  </div>
+</div>
+
+</div>
+
+<div class="footer">
+  Erstellt mit Claude · Bellingua Zürich · 2025–2026
+</div>
+
+</body>
+</html>
