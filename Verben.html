@@ -69,6 +69,11 @@ body{font-family:'Inter',Arial,Helvetica,sans-serif;background:#2b2b2f;color:#e0
   .search-box{max-width:100%}
   .tooltip{white-space:normal;min-width:240px;max-width:300px}
 }
+/* ─── Guess Mode ─── */
+.guess-hidden{background:#343438!important;border-color:#4a4a52!important;cursor:pointer}
+.guess-hidden:hover{box-shadow:0 4px 12px rgba(122,96,192,0.3)!important}
+.guess-hidden .guess-hide{visibility:hidden}
+.fbtn.guess-active{background:#2a1848;border-color:#7a60c0;color:#c8a8ff}
 </style>
 </head>
 <body>
@@ -77,6 +82,7 @@ body{font-family:'Inter',Arial,Helvetica,sans-serif;background:#2b2b2f;color:#e0
   <div class="sub">Präpositionen · Kasus · Perfekt</div>
   <div class="controls">
     <input type="text" class="search-box" id="search" placeholder="Suche Verb oder Bedeutung …">
+    <button class="fbtn" id="guess-btn" onclick="toggleGuess()">🎯 Raten</button>
     <button class="fbtn f-all" data-f="all" onclick="setCase(this)">Alle</button>
     <button class="fbtn" data-f="Akk" onclick="setCase(this)">Akkusativ</button>
     <button class="fbtn" data-f="Dat" onclick="setCase(this)">Dativ</button>
@@ -297,6 +303,17 @@ function getPrepLabel(pc) {
   return pc;
 }
 
+let guessMode = false;
+function toggleGuess() {
+  guessMode = !guessMode;
+  document.getElementById('guess-btn').classList.toggle('guess-active', guessMode);
+  render();
+}
+document.getElementById('grid').addEventListener('click', function(e) {
+  const card = e.target.closest('.guess-hidden');
+  if (card) { card.classList.remove('guess-hidden'); card.classList.add('guess-revealed'); }
+});
+
 function render() {
   const grid = document.getElementById('grid');
   const empty = document.getElementById('empty');
@@ -348,7 +365,12 @@ function render() {
     const badge = getPrepLabel(pc);
     const tt = example ? `<div class="tooltip">${example}</div>` : '';
 
-    h += `<div class="card ${kc}">${tt}<div class="card-top"><span class="prep-badge">${badge}</span><span class="perfekt">${perfekt}</span></div><div class="verb-name">${verb}</div><div class="meaning">${meaning}</div><span class="type-tag ${tc}">${tl}</span></div>`;
+    if (guessMode) {
+      const ttG = tt ? tt.replace('class="tooltip"', 'class="tooltip guess-hide"') : '';
+      h += `<div class="card ${kc} guess-hidden">${ttG}<div class="card-top"><span class="prep-badge guess-hide">${badge}</span><span class="perfekt guess-hide">${perfekt}</span></div><div class="verb-name">${verb}</div><div class="meaning guess-hide">${meaning}</div><span class="type-tag ${tc} guess-hide">${tl}</span></div>`;
+    } else {
+      h += `<div class="card ${kc}">${tt}<div class="card-top"><span class="prep-badge">${badge}</span><span class="perfekt">${perfekt}</span></div><div class="verb-name">${verb}</div><div class="meaning">${meaning}</div><span class="type-tag ${tc}">${tl}</span></div>`;
+    }
   });
   grid.innerHTML = h;
 }

@@ -156,6 +156,12 @@
     h1 { font-size: 20px; }
     header p { font-size: 12px; }
   }
+  /* ─── Guess Mode ─── */
+  .guess-cell-hidden { cursor: pointer; color: transparent !important; user-select: none; }
+  .guess-cell-hidden * { color: transparent !important; }
+  .guess-cell-hidden:hover { background: rgba(122, 96, 192, 0.15) !important; }
+  .guess-btn { font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 500; padding: 4px 10px; border-radius: 7px; background: #343438; color: #8888a0; border: 1px solid #44444c; transition: all .15s; cursor: pointer; }
+  .guess-btn:hover, .guess-btn.active { background: #2a1848; color: #c8a8ff; border-color: #7a60c0; }
 </style>
 </head>
 <body>
@@ -163,6 +169,7 @@
   <header>
     <h1>Adjektivendungen</h1>
     <p>hover any tile for an example phrase</p>
+    <button class="guess-btn" id="guess-btn" onclick="toggleGuess()">🎯 Raten</button>
     <div class="legend">
       <div class="legend-item">
         <div class="legend-swatch tile c-e" style="height:20px;width:20px;"><span style="font-size:12px;font-weight:700;color:#8ec4ff;font-family:'JetBrains Mono',monospace;">-e</span></div>
@@ -198,6 +205,26 @@
 </div>
 
 <script>
+let guessMode = false;
+function toggleGuess() {
+  guessMode = !guessMode;
+  document.getElementById('guess-btn').classList.toggle('active', guessMode);
+  const tiles = document.querySelectorAll('.tile');
+  tiles.forEach(tile => {
+    if (guessMode) {
+      tile.classList.add('guess-cell-hidden');
+      tile.addEventListener('click', revealCell);
+    } else {
+      tile.classList.remove('guess-cell-hidden');
+      tile.removeEventListener('click', revealCell);
+    }
+  });
+}
+function revealCell() {
+  this.classList.remove('guess-cell-hidden');
+  this.removeEventListener('click', revealCell);
+}
+
 const DATA = {
   definite: {
     label: "bestimmter Artikel", sub: "der · die · das · die",

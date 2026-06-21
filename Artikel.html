@@ -228,6 +228,12 @@ header p { margin: 6px 0 0; font-size: 15px; color: #ababba; }
   .grids { gap: 20px; }
   .grid-table { grid-template-columns: 44px repeat(4, 1fr); }
 }
+/* ─── Guess Mode ─── */
+.guess-cell-hidden { cursor: pointer; color: transparent !important; user-select: none; }
+.guess-cell-hidden * { color: transparent !important; }
+.guess-cell-hidden:hover { background: rgba(122, 96, 192, 0.15) !important; }
+.guess-btn { font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 500; padding: 5px 12px; border-radius: 7px; background: #343438; color: #8888a0; border: 1px solid #44444c; transition: all .15s; cursor: pointer; margin-top: 6px; }
+.guess-btn:hover, .guess-btn.active { background: #2a1848; color: #c8a8ff; border-color: #7a60c0; }
 </style>
 </head>
 <body>
@@ -235,6 +241,7 @@ header p { margin: 6px 0 0; font-size: 15px; color: #ababba; }
 <header>
   <h1>Artikel</h1>
   <p>bestimmt · unbestimmt · Negativartikel · Verschmelzungen · hover for examples</p>
+  <button class="guess-btn" id="guess-btn" onclick="toggleGuess()">🎯 Raten</button>
 </header>
 
 <div class="container">
@@ -469,5 +476,27 @@ header p { margin: 6px 0 0; font-size: 15px; color: #ababba; }
 </div>
 
 </div><!-- /container -->
+
+<script>
+let guessMode = false;
+function toggleGuess() {
+  guessMode = !guessMode;
+  document.getElementById('guess-btn').classList.toggle('active', guessMode);
+  const tiles = document.querySelectorAll('.tile');
+  tiles.forEach(tile => {
+    if (guessMode) {
+      tile.classList.add('guess-cell-hidden');
+      tile.addEventListener('click', revealCell);
+    } else {
+      tile.classList.remove('guess-cell-hidden');
+      tile.removeEventListener('click', revealCell);
+    }
+  });
+}
+function revealCell() {
+  this.classList.remove('guess-cell-hidden');
+  this.removeEventListener('click', revealCell);
+}
+</script>
 </body>
 </html>

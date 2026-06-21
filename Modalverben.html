@@ -102,6 +102,12 @@ kw.v{background:#3a1818;color:#f08888}
   .pos-val{font-size:13px;padding:6px 6px}
   .pos{min-width:55px}
 }
+/* ─── Guess Mode ─── */
+.guess-cell-hidden{cursor:pointer;color:transparent!important;user-select:none}
+.guess-cell-hidden *{color:transparent!important}
+.guess-cell-hidden:hover{background:rgba(122,96,192,0.15)!important}
+.guess-btn{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:500;padding:5px 9px;border-radius:8px;background:#343438;color:#8888a0;text-decoration:none;border:1px solid #44444c;transition:all .15s;cursor:pointer}
+.guess-btn:hover,.guess-btn.active{background:#2a1848;color:#c8a8ff;border-color:#7a60c0}
 </style>
 </head>
 <body>
@@ -116,6 +122,7 @@ kw.v{background:#3a1818;color:#f08888}
     <a href="#perfekt">Perfekt</a>
     <a href="#position">Position</a>
     <a href="#nuancen">Nuancen</a>
+    <button class="guess-btn" id="guess-btn" onclick="toggleGuess()">🎯 Raten</button>
   </nav>
 </header>
 
@@ -427,6 +434,26 @@ kw.v{background:#3a1818;color:#f08888}
 </div>
 
 <script>
+let guessMode = false;
+function toggleGuess() {
+  guessMode = !guessMode;
+  document.getElementById('guess-btn').classList.toggle('active', guessMode);
+  const cells = document.querySelectorAll('.conj-grid td:not(:first-child)');
+  cells.forEach(td => {
+    if (guessMode) {
+      td.classList.add('guess-cell-hidden');
+      td.addEventListener('click', revealCell);
+    } else {
+      td.classList.remove('guess-cell-hidden');
+      td.removeEventListener('click', revealCell);
+    }
+  });
+}
+function revealCell() {
+  this.classList.remove('guess-cell-hidden');
+  this.removeEventListener('click', revealCell);
+}
+
 const sections = document.querySelectorAll('.section[id]');
 const navLinks = document.querySelectorAll('nav a');
 function updateNav(){let c='';sections.forEach(s=>{if(window.scrollY>=s.offsetTop-90)c=s.id});navLinks.forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+c))}

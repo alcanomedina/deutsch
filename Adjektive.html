@@ -244,6 +244,11 @@ body {
   .form-value { font-size: 13px; }
   .card-word { font-size: 18px; }
 }
+/* ─── Guess Mode ─── */
+.guess-hidden{background:#343438!important;border-color:#4a4a52!important;cursor:pointer}
+.guess-hidden:hover{box-shadow:0 4px 12px rgba(122,96,192,0.3)!important}
+.guess-hidden .guess-hide{visibility:hidden}
+.filter-btn.guess-active{background:#2a1848;border-color:#7a60c0;color:#c8a8ff}
 </style>
 </head>
 <body>
@@ -254,6 +259,7 @@ body {
   <div class="controls">
     <div class="search-row">
       <input type="text" class="search-box" id="search" placeholder="Suchen ..." autocomplete="off">
+      <button class="filter-btn" id="guess-btn" onclick="toggleGuess()">🎯 Raten</button>
     </div>
     <div class="filter-row" id="typeFilters"></div>
     <div class="cat-row" id="catFilters"></div>
@@ -438,6 +444,17 @@ function updateCatBtns() {
   });
 }
 
+let guessMode = false;
+function toggleGuess() {
+  guessMode = !guessMode;
+  document.getElementById('guess-btn').classList.toggle('guess-active', guessMode);
+  render();
+}
+document.getElementById('grid').addEventListener('click', function(e) {
+  const card = e.target.closest('.guess-hidden');
+  if (card) { card.classList.remove('guess-hidden'); card.classList.add('guess-revealed'); }
+});
+
 function render() {
   const q = searchBox.value.toLowerCase().trim();
   const filtered = DATA.filter(d => {
@@ -459,25 +476,48 @@ function render() {
     const typeLabel = type === "irreg" ? "IRREG" : type === "umlaut" ? "UMLAUT" : "REG";
     const typeCls = type === "irreg" ? "irreg" : type === "umlaut" ? "umlaut" : "regular";
 
-    card.innerHTML = `
-      <div class="card-top">
-        <span class="card-cat ${typeCls}">${typeLabel}</span>
-        <span class="card-tag">${cat}</span>
-      </div>
-      <div class="card-word">${word}</div>
-      <div class="card-english">${eng}</div>
-      <div class="card-forms">
-        <div class="form-box">
-          <div class="form-label">Komparativ</div>
-          <div class="form-value komp">${komp}</div>
+    if (guessMode) {
+      card.className += " guess-hidden";
+      card.innerHTML = `
+        <div class="card-top">
+          <span class="card-cat ${typeCls} guess-hide">${typeLabel}</span>
+          <span class="card-tag guess-hide">${cat}</span>
         </div>
-        <div class="form-box">
-          <div class="form-label">Superlativ</div>
-          <div class="form-value super">${sup}</div>
+        <div class="card-word">${word}</div>
+        <div class="card-english guess-hide">${eng}</div>
+        <div class="card-forms guess-hide">
+          <div class="form-box">
+            <div class="form-label">Komparativ</div>
+            <div class="form-value komp">${komp}</div>
+          </div>
+          <div class="form-box">
+            <div class="form-label">Superlativ</div>
+            <div class="form-value super">${sup}</div>
+          </div>
         </div>
-      </div>
-      <div class="tip">${example}</div>
-    `;
+        <div class="tip guess-hide">${example}</div>
+      `;
+    } else {
+      card.innerHTML = `
+        <div class="card-top">
+          <span class="card-cat ${typeCls}">${typeLabel}</span>
+          <span class="card-tag">${cat}</span>
+        </div>
+        <div class="card-word">${word}</div>
+        <div class="card-english">${eng}</div>
+        <div class="card-forms">
+          <div class="form-box">
+            <div class="form-label">Komparativ</div>
+            <div class="form-value komp">${komp}</div>
+          </div>
+          <div class="form-box">
+            <div class="form-label">Superlativ</div>
+            <div class="form-value super">${sup}</div>
+          </div>
+        </div>
+        <div class="tip">${example}</div>
+      `;
+    }
     grid.appendChild(card);
   });
 

@@ -214,6 +214,12 @@ tr:last-child td{border-bottom:none;}
   .prep-grid{grid-template-columns:1fr;}
   .cell .tip,.prep-ex .ptip{white-space:normal;min-width:220px;font-size:11px;}
 }
+/* ─── Guess Mode ─── */
+.guess-cell-hidden{cursor:pointer;color:transparent!important;user-select:none;}
+.guess-cell-hidden *{color:transparent!important;}
+.guess-cell-hidden:hover{background:rgba(122,96,192,0.15)!important;}
+.guess-btn{font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:500;padding:5px 12px;border-radius:7px;background:#343438;color:#8888a0;border:1px solid #44444c;transition:all .15s;cursor:pointer;}
+.guess-btn:hover,.guess-btn.active{background:#2a1848;color:#c8a8ff;border-color:#7a60c0;}
 </style>
 </head>
 <body>
@@ -221,6 +227,7 @@ tr:last-child td{border-bottom:none;}
   <header>
     <h1>Relativpronomen &amp; Relativsätze</h1>
     <p>hover any cell or card for example sentences</p>
+    <button class="guess-btn" id="guess-btn" onclick="toggleGuess()">🎯 Raten</button>
   </header>
 
   <div class="legend">
@@ -402,5 +409,27 @@ tr:last-child td{border-bottom:none;}
     Der Mann, <span class="mono" style="color:#7c3aed;">dessen Auto</span> kaputt ist… (NOT: dessen <del>das</del> Auto)
   </div>
 </div>
+
+<script>
+let guessMode = false;
+function toggleGuess() {
+  guessMode = !guessMode;
+  document.getElementById('guess-btn').classList.toggle('active', guessMode);
+  const cells = document.querySelectorAll('.cell');
+  cells.forEach(cell => {
+    if (guessMode) {
+      cell.classList.add('guess-cell-hidden');
+      cell.addEventListener('click', revealCell);
+    } else {
+      cell.classList.remove('guess-cell-hidden');
+      cell.removeEventListener('click', revealCell);
+    }
+  });
+}
+function revealCell() {
+  this.classList.remove('guess-cell-hidden');
+  this.removeEventListener('click', revealCell);
+}
+</script>
 </body>
 </html>
