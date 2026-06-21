@@ -245,7 +245,7 @@ function render() {
   f.forEach(d => {
     const [word, gender, plural, meaning, cat, phrase] = d;
     const gc = 'g-' + gender.replace(/\//g,'');
-    const pt = plural === '(pl.)' || plural === '(no pl.)' ? plural : 'Pl: ' + word + plural.replace(/^\s*-/,'');
+    const pt = plural === '(pl.)' || plural === '(no pl.)' ? plural : plural.startsWith('-') ? 'Pl: ' + word + plural.replace(/^-/, '') : 'Pl: ' + plural;
     const tt = phrase ? `<div class="tooltip">${phrase}</div>` : '';
     const pluralText = plural === '(no pl.)' ? '—' : (plural === '(pl.)' ? 'pl. only' : pt);
     if (guessMode) {
