@@ -35,7 +35,7 @@ body {
 
 /* ─── Controls ─── */
 .controls {
-  max-width: 960px; margin: 20px auto 0; padding: 0 20px;
+  max-width: 960px; margin: 10px auto 0; padding: 0;
   text-align: center;
 }
 .search-row {
@@ -227,9 +227,13 @@ body {
 }
 
 @media (max-width: 600px) {
-  .top-bar h1 { font-size: 22px; }
+  .top-bar { padding: 8px 10px 6px; }
+  .top-bar h1 { font-size: 18px; }
+  .top-bar .sub { display: none; }
+  .controls { margin-top: 6px; }
+  .search-box { width: 100%; font-size: 13px; padding: 6px 10px; }
+  .search-row { margin-bottom: 6px; }
   .grid { grid-template-columns: 1fr; }
-  .search-box { width: 100%; }
   .card-word { font-size: 18px; }
 }
 </style>
@@ -239,15 +243,14 @@ body {
 <div class="top-bar">
   <h1>Adjektive</h1>
   <div class="sub">Komparativ · Superlativ · hover for example · search German or English</div>
-</div>
-
-<div class="controls">
-  <div class="search-row">
-    <input type="text" class="search-box" id="search" placeholder="Suchen ..." autocomplete="off">
+  <div class="controls">
+    <div class="search-row">
+      <input type="text" class="search-box" id="search" placeholder="Suchen ..." autocomplete="off">
+    </div>
+    <div class="filter-row" id="typeFilters"></div>
+    <div class="cat-row" id="catFilters"></div>
+    <div class="count" id="count"></div>
   </div>
-  <div class="filter-row" id="typeFilters"></div>
-  <div class="cat-row" id="catFilters"></div>
-  <div class="count" id="count"></div>
 </div>
 
 <div class="legend">
