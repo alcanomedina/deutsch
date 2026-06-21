@@ -85,6 +85,11 @@ kw.fu{background:#3a1818;color:#f08888}
   .comp-part{font-size:13px;padding:6px 8px}
   .comp-result{font-size:14px;padding:6px 8px}
   .ex-grid{grid-template-columns:1fr}
+  .table-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:12px 0}
+  .fuge-table td{font-size:13px;padding:6px 8px}
+  .fuge-table .fuge-ex{font-size:11px}
+  .fuge-table td:first-child{position:sticky;left:0;z-index:2;background:#343438}
+  .fuge-table th:first-child{position:sticky;left:0;z-index:2;background:#2b2b2f}
 }
 </style>
 </head>
@@ -247,7 +252,7 @@ kw.fu{background:#3a1818;color:#f08888}
     Fugenelemente haben <strong>keine feste Regel</strong> — man muss sie mit dem Wort lernen. Aber es gibt Tendenzen.
   </div>
 
-  <table class="fuge-table">
+  <div class="table-scroll"><table class="fuge-table">
     <thead><tr><th>Fuge</th><th>Tendenz</th><th>Beispiele</th></tr></thead>
     <tbody>
       <tr>
@@ -276,7 +281,7 @@ kw.fu{background:#3a1818;color:#f08888}
         <td><span class="fuge-ex">Haustür · Schreibtisch · Handtasche · Kühlschrank</span></td>
       </tr>
     </tbody>
-  </table>
+  </table></div>
 </div>
 
 <!-- ═══ TIPPS ═══ -->
