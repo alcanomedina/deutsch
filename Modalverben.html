@@ -92,7 +92,11 @@ kw.v{background:#3a1818;color:#f08888}
   .section-title{font-size:22px}
   nav a{font-size:10px;padding:4px 6px}
   .conj-grid td{font-size:12px;padding:6px 4px}
-  .conj-grid th{font-size:10px}
+  .conj-grid th{font-size:10px;padding:4px 3px}
+  .table-scroll{overflow-x:auto;margin:12px 0;-webkit-overflow-scrolling:touch}
+  .conj-grid td:first-child,.conj-grid th:first-child{position:sticky;left:0;z-index:2}
+  .conj-grid th:first-child{background:#2b2b2f}
+  .conj-grid td:first-child{background:#343438}
   .mo-card .mo-verb{font-size:18px}
   .vs-grid{grid-template-columns:1fr}
   .pos-val{font-size:13px;padding:6px 6px}
@@ -166,7 +170,7 @@ kw.v{background:#3a1818;color:#f08888}
   <div class="section-title"><span class="dot" style="background:#70d890"></span> Präsens</div>
   <div class="section-sub">Konjugation im Präsens — Vokalwechsel in ich/er/sie/es</div>
 
-  <table class="conj-grid">
+  <div class="table-scroll"><table class="conj-grid">
     <thead><tr>
       <th></th>
       <th class="col-k">können</th>
@@ -184,7 +188,7 @@ kw.v{background:#3a1818;color:#f08888}
       <tr><td>ihr</td><td class="col-k">k<span class="stem-change">ö</span>nnt</td><td class="col-m">m<span class="stem-change">ü</span>sst</td><td class="col-d">d<span class="stem-change">ü</span>rft</td><td class="col-s">sollt</td><td class="col-w">w<span class="stem-change">o</span>llt</td><td class="col-mo">möchtet</td></tr>
       <tr><td>sie/Sie</td><td class="col-k">k<span class="stem-change">ö</span>nnen</td><td class="col-m">m<span class="stem-change">ü</span>ssen</td><td class="col-d">d<span class="stem-change">ü</span>rfen</td><td class="col-s">sollen</td><td class="col-w">w<span class="stem-change">o</span>llen</td><td class="col-mo">möchten</td></tr>
     </tbody>
-  </table>
+  </table></div>
 
   <div class="notes">
     <div class="notes-title">📌 Muster</div>
@@ -197,7 +201,7 @@ kw.v{background:#3a1818;color:#f08888}
   <div class="section-title"><span class="dot" style="background:#e8a840"></span> Präteritum</div>
   <div class="section-sub">Für die Vergangenheit benutzt man bei Modalverben fast immer das Präteritum (nicht Perfekt)</div>
 
-  <table class="conj-grid">
+  <div class="table-scroll"><table class="conj-grid">
     <thead><tr>
       <th></th>
       <th class="col-k">können</th>
@@ -215,7 +219,7 @@ kw.v{background:#3a1818;color:#f08888}
       <tr><td>ihr</td><td class="col-k">konntet</td><td class="col-m">musstet</td><td class="col-d">durftet</td><td class="col-s">solltet</td><td class="col-w">wolltet</td><td style="color:#ababba">mochtet</td></tr>
       <tr><td>sie/Sie</td><td class="col-k">konnten</td><td class="col-m">mussten</td><td class="col-d">durften</td><td class="col-s">sollten</td><td class="col-w">wollten</td><td style="color:#ababba">mochten</td></tr>
     </tbody>
-  </table>
+  </table></div>
 
   <div class="notes">
     <div class="notes-title">📌 Muster</div>
@@ -228,7 +232,7 @@ kw.v{background:#3a1818;color:#f08888}
   <div class="section-title"><span class="dot" style="background:#c8a8ff"></span> Konjunktiv II</div>
   <div class="section-sub">Höflichkeit, irreale Wünsche, Ratschläge — Modalverben behalten ihre eigene KII-Form</div>
 
-  <table class="conj-grid">
+  <div class="table-scroll"><table class="conj-grid">
     <thead><tr>
       <th></th>
       <th class="col-k">können</th>
@@ -245,7 +249,7 @@ kw.v{background:#3a1818;color:#f08888}
       <tr><td>ihr</td><td class="col-k">könntet</td><td class="col-m">müsstet</td><td class="col-d">dürftet</td><td class="col-s">solltet</td><td class="col-w">wolltet</td></tr>
       <tr><td>sie/Sie</td><td class="col-k">könnten</td><td class="col-m">müssten</td><td class="col-d">dürften</td><td class="col-s">sollten</td><td class="col-w">wollten</td></tr>
     </tbody>
-  </table>
+  </table></div>
 
   <div class="notes warn">
     <div class="notes-title">⚠ Achtung: sollen / wollen</div>
@@ -301,7 +305,7 @@ kw.v{background:#3a1818;color:#f08888}
   </div>
 
   <div class="sub-label" style="margin-top:20px;">Partizip II <span class="hint">— nur ohne Vollverb</span></div>
-  <table class="conj-grid" style="max-width:600px;">
+  <div class="table-scroll"><table class="conj-grid" style="max-width:600px;">
     <thead><tr>
       <th class="col-k">können</th>
       <th class="col-m">müssen</th>
@@ -320,7 +324,7 @@ kw.v{background:#3a1818;color:#f08888}
         <td style="color:#ababba">gemocht</td>
       </tr>
     </tbody>
-  </table>
+  </table></div>
 </div>
 
 <!-- ═══ POSITION ═══ -->
