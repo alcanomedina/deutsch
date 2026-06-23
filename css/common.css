@@ -1,0 +1,66 @@
+/* ─── Reset ─── */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+/* ─── Base ─── */
+body {
+  font-family: 'Inter', Arial, Helvetica, sans-serif;
+  background: #2b2b2f;
+  color: #e0e0e4;
+  min-height: 100vh;
+}
+
+/* ─── Guess Mode — Card variant ─── */
+.guess-hidden {
+  background: #343438 !important;
+  border-color: #4a4a52 !important;
+  cursor: pointer;
+}
+.guess-hidden:hover {
+  box-shadow: 0 4px 12px rgba(122, 96, 192, 0.3) !important;
+}
+.guess-hidden .guess-hide { visibility: hidden; }
+.guess-revealed { cursor: default; }
+
+/* ─── Guess Mode — Cell variant ─── */
+.guess-cell-hidden {
+  cursor: pointer;
+  color: transparent !important;
+  user-select: none;
+}
+.guess-cell-hidden * { color: transparent !important; }
+.guess-cell-hidden:hover {
+  background: rgba(122, 96, 192, 0.15);
+}
+
+/* ─── Tooltip (Substantive, Verben, Praepositionen) ─── */
+.tooltip {
+  display: none;
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: #111115;
+  color: #e8e8ec;
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-style: italic;
+  white-space: nowrap;
+  max-width: 420px;
+  font-family: 'Inter', Arial, Helvetica, sans-serif;
+  z-index: 200;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
+  pointer-events: none;
+  line-height: 1.4;
+}
+.tooltip::before {
+  content: '';
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-bottom: 6px solid #111115;
+}
+.card:hover .tooltip { display: block; }

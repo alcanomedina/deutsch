@@ -8,15 +8,9 @@
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 <title>Deutsche Adjektive — Referenz</title>
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/common.css">
 <style>
-* { margin: 0; padding: 0; box-sizing: border-box; }
-body {
-  font-family: 'Inter', Arial, Helvetica, sans-serif;
-  background: #2b2b2f;
-  color: #e0e0e4;
-  min-height: 100vh;
-  padding: 0 0 48px;
-}
+body { padding: 0 0 48px; }
 
 /* ─── Header ─── */
 .top-bar {
@@ -248,9 +242,6 @@ body {
   .card-word { font-size: 18px; }
 }
 /* ─── Guess Mode ─── */
-.guess-hidden{background:#343438!important;border-color:#4a4a52!important;cursor:pointer}
-.guess-hidden:hover{box-shadow:0 4px 12px rgba(122,96,192,0.3)!important}
-.guess-hidden .guess-hide{visibility:hidden}
 .filter-btn.guess-active{background:#2a1848;border-color:#7a60c0;color:#c8a8ff}
 </style>
 </head>
@@ -263,6 +254,7 @@ body {
     <div class="search-row">
       <input type="text" class="search-box" id="search" placeholder="Suchen ..." autocomplete="off">
       <button class="filter-btn" id="guess-btn" onclick="toggleGuess()">🎯 Raten</button>
+      <button class="filter-btn" id="shuffle-btn" onclick="toggleShuffle()">🔀 Mischen</button>
     </div>
     <div class="filter-row" id="typeFilters"></div>
     <div class="cat-row" id="catFilters"></div>
@@ -289,6 +281,7 @@ body {
 <div class="grid" id="grid"></div>
 </div><!-- /content-wrap -->
 
+<script src="js/common.js"></script>
 <script>
 // [word, komparativ, superlativ, english, category, type, example]
 // type: "regular", "umlaut", "irreg"
@@ -448,6 +441,12 @@ function updateCatBtns() {
 }
 
 let guessMode = false;
+let shuffleMode = false;
+function toggleShuffle() {
+  shuffleMode = !shuffleMode;
+  document.getElementById('shuffle-btn').classList.toggle('guess-active', shuffleMode);
+  render();
+}
 function toggleGuess() {
   guessMode = !guessMode;
   document.getElementById('guess-btn').classList.toggle('guess-active', guessMode);
@@ -475,8 +474,9 @@ function render() {
     return true;
   });
 
+  const display = shuffleMode ? shuffleArray(filtered) : filtered;
   grid.innerHTML = "";
-  filtered.forEach(d => {
+  display.forEach(d => {
     const [word, komp, sup, eng, cat, type, example] = d;
     const card = document.createElement("div");
     card.className = "card t-" + type;

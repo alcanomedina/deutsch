@@ -8,9 +8,9 @@
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 <title>Präpositionen – German Prepositions &amp; Cases</title>
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/common.css">
 <style>
-*{margin:0;padding:0;box-sizing:border-box;}
-body{font-family:'Inter', Arial, Helvetica, sans-serif;background:#2b2b2f;color:#e0e0e4;min-height:100vh;padding:24px 16px 48px;}
+body { padding: 24px 16px 48px; }
 .container{max-width:860px;margin:0 auto;}
 header{text-align:center;margin-bottom:28px;}
 h1{font-family:'JetBrains Mono',monospace;font-size:28px;font-weight:700;color:#f0f0f4;letter-spacing:-0.5px;}
@@ -84,26 +84,8 @@ header p{margin:4px 0 0;font-size:14px;color:#ababba;}
 .tag-gen{background:#1a4a2a;color:#80e8a0;}
 .tag-wechsel{background:#3a2860;color:#c8a8ff;}
 
-.tooltip{
-  display:none;position:absolute;
-  top:calc(100% + 8px);left:50%;
-  transform:translateX(-50%);
-  background:#111115;color:#e8e8ec;
-  padding:10px 16px;border-radius:8px;
-  font-size:13px;font-style:italic;
-  max-width:400px;white-space:normal;
-  font-family:'Inter', Arial, Helvetica, sans-serif;
-  z-index:200;box-shadow:0 4px 16px rgba(0,0,0,0.5);
-  pointer-events:none;line-height:1.5;
-}
-.tooltip::after{
-  content:'';position:absolute;
-  bottom:100%;left:50%;transform:translateX(-50%);
-  border-left:6px solid transparent;
-  border-right:6px solid transparent;
-  border-bottom:6px solid #1e293b;
-}
 .prep-card:hover .tooltip{display:block;}
+.tooltip{padding:10px 16px;max-width:400px;white-space:normal;line-height:1.5;}
 .tooltip .ex-label{
   font-family:'JetBrains Mono',monospace;
   font-size:12px;font-weight:700;font-style:normal;

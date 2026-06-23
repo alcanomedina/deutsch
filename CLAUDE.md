@@ -35,6 +35,8 @@ Modalverben.html        — Conjugation grids: Präsens/Präteritum/Konj. II
 Satzstruktur.html       — V2, Inversion, Satzklammer, TeKaMoLo, Negation
 Nebensaetze.html        — dass/damit/um…zu/Infinitivsätze, nom. Infinitiv
 Komposita.html          — Compound words: N+N, V+N, Adj+N, Fugenelemente
+css/common.css          — Shared base styles (reset, guess mode, tooltip)
+js/common.js            — Shared utilities (shuffle)
 docs/                   — Briefs and documentation
 CLAUDE.md               — This file
 make_targz.bat          — Package root HTML + docs into project.tar.gz
@@ -141,6 +143,10 @@ searchable — read-through reference material.
   Don't split into separate requests.
 - **No localStorage**: these are static pages, no persistence needed
   unless explicitly specified.
+- **common.css load order**: must be linked BEFORE the page's
+  `<style>` block so page-specific rules can override.
+- **common.js load order**: must be loaded BEFORE the page's inline
+  `<script>` so functions are available.
 
 ## Brief Conventions
 

@@ -8,15 +8,9 @@
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 <title>Deutsche Artikel — Referenz</title>
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/common.css">
 <style>
-* { margin: 0; padding: 0; box-sizing: border-box; }
-body {
-  font-family: 'Inter', Arial, Helvetica, sans-serif;
-  background: #2b2b2f;
-  min-height: 100vh;
-  padding: 0 0 48px;
-  color: #e0e0e4;
-}
+body { padding: 0 0 48px; }
 .container { max-width: 960px; margin: 0 auto; padding: 0 20px; }
 
 /* ─── Header ─── */
@@ -232,9 +226,6 @@ header p { margin: 6px 0 0; font-size: 15px; color: #ababba; }
   .grid-table { grid-template-columns: 44px repeat(4, 1fr); }
 }
 /* ─── Guess Mode ─── */
-.guess-cell-hidden { cursor: pointer; color: transparent !important; user-select: none; }
-.guess-cell-hidden * { color: transparent !important; }
-.guess-cell-hidden:hover { background: rgba(122, 96, 192, 0.15) !important; }
 .guess-cell-hidden.tile { background: #343438 !important; border-color: #4a4a52 !important; }
 .guess-btn { font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 500; padding: 5px 12px; border-radius: 7px; background: #343438; color: #8888a0; border: 1px solid #44444c; transition: all .15s; cursor: pointer; margin-top: 6px; }
 .guess-btn:hover, .guess-btn.active { background: #2a1848; color: #c8a8ff; border-color: #7a60c0; }

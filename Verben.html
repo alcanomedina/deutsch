@@ -8,9 +8,8 @@
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 <title>Deutsche Verben — Präpositionen · Perfekt · Kasus</title>
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/common.css">
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Inter',Arial,Helvetica,sans-serif;background:#2b2b2f;color:#e0e0e4;min-height:100vh}
 .top-bar{position:sticky;top:0;z-index:100;background:#232327ee;backdrop-filter:blur(12px);border-bottom:1px solid #3e3e44;padding:14px 16px 10px}
 .top-bar h1{font-family:'JetBrains Mono',monospace;font-size:26px;font-weight:700;color:#f0f0f4;letter-spacing:-0.5px;text-align:center;margin-bottom:6px}
 .top-bar .sub{text-align:center;font-size:14px;color:#ababba;margin-bottom:8px}
@@ -54,10 +53,6 @@ body{font-family:'Inter',Arial,Helvetica,sans-serif;background:#2b2b2f;color:#e0
 .t-schwach{background:#2a2a38;color:#8888a0}
 .t-gemischt{background:#2a1848;color:#c8a8ff}
 
-/* ─── Tooltip ─── */
-.tooltip{display:none;position:absolute;top:calc(100% + 8px);left:50%;transform:translateX(-50%);background:#111115;color:#e8e8ec;padding:7px 14px;border-radius:8px;font-size:13px;font-style:italic;white-space:nowrap;z-index:200;box-shadow:0 4px 16px rgba(0,0,0,.6);pointer-events:none;font-family:'Inter',sans-serif}
-.tooltip::before{content:'';position:absolute;bottom:100%;left:50%;transform:translateX(-50%);border-left:6px solid transparent;border-right:6px solid transparent;border-bottom:6px solid #111115}
-.card:hover .tooltip{display:block}
 
 .empty{display:none;text-align:center;padding:40px;color:#8888a0;font-size:15px}
 
@@ -73,9 +68,6 @@ body{font-family:'Inter',Arial,Helvetica,sans-serif;background:#2b2b2f;color:#e0
   .tooltip{white-space:normal;min-width:240px;max-width:300px}
 }
 /* ─── Guess Mode ─── */
-.guess-hidden{background:#343438!important;border-color:#4a4a52!important;cursor:pointer}
-.guess-hidden:hover{box-shadow:0 4px 12px rgba(122,96,192,0.3)!important}
-.guess-hidden .guess-hide{visibility:hidden}
 .fbtn.guess-active{background:#2a1848;border-color:#7a60c0;color:#c8a8ff}
 </style>
 </head>
@@ -86,6 +78,7 @@ body{font-family:'Inter',Arial,Helvetica,sans-serif;background:#2b2b2f;color:#e0
   <div class="controls">
     <input type="text" class="search-box" id="search" placeholder="Suche Verb oder Bedeutung …">
     <button class="fbtn" id="guess-btn" onclick="toggleGuess()">🎯 Raten</button>
+    <button class="fbtn" id="shuffle-btn" onclick="toggleShuffle()">🔀 Mischen</button>
     <button class="fbtn f-all" data-f="all" onclick="setCase(this)">Alle</button>
     <button class="fbtn" data-f="Akk" onclick="setCase(this)">Akkusativ</button>
     <button class="fbtn" data-f="Dat" onclick="setCase(this)">Dativ</button>
@@ -99,6 +92,7 @@ body{font-family:'Inter',Arial,Helvetica,sans-serif;background:#2b2b2f;color:#e0
   <div class="empty" id="empty">Keine Verben gefunden.</div>
 </div>
 
+<script src="js/common.js"></script>
 <script>
 // Data: [verb, prep+case, perfekt, meaning, type(s/w/m), example]
 // type: s=stark, w=schwach, m=gemischt
@@ -307,6 +301,12 @@ function getPrepLabel(pc) {
 }
 
 let guessMode = false;
+let shuffleMode = false;
+function toggleShuffle() {
+  shuffleMode = !shuffleMode;
+  document.getElementById('shuffle-btn').classList.toggle('guess-active', shuffleMode);
+  render();
+}
 function toggleGuess() {
   guessMode = !guessMode;
   document.getElementById('guess-btn').classList.toggle('guess-active', guessMode);
@@ -353,6 +353,7 @@ function render() {
       d[1].toLowerCase().includes(searchTerm)
     );
   }
+  if (shuffleMode) f = shuffleArray(f);
 
   if (!f.length) {
     grid.innerHTML = '';
