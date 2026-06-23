@@ -23,6 +23,7 @@
 .fbtn.f-akk{background:#3a2e10;border-color:#9a7a20;color:#e8a840}
 .fbtn.f-dat{background:#1a3a22;border-color:#40a060;color:#70d890}
 .fbtn.f-prep{background:#2a1848;border-color:#7a60c0;color:#c8a8ff}
+.fbtn.f-ohne{background:#2a2a38;border-color:#8888a0;color:#c0c0c8}
 
 .prep-bar{max-width:920px;margin:6px auto 0;display:flex;flex-wrap:wrap;gap:4px;justify-content:center}
 .pbtn{padding:3px 7px;border:1.5px solid #44444c;border-radius:5px;background:#343438;font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:500;cursor:pointer;transition:all .15s;color:#8888a0}
@@ -40,11 +41,14 @@
 .card.k-akk:hover{box-shadow:0 4px 12px #9a7a2066}
 .card.k-dat{background:#1a3020;border-color:#3a7a50}
 .card.k-dat:hover{box-shadow:0 4px 12px #40a06066}
+.card.k-ohne{background:#2a2a38;border-color:#5a5a6a}
+.card.k-ohne:hover{box-shadow:0 4px 12px #8888a066}
 
 .card-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:3px;gap:6px}
 .prep-badge{font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;padding:2px 7px;border-radius:5px;white-space:nowrap}
 .k-akk .prep-badge{background:#5a4a10;color:#e8a840}
 .k-dat .prep-badge{background:#1a4a28;color:#70d890}
+.k-ohne .prep-badge{background:#3a3a48;color:#8888a0}
 .perfekt{font-family:'JetBrains Mono',monospace;font-size:11px;color:#8888a0;text-align:right;white-space:nowrap}
 .verb-name{font-family:'Inter',sans-serif;font-size:19px;font-weight:700;color:#f0f0f4}
 .meaning{font-size:13px;color:#c0c0c8;margin-top:1px;line-height:1.3}
@@ -82,6 +86,7 @@
     <button class="fbtn f-all" data-f="all" onclick="setCase(this)">Alle</button>
     <button class="fbtn" data-f="Akk" onclick="setCase(this)">Akkusativ</button>
     <button class="fbtn" data-f="Dat" onclick="setCase(this)">Dativ</button>
+    <button class="fbtn" data-f="Ohne" onclick="setCase(this)">Ohne</button>
   </div>
   <div class="prep-bar" id="prep-bar"></div>
   <div class="stats">Showing <span id="stats">0</span></div>
@@ -248,12 +253,25 @@ const DATA = [
 ["besuchen","Akk","hat besucht","to visit","w","Ich besuche meine Grosseltern."],
 ["abholen","Akk","hat abgeholt","to pick up","w","Ich hole dich am Bahnhof ab."],
 ["verstehen","Akk","hat verstanden","to understand","s","Ich verstehe dich nicht."],
+// ─── ohne Präposition ───
+["aufgeben","Akk","hat aufgegeben","to give up","s","Er gibt seinen Traum nicht auf."],
+["feststellen","Akk","hat festgestellt","to determine, notice","w","Wir haben einen Fehler festgestellt."],
+["anschaffen","Akk","hat angeschafft","to acquire, purchase","w","Du könntest dir ein Auto anschaffen."],
+["umtauschen","Akk","hat umgetauscht","to exchange, return","w","Hoffentlich kann ich die Schuhe umtauschen."],
+["austauschen","Akk","hat ausgetauscht","to exchange, replace","w","Wir müssen die alten Lampen austauschen."],
+["verpassen","Akk","hat verpasst","to miss","w","Ich habe den Zug verpasst."],
+["überlegen","Akk","hat überlegt","to consider, think over","w","Ich würde mir die Sache noch einmal überlegen."],
+// ─── intransitiv / reflexiv ───
+["lächeln","Ohne","hat gelächelt","to smile","w","Das Baby lächelt."],
+["sich verändern","Ohne","hat sich verändert","to change (oneself)","w","Handys haben sich immer wieder verändert."],
+["sich ausruhen","Ohne","hat sich ausgeruht","to rest","w","Am Wochenende ruhe ich mich aus."],
+["sich wohl fühlen","Ohne","hat sich wohl gefühlt","to feel comfortable","w","Ich fühle mich hier wohl."],
 ];
 
 // Extract unique prepositions for filter buttons
 const allPreps = [...new Set(DATA.map(d => {
   const p = d[1];
-  if (p === 'Dat' || p === 'Akk') return null;
+  if (p === 'Dat' || p === 'Akk' || p === 'Ohne') return null;
   return p.split('+')[0];
 }).filter(Boolean))].sort();
 
@@ -287,16 +305,17 @@ document.getElementById('search').addEventListener('input', function() {
 });
 
 function getCase(pc) {
-  if (pc === 'Dat' || pc === 'Akk') return pc;
+  if (pc === 'Dat' || pc === 'Akk' || pc === 'Ohne') return pc;
   return pc.split('+')[1] || '';
 }
 function getPrep(pc) {
-  if (pc === 'Dat' || pc === 'Akk') return '';
+  if (pc === 'Dat' || pc === 'Akk' || pc === 'Ohne') return '';
   return pc.split('+')[0];
 }
 function getPrepLabel(pc) {
   if (pc === 'Dat') return 'Dativ';
   if (pc === 'Akk') return 'Akkusativ';
+  if (pc === 'Ohne') return '—';
   return pc;
 }
 
@@ -368,7 +387,7 @@ function render() {
   f.forEach(d => {
     const [verb, pc, perfekt, meaning, type, example] = d;
     const cas = getCase(pc);
-    const kc = cas === 'Akk' ? 'k-akk' : 'k-dat';
+    const kc = cas === 'Akk' ? 'k-akk' : cas === 'Dat' ? 'k-dat' : 'k-ohne';
     const tc = type === 's' ? 't-stark' : type === 'm' ? 't-gemischt' : 't-schwach';
     const tl = type === 's' ? 'stark' : type === 'm' ? 'gemischt' : 'schwach';
     const badge = getPrepLabel(pc);
