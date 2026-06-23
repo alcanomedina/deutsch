@@ -191,7 +191,7 @@ const DATA = [["Jahr", "das", "-e", "year", "time", "Dieses Jahr reise ich in di
 ["Badewanne", "die", "-n", "bathtub", "home", "Am Abend nehme ich ein Bad in der Badewanne."],
 ["Nahrungsmittel", "das", "-", "food, foodstuff", "food", "Nahrungsmittel sollte man nicht verschwenden."]
 ];
-constCATS = [...new Set(DATA.map(d => d[4]))].sort();
+const CATS =[...new Set(DATA.map(d => d[4]))].sort();
 let currentGender = 'all', currentCat = 'all', searchTerm = '';
 
 const catBar = document.getElementById('cat-bar');
