@@ -162,4 +162,5 @@ After completing ANY brief:
    desktop and mobile layouts, check that search/filter still work.
 2. **Check index.html** — if a new page was added, add a card to the
    landing page in the appropriate section.
-3. **Commit and push** — GitHub Pages auto-deploys from root.
+3. **Commit and push** — stage the modified HTML files AND the brief
+   (`docs/brief_v{N}_*.md`), then push. GitHub Pages auto-deploys from root.
