@@ -311,6 +311,48 @@ kw.conj { background: #133040; color: #60d0e8; }
   flex: 1; line-height: 1.5;
 }
 
+/* ─── Nachfeld ─── */
+.pos-val.nachfeld { border-color: #6a6a80; color: #a0a0b0; background: #2e2e38; border-style: dotted; }
+
+/* ─── Final-Angabe (TeKaMoLoFi) ─── */
+.tk-fi { background: #1a3038; border-color: #3a8070; color: #68d8b8; }
+
+/* ─── Syntaxtabelle ─── */
+.syntaxtabelle-wrap { overflow-x: auto; margin: 14px 0; }
+.syntaxtabelle {
+  border-collapse: separate;
+  border-spacing: 4px;
+  min-width: 900px;
+  width: 100%;
+}
+.syntaxtabelle th {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px; font-weight: 700;
+  text-align: center;
+  padding: 10px 12px;
+  border-radius: 8px;
+  white-space: nowrap;
+}
+.syntaxtabelle td {
+  background: #343438;
+  border: 1px solid #44444c;
+  color: #c0c0c8;
+  font-size: 12px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  vertical-align: top;
+  line-height: 1.7;
+}
+.syntaxtabelle td em { font-style: normal; font-weight: 700; }
+.st-pos0    { background: #133040; border: 2px solid #2a7088; color: #60d0e8; }
+.st-vorfeld { background: #1e2e45; border: 2px solid #3a6ea8; color: #8ec4ff; }
+.st-verb    { background: #3a1818; border: 2px solid #a04040; color: #f08888; }
+.st-erg1    { background: #1a3a22; border: 2px solid #40a060; color: #70d890; }
+.st-angaben { background: #2a1848; border: 2px solid #7a60c0; color: #c8a8ff; }
+.st-erg2    { background: #3a2e10; border: 2px solid #9a7a20; color: #e8a840; }
+.st-nachfeld { background: #2e2e38; border: 2px dotted #6a6a80; color: #a0a0b0; }
+.st-footnotes { font-size: 12px; color: #8888a0; margin-top: 10px; line-height: 1.8; }
+
 /* ─── Responsive ─── */
 @media (max-width: 700px) {
   header { padding: 10px 12px; }
@@ -343,6 +385,8 @@ kw.conj { background: #133040; color: #60d0e8; }
     <a href="#tekamolo">TeKaMoLo</a>
     <a href="#negation">Negation</a>
     <a href="#nebensatz">Nebensatz</a>
+    <a href="#nachfeld">Nachfeld</a>
+    <a href="#ref">Syntaxtabelle</a>
   </nav>
 </header>
 
@@ -356,41 +400,59 @@ kw.conj { background: #133040; color: #60d0e8; }
     <span class="dot" style="background:#f08888;"></span>
     Das Satzmodell
   </div>
-  <div class="section-sub">Die vier Felder eines deutschen Hauptsatzes</div>
+  <div class="section-sub">Die sieben Felder eines deutschen Hauptsatzes</div>
 
   <div class="satz">
     <div class="pos">
-      <div class="pos-label">Vorfeld</div>
-      <div class="pos-val subj">Position 1</div>
+      <div class="pos-label">Pos. 0</div>
+      <div class="pos-val conj">Konj.</div>
     </div>
     <div class="pos">
-      <div class="pos-label">Verb</div>
-      <div class="pos-val verb">Position 2</div>
+      <div class="pos-label">Vorfeld</div>
+      <div class="pos-val subj">Pos. 1</div>
+    </div>
+    <div class="pos">
+      <div class="pos-label">Verb 1</div>
+      <div class="pos-val verb">Pos. 2</div>
+    </div>
+    <div class="pos">
+      <div class="pos-label">Erg. 1</div>
+      <div class="pos-val dat">Dat · Akk(def)</div>
     </div>
     <div class="pos wide">
-      <div class="pos-label">Mittelfeld</div>
-      <div class="pos-val">Objekte · Angaben · …</div>
+      <div class="pos-label">Angaben</div>
+      <div class="pos-val modal">Te · Ka · Mo · Lo · Fi</div>
     </div>
     <div class="pos">
-      <div class="pos-label">Satzende</div>
-      <div class="pos-val bracket">Verb₂ / Präfix</div>
+      <div class="pos-label">Erg. 2</div>
+      <div class="pos-val akk">Akk(indef) · …</div>
+    </div>
+    <div class="pos">
+      <div class="pos-label">Verb 2</div>
+      <div class="pos-val bracket">Inf. / Part. II</div>
+    </div>
+    <div class="pos">
+      <div class="pos-label">Nachfeld</div>
+      <div class="pos-val nachfeld">Vergleiche · NS …</div>
     </div>
   </div>
 
+  <div class="satz-label"><strong>Position 0:</strong> Konjunktionen <em>aber, denn, und, sondern, oder</em> stehen VOR dem Vorfeld — sie zählen nicht als Position 1.</div>
+
   <div class="legend">
-    <div class="legend-item"><div class="legend-dot" style="background:#1e2e45;border-color:#3a6ea8;"></div> Subjekt</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#133040;border-color:#2a7088;"></div> Pos. 0 / Konj.</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#1e2e45;border-color:#3a6ea8;"></div> Vorfeld / Subjekt</div>
     <div class="legend-item"><div class="legend-dot" style="background:#3a1818;border-color:#a04040;"></div> Verb</div>
-    <div class="legend-item"><div class="legend-dot" style="background:#3a2e10;border-color:#9a7a20;"></div> Akkusativ</div>
-    <div class="legend-item"><div class="legend-dot" style="background:#1a3a22;border-color:#40a060;"></div> Dativ</div>
-    <div class="legend-item"><div class="legend-dot" style="background:#133040;border-color:#2a7088;"></div> Temporal</div>
-    <div class="legend-item"><div class="legend-dot" style="background:#3a1830;border-color:#a04070;"></div> Kausal</div>
-    <div class="legend-item"><div class="legend-dot" style="background:#2a1848;border-color:#7a60c0;"></div> Modal</div>
-    <div class="legend-item"><div class="legend-dot" style="background:#3a3010;border-color:#9a7a20;"></div> Lokal</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#1a3a22;border-color:#40a060;"></div> Dativ / Erg. 1</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#2a1848;border-color:#7a60c0;"></div> Angaben</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#3a2e10;border-color:#9a7a20;"></div> Akkusativ / Erg. 2</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#3a1818;border-color:#a04040;border-style:dashed;"></div> Verb 2 / Satzende</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#2e2e38;border-color:#6a6a80;border-style:dotted;"></div> Nachfeld</div>
   </div>
 
   <div class="notes">
     <div class="notes-title">📌 Das Wichtigste</div>
-    Das konjugierte Verb steht <strong>immer auf Position 2</strong>. Alles andere ist flexibel — aber es gibt Muster für die optimale Reihenfolge im Mittelfeld.
+    Das konjugierte Verb steht <strong>immer auf Position 2</strong> (Vorfeld). <strong>Position 0</strong> ist für koordinierende Konjunktionen reserviert und zählt nicht als Satzposition. Das Mittelfeld gliedert sich in <strong>Erg. 1 → Angaben → Erg. 2</strong>. Am Ende steht <strong>Verb 2</strong>, und im <strong>Nachfeld</strong> stehen Vergleiche, Nebensätze und lange Ergänzungen.
   </div>
 </div>
 
@@ -718,6 +780,38 @@ kw.conj { background: #133040; color: #60d0e8; }
     <div class="op-rule">Umgekehrt! Bei zwei Pronomen: Akk vor Dat.</div>
   </div>
 
+  <div class="sub-label" style="margin-top:28px;">Ergänzungen 1 und 2 <span class="hint">— Bellingua B1-Präzisierung</span></div>
+
+  <div class="obj-pattern">
+    <div class="op-title"><kw class="d">Erg. 1</kw> — VOR den Angaben</div>
+    <div class="op-rule">Dativergänzung · Personalpronomen/Reflexivpron. im Akk · Nomen mit Definit-/Possessivartikel im Akk</div>
+    <div class="satz" style="margin:10px 0 4px;">
+      <div class="pos"><div class="pos-label">Subj.</div><div class="pos-val subj">Ich</div></div>
+      <div class="pos"><div class="pos-label">Verb 1</div><div class="pos-val verb">gebe</div></div>
+      <div class="pos"><div class="pos-label">Dat. [Erg.1]</div><div class="pos-val dat">ihm</div></div>
+      <div class="pos"><div class="pos-label">Akk(def) [Erg.1]</div><div class="pos-val akk">den Ball</div></div>
+      <div class="pos"><div class="pos-label">Te [Angaben]</div><div class="pos-val temp">heute</div></div>
+      <div class="pos"><div class="pos-label">Lo [Angaben]</div><div class="pos-val lok">im Park</div></div>
+    </div>
+  </div>
+
+  <div class="obj-pattern">
+    <div class="op-title"><kw class="a">Erg. 2</kw> — NACH den Angaben</div>
+    <div class="op-rule">Akkusativergänzung (indefinit) · Nominativerg. · Qualitativerg. · Situativerg. · Direktiverg. · Präpositionalerg. · Verbativerg.</div>
+    <div class="satz" style="margin:10px 0 4px;">
+      <div class="pos"><div class="pos-label">Subj.</div><div class="pos-val subj">Ich</div></div>
+      <div class="pos"><div class="pos-label">Verb 1</div><div class="pos-val verb">spiele</div></div>
+      <div class="pos"><div class="pos-label">Te [Angaben]</div><div class="pos-val temp">heute</div></div>
+      <div class="pos"><div class="pos-label">Lo [Angaben]</div><div class="pos-val lok">im Park</div></div>
+      <div class="pos wide"><div class="pos-label">Akk(indef) [Erg.2]</div><div class="pos-val akk">einen neuen Sport</div></div>
+    </div>
+  </div>
+
+  <div class="notes warn">
+    <div class="notes-title">⚠️ Hinweis</div>
+    Die einfache Regel „Dativ vor Akkusativ vor TeKaMoLo" funktioniert meistens. Die Unterscheidung Erg. 1 / Erg. 2 ist die präzisere B1-Version.
+  </div>
+
   <div class="notes" style="margin-top:14px; border-left:3px solid #70d890;">
     <div class="notes-title" style="color:#70d890;">📌 Zusammenfassung</div>
     <strong>Nomen + Nomen:</strong> Dativ → Akkusativ<br>
@@ -734,32 +828,38 @@ kw.conj { background: #133040; color: #60d0e8; }
     <span class="dot" style="background:#c8a8ff;"></span>
     TeKaMoLo
   </div>
-  <div class="section-sub">Die Reihenfolge der Angaben im Mittelfeld</div>
+  <div class="section-sub">Die Reihenfolge der Angaben im Mittelfeld · + Final (Wozu?)</div>
 
   <div class="tekamolo">
     <div class="tekamolo-col tk-te">
       <div class="tk-letter">Te</div>
       <div class="tk-name">Temporal</div>
-      <div class="tk-q">Wann?</div>
+      <div class="tk-q">Wann? Wie oft?<br>Wie lange?<br>Bis wann? Seit wann?</div>
       <div class="tk-examples">heute · gestern<br>morgens · oft<br>seit zwei Jahren<br>um 8 Uhr</div>
     </div>
     <div class="tekamolo-col tk-ka">
       <div class="tk-letter">Ka</div>
       <div class="tk-name">Kausal</div>
-      <div class="tk-q">Warum?</div>
+      <div class="tk-q">Warum? Grund?</div>
       <div class="tk-examples">wegen des Wetters<br>aus Liebe<br>deshalb<br>trotzdem</div>
     </div>
     <div class="tekamolo-col tk-mo">
       <div class="tk-letter">Mo</div>
       <div class="tk-name">Modal</div>
-      <div class="tk-q">Wie?</div>
+      <div class="tk-q">Wie? Womit?<br>Mit wem?<br>Wodurch? Woraus?</div>
       <div class="tk-examples">gern · schnell<br>mit dem Bus<br>zusammen<br>allein</div>
     </div>
     <div class="tekamolo-col tk-lo">
       <div class="tk-letter">Lo</div>
       <div class="tk-name">Lokal</div>
-      <div class="tk-q">Wo? Wohin?</div>
+      <div class="tk-q">Wo? Wohin?<br>Woher?</div>
       <div class="tk-examples">in Zürich<br>nach Hause<br>im Büro<br>zur Schule</div>
+    </div>
+    <div class="tekamolo-col tk-fi">
+      <div class="tk-letter">Fi</div>
+      <div class="tk-name">Final</div>
+      <div class="tk-q">Wozu?</div>
+      <div class="tk-examples">um … zu<br>damit<br>zum Lernen</div>
     </div>
   </div>
 
@@ -890,44 +990,94 @@ kw.conj { background: #133040; color: #60d0e8; }
 </div>
 
 <!-- ═══════════════════════════════════════ -->
-<!-- QUICK REFERENCE                         -->
+<!-- SECTION 9: NACHFELD                     -->
+<!-- ═══════════════════════════════════════ -->
+<div class="section" id="nachfeld">
+  <div class="section-title">
+    <span class="dot" style="background:#a0a0b0;"></span>
+    Nachfeld
+  </div>
+  <div class="section-sub">Was kommt nach dem letzten Verb?</div>
+
+  <div class="sub-label">1. Vergleiche mit <em>wie</em> und <em>als</em></div>
+  <div class="satz">
+    <div class="pos"><div class="pos-label">Subj.</div><div class="pos-val subj">Er</div></div>
+    <div class="pos"><div class="pos-label">Verb 1</div><div class="pos-val verb">spielt</div></div>
+    <div class="pos"><div class="pos-label">Mo</div><div class="pos-val modal">besser</div></div>
+    <div class="pos wide"><div class="pos-label">Nachfeld</div><div class="pos-val nachfeld">als sein Bruder</div></div>
+  </div>
+  <div class="ex-list">
+    <div class="ex">
+      <div class="de">Er spielt besser <strong>als sein Bruder</strong>.</div>
+    </div>
+    <div class="ex">
+      <div class="de">Sie ist so gross <strong>wie ihre Mutter</strong>.</div>
+    </div>
+  </div>
+
+  <div class="sub-label">2. Nebensätze und Infinitivsätze</div>
+  <div class="ex-list">
+    <div class="ex">
+      <div class="de">Ich freue mich, <strong>dass du kommst</strong>.</div>
+      <div class="note">→ dass-Satz im Nachfeld</div>
+    </div>
+    <div class="ex">
+      <div class="de">Er hat vergessen, <strong>das Fenster zuzumachen</strong>.</div>
+      <div class="note">→ Infinitivsatz im Nachfeld</div>
+    </div>
+  </div>
+
+  <div class="sub-label">3. Lange Präpositionalergänzungen</div>
+  <div class="ex-list">
+    <div class="ex">
+      <div class="de">Ich habe mich beschwert <strong>über die langen Wartezeiten am Telefon</strong>.</div>
+      <div class="note">→ schwere Präpositionalergänzung ins Nachfeld ausgelagert</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- SYNTAXTABELLE                           -->
 <!-- ═══════════════════════════════════════ -->
 <div class="section" id="ref" style="margin-top:40px;">
   <div class="section-title">
-    <span class="dot" style="background:#ababba;"></span>
-    Kurzreferenz
+    <span class="dot" style="background:#c8a8ff;"></span>
+    Syntaxtabelle B1
   </div>
-  <div class="section-sub">Alles auf einen Blick</div>
+  <div class="section-sub">Alle Felder auf einen Blick</div>
 
-  <div class="summary-grid">
-    <div class="summary-row">
-      <div class="sr-label" style="color:#f08888;background:#3a1818;">V2-Regel</div>
-      <div class="sr-content">Konjugiertes Verb <strong>immer auf Position 2</strong> im Hauptsatz.</div>
-    </div>
-    <div class="summary-row">
-      <div class="sr-label" style="color:#8ec4ff;background:#1e2e45;">Inversion</div>
-      <div class="sr-content">Pos. 1 ≠ Subjekt → Subjekt rutscht hinter das Verb.</div>
-    </div>
-    <div class="summary-row">
-      <div class="sr-label" style="color:#f08888;background:#3a1818;">Satzklammer</div>
-      <div class="sr-content">Verb₁ auf Pos. 2, Verb₂ (Inf. / Partizip / Präfix) am <strong>Ende</strong>.</div>
-    </div>
-    <div class="summary-row">
-      <div class="sr-label" style="color:#70d890;background:#1a3a22;">Objekte</div>
-      <div class="sr-content">Nomen: Dat → Akk · Pronomen vor Nomen · Zwei Pronomen: Akk → Dat</div>
-    </div>
-    <div class="summary-row">
-      <div class="sr-label" style="color:#c8a8ff;background:#2a1848;">TeKaMoLo</div>
-      <div class="sr-content"><strong>Te</strong>mporal → <strong>Ka</strong>usal → <strong>Mo</strong>dal → <strong>Lo</strong>kal</div>
-    </div>
-    <div class="summary-row">
-      <div class="sr-label" style="color:#ff6060;background:#3a1010;">Negation</div>
-      <div class="sr-content"><em>nicht</em> am Ende / vor Verb₂ / vor negiertem Element · <em>kein</em> bei unbest. Artikel</div>
-    </div>
-    <div class="summary-row">
-      <div class="sr-label" style="color:#60d0e8;background:#133040;">Nebensatz</div>
-      <div class="sr-content">Konjunktion → Subjekt → Mittelfeld → Verb <strong>am Ende</strong></div>
-    </div>
+  <div class="syntaxtabelle-wrap">
+    <table class="syntaxtabelle">
+      <thead>
+        <tr>
+          <th class="st-pos0">Pos. 0</th>
+          <th class="st-vorfeld">Vorfeld</th>
+          <th class="st-verb">Verb 1</th>
+          <th class="st-erg1">Erg. 1</th>
+          <th class="st-angaben">Angaben</th>
+          <th class="st-erg2">Erg. 2</th>
+          <th class="st-verb">Verb 2</th>
+          <th class="st-nachfeld">Nachfeld</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>aber<br>denn<br>und<br>sondern<br>oder</td>
+          <td>das Subjekt;<br>eine Ergänzung<br>(stark betont);<br>eine Angabe;<br>ein Nebensatz;<br>oder leer ¹⁾</td>
+          <td>das konjugierte<br>Verb</td>
+          <td>Dativergänzung;<br>Personalpronomen/<br>Reflexivpron. im Akk;<br>Nomen mit Definit-/<br>Possessivartikel<br>im Akk ²⁾</td>
+          <td><em>te:</em> Wann? Wie oft?<br>Wie lange?<br>Bis wann? Seit wann?<br><br><em>ka:</em> Warum? Grund?<br><br><em>mo:</em> Wie? Womit?<br>Mit wem?<br>Wodurch? Woraus?<br><br><em>lo:</em> Wo? Wohin?<br>Woher?<br><br><em>fi:</em> Wozu?</td>
+          <td>Nominativerg.;<br>Akkusativerg.<br>(indef.);<br>Qualitativerg.;<br>Situativerg. (Wo?);<br>Direktiverg.<br>(Wohin? Woher?);<br>Präpositionalerg.;<br>Verbativerg.</td>
+          <td>Partizip II;<br>Infinitiv;<br>Präfix</td>
+          <td>Vergleiche<br>(wie / als);<br>Nebensätze;<br>Infinitivsätze (zu);<br>lange<br>Präp.ergänzungen</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="st-footnotes">
+    ¹⁾ Bei Satzfragen und Imperativsätzen ist das Vorfeld leer.<br>
+    ²⁾ Wenn das Subjekt ein Nomen ist, steht das Pronomen davor. (Pronomen vor Nomen / Namen)
   </div>
 </div>
 
