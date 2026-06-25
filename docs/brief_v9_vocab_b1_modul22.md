@@ -1,4 +1,4 @@
-# V9 — Vocabulary Additions: Bellingua B1 Modul 22 Tag 1
+# V9 — Vocabulary Additions: B1 Modul 22 Tag 1
 
 **Supersedes:** Nothing.  
 **Depends on:** V6 deployed (Ohne category in Verben).

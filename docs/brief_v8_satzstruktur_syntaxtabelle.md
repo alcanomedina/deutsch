@@ -1,18 +1,18 @@
-# V8 — Satzstruktur: Align with Bellingua Syntaxtabelle B1
+# V8 — Satzstruktur: Align with  Syntaxtabelle B1
 
 **Supersedes:** Nothing (extends existing content).  
 **Depends on:** Nothing.
 
 ## Goal
 
-Align the Satzstruktur page with Bellingua's B1 Syntaxtabelle.
+Align the Satzstruktur page with B1 Syntaxtabelle.
 Keep the existing learning sections (V2 rule, Inversion,
-Satzklammer, etc.) but enrich them with Bellingua's terminology
+Satzklammer, etc.) but enrich them with terminology
 and add three missing concepts: Nachfeld, Ergänzungen 1 vs 2,
 and Final-Angaben. Replace the Kurzreferenz at the bottom with
-a full Syntaxtabelle visual that mirrors Bellingua's structure.
+a full Syntaxtabelle visual that mirrors structure.
 
-Use Bellingua's German terminology throughout — this is how Alex
+Use German terminology throughout — this is how Alex
 learns it in class and the cheatsheet should reinforce that.
 
 ## Source
@@ -26,7 +26,7 @@ Syntaxtabelle B1, page 9 of NK123\_B1\_Modul\_22\_Tag\_1.pdf.
 The current model shows 4 fields:
 `Vorfeld → Verb → Mittelfeld → Satzende`
 
-Replace with Bellingua's 7-field model. Keep it as the first
+Replace with 7-field model. Keep it as the first
 section, same visual style (`.satz` with `.pos` columns):
 
 ```
@@ -41,7 +41,7 @@ Ergänzungen 1 → Angaben (te ka mo lo) → Ergänzungen 2
 The diagram should show all 7 positions with labels, using
 existing color coding. New positions:
 
-| Position | Bellingua term | Color treatment |
+| Position |  term | Color treatment |
 |----------|---------------|-----------------|
 | Position 0 | Konjunktionen | `.conj` (teal, existing) |
 | Vorfeld | Vorfeld | `.subj` (blue, existing) |
@@ -139,7 +139,7 @@ New CSS for the Final column:
 
 Update the section subtitle from "TeKaMoLo" to **"TeKaMoLoFi"**
 or keep "TeKaMoLo" in the title but mention
-"+ Final (Wozu?)" in the subtitle. Bellingua includes "final"
+"+ Final (Wozu?)" in the subtitle.  includes "final"
 in their Angaben, positioned after Lo.
 
 ---
@@ -153,7 +153,7 @@ Add a new subsection at the end of the existing Objekte section
 
 **Content:**
 
-Bellingua's Syntaxtabelle splits objects into two zones:
+Syntaxtabelle splits objects into two zones:
 
 **Ergänzungen 1** (BEFORE Angaben):
 - Dativergänzung
@@ -196,7 +196,7 @@ Add a warning note (`.warn` class):
 ## Change 5 — Replace Kurzreferenz with Syntaxtabelle
 
 Replace the existing `#ref` section (the simple summary grid)
-with a full **Syntaxtabelle** that mirrors Bellingua's table
+with a full **Syntaxtabelle** that mirrors table
 layout but uses our color system.
 
 **Title:** Syntaxtabelle B1  
@@ -211,7 +211,7 @@ Pos. 0 | Vorfeld | Verb 1 | Erg. 1 | Angaben | Erg. 2 | Verb 2 | Nachfeld
 ```
 
 Under each column header, list what goes there (matching
-Bellingua's content exactly):
+content exactly):
 
 | Column | Content |
 |--------|---------|
@@ -224,7 +224,7 @@ Bellingua's content exactly):
 | Verb 2 | Partizip II; Infinitiv; Präfix |
 | Nachfeld | Vergleiche (wie/als); Nebensätze; Infinitivsätze (zu); lange Präp.ergänzungen |
 
-Include Bellingua's footnotes below the table:
+Include footnotes below the table:
 
 1. Bei Satzfragen und Imperativsätzen ist das Vorfeld leer.
 2. Wenn das Subjekt ein Nomen ist, steht das Pronomen davor.
@@ -261,12 +261,12 @@ Negation · Nebensatz · Nachfeld · Syntaxtabelle
 1. **Satzmodell**: diagram shows 7 fields including Pos. 0 and
    Nachfeld. Position 0 note mentions aber/denn/und/sondern/oder.
 2. **TeKaMoLo**: 5 columns (Te Ka Mo Lo Fi). Each column shows
-   expanded question words matching Bellingua.
+   expanded question words matching .
 3. **Objekte**: new Erg. 1 vs 2 subsection with contrasting
    diagrams (definite before Angaben, indefinite after).
 4. **Nachfeld**: new section with 3 use cases and examples.
 5. **Syntaxtabelle**: replaces old Kurzreferenz. Full horizontal
-   table matching Bellingua's structure with our colors.
+   table matching structure with our colors.
 6. **Nav**: updated with Nachfeld + Syntaxtabelle links.
 7. **No regressions**: all existing sections still intact and
    visually unchanged.
@@ -275,7 +275,7 @@ Negation · Nebensatz · Nachfeld · Syntaxtabelle
 
 - Do NOT remove existing sections — only extend them.
 - Do NOT change color assignments for existing elements.
-- Do NOT use Bellingua's school name on the public page.
+- Do NOT use school name on the public page.
 - The Syntaxtabelle must be horizontally scrollable on mobile.
-- Keep the German terminology from Bellingua's table — do not
+- Keep the German terminology from table — do not
   translate to English.

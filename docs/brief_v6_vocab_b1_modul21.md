@@ -1,4 +1,4 @@
-# V6 — Vocabulary Additions: Bellingua B1 Modul 21
+# V6 — Vocabulary Additions: B1 Modul 21
 
 **Supersedes:** Previous V6 draft.  
 **Depends on:** Nothing (additive data). V5 shuffle/CSS must be
