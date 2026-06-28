@@ -243,7 +243,19 @@ const DATA = [["Jahr", "das", "-e", "year", "time", "Dieses Jahr reise ich in di
 ["Nichtbeachten", "das", "(no pl.)", "disregard, ignoring", "general", "Das Nichtbeachten der Regeln ist gefährlich."],
 ["Mehl", "das", "-e", "flour", "food", "Für den Kuchen braucht man 300 Gramm Mehl."],
 ["Schwellung", "die", "-en", "swelling", "health", "Nach der Verletzung hatte er eine Schwellung am Knie."],
-["Schwitzen", "das", "(no pl.)", "sweating", "health", "Schwitzen ist beim Sport ganz normal."]
+["Schwitzen", "das", "(no pl.)", "sweating", "health", "Schwitzen ist beim Sport ganz normal."],
+// ─── Manual additions (V15) ───
+["Rhabarber", "der", "-", "rhubarb", "food", "Rhabarberkuchen schmeckt am besten im Frühling."],
+["Pfirsich", "der", "-e", "peach", "food", "Der Pfirsich ist schön reif."],
+["Mango", "die", "-s", "mango", "food", "Die Mango kommt aus Indien."],
+["Pfeffer", "der", "-", "pepper (spice)", "food", "Gib bitte noch etwas Pfeffer dazu."],
+["Himbeere", "die", "-n", "raspberry", "food", "Im Sommer pflücken wir Himbeeren im Garten."],
+["Basilikum", "das", "(no pl.)", "basil", "food", "Frisches Basilikum passt gut zu Tomaten."],
+["Rosmarin", "der", "-e", "rosemary", "food", "Das Fleisch wird mit Rosmarin gewürzt."],
+["Kraut", "das", "Kräuter", "herb", "food", "Frische Kräuter machen jedes Gericht besser."],
+["Wohnmobil", "das", "-e", "camper van, RV", "travel", "Mit dem Wohnmobil fahren wir durch die Schweiz."],
+["Whisky", "der", "-s", "whisky", "food", "Ein guter Whisky braucht keine Cola."],
+["Luxus", "der", "(no pl.)", "luxury", "general", "Ein eigenes Büro ist heutzutage ein Luxus."]
 ];
 const CATS =[...new Set(DATA.map(d => d[4]))].sort();
 let currentGender = 'all', currentCat = 'all', searchTerm = '';
