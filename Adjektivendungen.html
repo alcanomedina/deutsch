@@ -117,8 +117,7 @@
 
   .tooltip {
     display: none; position: absolute;
-    top: auto;                          /* override common.css default */
-    bottom: calc(100% + 8px); left: 50%;
+    top: calc(100% + 8px); left: 50%;
     transform: translateX(-50%);
     background: #111115; color: #e8e8ec;
     padding: 5px 12px; border-radius: 7px;
@@ -128,14 +127,6 @@
     z-index: 200; box-shadow: 0 4px 16px rgba(0,0,0,0.5);
     pointer-events: none;
   }
-  .tooltip::after {
-    content: ''; position: absolute;
-    top: 100%; left: 50%; transform: translateX(-50%);
-    border-left: 5px solid transparent;
-    border-right: 5px solid transparent;
-    border-top: 5px solid #111115;
-  }
-  .tooltip::before { content: none; }
   .tile:hover .tooltip { display: block; }
 
   .notes {
