@@ -1,287 +1,85 @@
-<!DOCTYPE html>
-<html lang="de">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="icon" href="assets/favicon.ico" sizes="16x16 32x32 48x48">
-<link rel="icon" href="assets/favicon-32x32.png" type="image/png" sizes="32x32">
-<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
-<title>Deutsche Verben — Präpositionen · Perfekt · Kasus</title>
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/common.css">
-<style>
-.top-bar{position:sticky;top:0;z-index:100;background:#232327ee;backdrop-filter:blur(12px);border-bottom:1px solid #3e3e44;padding:14px 16px 10px}
-.top-bar h1{font-family:'JetBrains Mono',monospace;font-size:26px;font-weight:700;color:#f0f0f4;letter-spacing:-0.5px;text-align:center;margin-bottom:6px}
-.top-bar .sub{text-align:center;font-size:14px;color:#ababba;margin-bottom:8px}
-.controls{max-width:920px;margin:0 auto;display:flex;flex-wrap:wrap;gap:5px;align-items:center;justify-content:center}
-.search-box{flex:1 1 220px;max-width:300px;padding:7px 12px;border:2px solid #58585e;border-radius:8px;font-family:'JetBrains Mono',monospace;font-size:14px;outline:none;transition:border-color .2s;background:#2b2b2f;color:#e0e0e4}
-.search-box:focus{border-color:#6366f1}
-.search-box::placeholder{color:#6a6a7a}
-.fbtn{padding:4px 9px;border:2px solid #44444c;border-radius:7px;background:#343438;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;cursor:pointer;transition:all .15s;color:#8888a0}
-.fbtn:hover{border-color:#ababba}
-.fbtn.f-all{background:#3a3a42;border-color:#ababba;color:#e0e0e4}
-.fbtn.f-akk{background:#3a2e10;border-color:#9a7a20;color:#e8a840}
-.fbtn.f-dat{background:#1a3a22;border-color:#40a060;color:#70d890}
-.fbtn.f-prep{background:#2a1848;border-color:#7a60c0;color:#c8a8ff}
-.fbtn.f-ohne{background:#2a2a38;border-color:#8888a0;color:#c0c0c8}
+# V20 — Verben: xlsx Bulk Import (all missing verbs)
 
-.prep-bar{max-width:920px;margin:6px auto 0;display:flex;flex-wrap:wrap;gap:4px;justify-content:center}
-.pbtn{padding:3px 7px;border:1.5px solid #44444c;border-radius:5px;background:#343438;font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:500;cursor:pointer;transition:all .15s;color:#8888a0}
-.pbtn:hover{border-color:#ababba}
-.pbtn.p-active{background:#2a1848;border-color:#7a60c0;color:#c8a8ff}
+**Depends on:** V19 deployed (adjectives).
 
-.stats{width:100%;text-align:center;font-family:'JetBrains Mono',monospace;font-size:13px;color:#ababba;margin-top:4px}
-.container{max-width:940px;margin:0 auto;padding:14px}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:6px}
+## Goal
 
-/* ─── Cards ─── */
-.card{position:relative;border-radius:9px;padding:10px 13px;border:2px solid;cursor:default;transition:transform .12s,box-shadow .12s}
-.card:hover{transform:translateY(-2px);z-index:5}
-.card.k-akk{background:#3a2e10;border-color:#7a6020}
-.card.k-akk:hover{box-shadow:0 4px 12px #9a7a2066}
-.card.k-dat{background:#1a3020;border-color:#3a7a50}
-.card.k-dat:hover{box-shadow:0 4px 12px #40a06066}
-.card.k-ohne{background:#2a2a38;border-color:#5a5a6a}
-.card.k-ohne:hover{box-shadow:0 4px 12px #8888a066}
+Add all missing verbs from Alex's B1 vocabulary xlsx to
+`Verben.html`. Words taken from xlsx; all linguistic data
+(syntactic pattern, Perfekt, meaning, verb type, example)
+from Claude's knowledge. Swiss spelling throughout.
 
-.card-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:3px;gap:6px}
-.prep-badge{font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;padding:2px 7px;border-radius:5px;white-space:nowrap}
-.k-akk .prep-badge{background:#5a4a10;color:#e8a840}
-.k-dat .prep-badge{background:#1a4a28;color:#70d890}
-.k-ohne .prep-badge{background:#3a3a48;color:#8888a0}
-.perfekt{font-family:'JetBrains Mono',monospace;font-size:11px;color:#8888a0;text-align:right;white-space:nowrap}
-.verb-name{font-family:'Inter',sans-serif;font-size:19px;font-weight:700;color:#f0f0f4}
-.meaning{font-size:13px;color:#c0c0c8;margin-top:1px;line-height:1.3}
-.type-tag{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:10px;padding:1px 5px;border-radius:3px;margin-top:3px;text-transform:uppercase;letter-spacing:.5px}
-.t-stark{background:#3a1818;color:#f08888}
-.t-schwach{background:#2a2a38;color:#8888a0}
-.t-gemischt{background:#2a1848;color:#c8a8ff}
+## Data format
 
+Each entry: `[verb, pattern, perfekt, meaning, type, example]`
 
-.empty{display:none;text-align:center;padding:40px;color:#8888a0;font-size:15px}
+- **pattern**: `"prep+Case"` for prep-bound verbs (e.g. `"an+Akk"`),
+  `"Akk"` for transitive, `"Dat"` for dative, `"Ohne"` for intransitive/reflexive
+- **type**: `"w"` (weak/regular), `"s"` (strong), `"m"` (mixed)
+- **perfekt**: `"hat/ist + participle"` — includes `sich` for reflexive verbs
 
-/* ─── Section dividers ─── */
-.section-label{font-family:'JetBrains Mono',monospace;font-size:18px;font-weight:700;color:#e0e0e4;margin:20px 0 8px;padding-left:4px;display:flex;align-items:center;gap:8px}
-.section-label .dot{width:8px;height:8px;border-radius:50%;display:inline-block}
+## Exclusion notes
 
-@media(max-width:700px){
-  .top-bar h1{font-size:20px}
-  .grid{grid-template-columns:1fr}
-  .verb-name{font-size:17px}
-  .search-box{max-width:100%}
-  .tooltip{white-space:normal;min-width:240px;max-width:300px}
-}
-/* ─── Guess Mode ─── */
-.fbtn.guess-active{background:#2a1848;border-color:#7a60c0;color:#c8a8ff}
-</style>
-</head>
-<body>
-<div class="top-bar">
-  <h1>Verben</h1>
-  <div class="sub">Präpositionen · Kasus · Perfekt</div>
-  <div class="controls">
-    <input type="text" class="search-box" id="search" placeholder="Suche Verb oder Bedeutung …">
-    <button class="fbtn" id="guess-btn" onclick="toggleGuess()">🎯 Raten</button>
-    <button class="fbtn" id="shuffle-btn" onclick="toggleShuffle()">🔀 Mischen</button>
-    <button class="fbtn f-all" data-f="all" onclick="setCase(this)">Alle</button>
-    <button class="fbtn" data-f="Akk" onclick="setCase(this)">Akkusativ</button>
-    <button class="fbtn" data-f="Dat" onclick="setCase(this)">Dativ</button>
-    <button class="fbtn" data-f="Ohne" onclick="setCase(this)">Ohne</button>
-  </div>
-  <div class="prep-bar" id="prep-bar"></div>
-  <div class="stats">Showing <span id="stats">0</span></div>
-</div>
-<div class="container">
-  <div id="prep-label" class="section-label" style="display:none;"></div>
-  <div class="grid" id="grid"></div>
-  <div class="empty" id="empty">Keine Verben gefunden.</div>
-</div>
+From ~644 raw xlsx verbs, excluded:
 
-<script src="js/common.js"></script>
-<script>
-// Data: [verb, prep+case, perfekt, meaning, type(s/w/m), example]
-// type: s=stark, w=schwach, m=gemischt
-const DATA = [
-// ─── an + Akk ───
-["denken","an+Akk","hat gedacht","to think of","s","Ich denke oft an dich."],
-["sich erinnern","an+Akk","hat sich erinnert","to remember","w","Erinnerst du dich an den Urlaub?"],
-["sich gewöhnen","an+Akk","hat sich gewöhnt","to get used to","w","Ich habe mich an das Wetter gewöhnt."],
-["glauben","an+Akk","hat geglaubt","to believe in","w","Sie glaubt an Gott."],
-["sich wenden","an+Akk","hat sich gewandt","to turn to, contact","m","Wenden Sie sich an den Kundendienst."],
-// ─── an + Dat ───
-["teilnehmen","an+Dat","hat teilgenommen","to participate in","s","Ich nehme am Kurs teil."],
-["arbeiten","an+Dat","hat gearbeitet","to work on","w","Er arbeitet an einem Projekt."],
-["leiden","an+Dat","hat gelitten","to suffer from (illness)","s","Sie leidet an einer Krankheit."],
-["zweifeln","an+Dat","hat gezweifelt","to doubt","w","Ich zweifle an seiner Ehrlichkeit."],
-// ─── auf + Akk ───
-["warten","auf+Akk","hat gewartet","to wait for","w","Ich warte auf den Bus."],
-["sich freuen","auf+Akk","hat sich gefreut","to look forward to","w","Ich freue mich auf den Urlaub."],
-["aufpassen","auf+Akk","hat aufgepasst","to watch out for","w","Pass auf deine Sachen auf!"],
-["sich konzentrieren","auf+Akk","hat sich konzentriert","to concentrate on","w","Konzentrier dich auf die Arbeit!"],
-["achten","auf+Akk","hat geachtet","to pay attention to","w","Achte auf die Grammatik!"],
-["hoffen","auf+Akk","hat gehofft","to hope for","w","Wir hoffen auf gutes Wetter."],
-["sich verlassen","auf+Akk","hat sich verlassen","to rely on","s","Du kannst dich auf mich verlassen."],
-["sich vorbereiten","auf+Akk","hat sich vorbereitet","to prepare for","w","Ich bereite mich auf die Prüfung vor."],
-["verzichten","auf+Akk","hat verzichtet","to give up, forgo","w","Er verzichtet auf Alkohol."],
-["reagieren","auf+Akk","hat reagiert","to react to","w","Sie hat nicht auf meine Nachricht reagiert."],
-["ankommen","auf+Akk","ist angekommen","to depend on","s","Es kommt auf dich an."],
-// ─── auf + Dat ───
-["bestehen","auf+Dat","hat bestanden","to insist on","s","Er besteht auf einer Entschuldigung."],
-["basieren","auf+Dat","hat basiert","to be based on","w","Der Film basiert auf einer wahren Geschichte."],
-// ─── aus + Dat ───
-["bestehen","aus+Dat","hat bestanden","to consist of","s","Das Team besteht aus fünf Personen."],
-// ─── bei + Dat ───
-["sich bedanken","bei+Dat","hat sich bedankt","to thank (person)","w","Ich bedanke mich bei dir für die Hilfe."],
-["sich beschweren","bei+Dat","hat sich beschwert","to complain to (person)","w","Er beschwert sich beim Chef."],
-["sich entschuldigen","bei+Dat","hat sich entschuldigt","to apologize to (person)","w","Entschuldige dich bei ihr!"],
-["helfen","bei+Dat","hat geholfen","to help with","s","Kannst du mir bei der Aufgabe helfen?"],
-// ─── für + Akk ───
-["sich interessieren","für+Akk","hat sich interessiert","to be interested in","w","Ich interessiere mich für Kunst."],
-["sich entschuldigen","für+Akk","hat sich entschuldigt","to apologize for","w","Ich entschuldige mich für den Fehler."],
-["sorgen","für+Akk","hat gesorgt","to take care of","w","Sie sorgt für ihre Kinder."],
-["sich bedanken","für+Akk","hat sich bedankt","to thank for (thing)","w","Ich bedanke mich für das Geschenk."],
-["kämpfen","für+Akk","hat gekämpft","to fight for","w","Sie kämpft für Gerechtigkeit."],
-["sich entscheiden","für+Akk","hat sich entschieden","to decide on","s","Ich habe mich für das Studium entschieden."],
-["halten","für+Akk","hat gehalten","to consider as","s","Ich halte das für eine gute Idee."],
-// ─── gegen + Akk ───
-["kämpfen","gegen+Akk","hat gekämpft","to fight against","w","Sie kämpfen gegen die Armut."],
-["demonstrieren","gegen+Akk","hat demonstriert","to demonstrate against","w","Sie demonstrieren gegen die Massnahmen."],
-["protestieren","gegen+Akk","hat protestiert","to protest against","w","Die Studenten protestieren gegen die Gebühren."],
-["sich wehren","gegen+Akk","hat sich gewehrt","to defend oneself against","w","Er wehrt sich gegen die Vorwürfe."],
-["verstossen","gegen+Akk","hat verstossen","to violate","s","Das verstösst gegen das Gesetz."],
-// ─── in + Akk ───
-["sich verlieben","in+Akk","hat sich verliebt","to fall in love with","w","Sie hat sich in ihn verliebt."],
-["sich verwandeln","in+Akk","hat sich verwandelt","to transform into","w","Die Stadt verwandelt sich in ein Fest."],
-// ─── mit + Dat ───
-["anfangen","mit+Dat","hat angefangen","to start with","s","Wann fängst du mit der Arbeit an?"],
-["aufhören","mit+Dat","hat aufgehört","to stop (doing)","w","Hör mit dem Rauchen auf!"],
-["sich beschäftigen","mit+Dat","hat sich beschäftigt","to deal with, work on","w","Ich beschäftige mich mit Datenanalyse."],
-["sprechen","mit+Dat","hat gesprochen","to speak with","s","Ich muss mit dir sprechen."],
-["sich unterhalten","mit+Dat","hat sich unterhalten","to chat with","s","Ich habe mich mit ihr unterhalten."],
-["sich treffen","mit+Dat","hat sich getroffen","to meet with","s","Ich treffe mich mit Freunden."],
-["rechnen","mit+Dat","hat gerechnet","to expect, count on","w","Damit habe ich nicht gerechnet."],
-["beginnen","mit+Dat","hat begonnen","to begin with","s","Beginnen wir mit der Übung."],
-["sich streiten","mit+Dat","hat sich gestritten","to argue with","s","Er streitet sich mit seiner Schwester."],
-["umgehen","mit+Dat","ist umgegangen","to deal with, handle","s","Wie geht man mit Stress um?"],
-["vergleichen","mit+Dat","hat verglichen","to compare with","s","Man kann die zwei nicht vergleichen."],
-// ─── nach + Dat ───
-["fragen","nach+Dat","hat gefragt","to ask about","w","Er fragt nach dem Weg."],
-["suchen","nach+Dat","hat gesucht","to search for","w","Ich suche nach einer Wohnung."],
-["sich erkundigen","nach+Dat","hat sich erkundigt","to inquire about","w","Ich erkundige mich nach den Öffnungszeiten."],
-["riechen","nach+Dat","hat gerochen","to smell of","s","Es riecht nach Kaffee."],
-["schmecken","nach+Dat","hat geschmeckt","to taste of","w","Das schmeckt nach Zimt."],
-["sich sehnen","nach+Dat","hat sich gesehnt","to long for","w","Ich sehne mich nach Sonne."],
-// ─── über + Akk ───
-["sich freuen","über+Akk","hat sich gefreut","to be happy about","w","Ich freue mich über das Geschenk."],
-["sich ärgern","über+Akk","hat sich geärgert","to be annoyed about","w","Ich ärgere mich über den Fehler."],
-["sich beschweren","über+Akk","hat sich beschwert","to complain about","w","Er beschwert sich über den Lärm."],
-["nachdenken","über+Akk","hat nachgedacht","to think about, reflect","s","Ich denke über das Angebot nach."],
-["diskutieren","über+Akk","hat diskutiert","to discuss","w","Wir diskutieren über Politik."],
-["sprechen","über+Akk","hat gesprochen","to talk about","s","Wir sprechen über das Problem."],
-["sich informieren","über+Akk","hat sich informiert","to inform oneself about","w","Ich informiere mich über die Stelle."],
-["sich wundern","über+Akk","hat sich gewundert","to be surprised about","w","Ich wundere mich über sein Verhalten."],
-["lachen","über+Akk","hat gelacht","to laugh about","w","Sie lachen über den Witz."],
-["berichten","über+Akk","hat berichtet","to report on","w","Die Zeitung berichtet über den Unfall."],
-["sich aufregen","über+Akk","hat sich aufgeregt","to get upset about","w","Reg dich nicht über Kleinigkeiten auf!"],
-["klagen","über+Akk","hat geklagt","to complain about","w","Er klagt über Kopfschmerzen."],
-// ─── um + Akk ───
-["sich kümmern","um+Akk","hat sich gekümmert","to take care of","w","Sie kümmert sich um die Kinder."],
-["sich bewerben","um+Akk","hat sich beworben","to apply for","s","Ich bewerbe mich um die Stelle."],
-["bitten","um+Akk","hat gebeten","to ask/request","s","Ich bitte um Verständnis."],
-["sich sorgen","um+Akk","hat sich gesorgt","to worry about","w","Sie sorgt sich um ihre Gesundheit."],
-["es geht","um+Akk","ist gegangen","it's about","s","Es geht um viel Geld."],
-["sich bemühen","um+Akk","hat sich bemüht","to strive for","w","Er bemüht sich um eine Lösung."],
-["beneiden","um+Akk","hat beneidet","to envy for","w","Ich beneide dich um deinen Job."],
-// ─── unter + Dat ───
-["leiden","unter+Dat","hat gelitten","to suffer from (condition)","s","Sie leidet unter Stress."],
-["verstehen","unter+Dat","hat verstanden","to understand by","s","Was verstehst du unter Freiheit?"],
-// ─── von + Dat ───
-["abhängen","von+Dat","hat abgehangen","to depend on","s","Das hängt vom Wetter ab."],
-["träumen","von+Dat","hat geträumt","to dream of","w","Ich träume von einer Reise."],
-["erzählen","von+Dat","hat erzählt","to tell about","w","Sie erzählt von ihrem Tag."],
-["sich erholen","von+Dat","hat sich erholt","to recover from","w","Ich erhole mich von der Grippe."],
-["handeln","von+Dat","hat gehandelt","to be about (story)","w","Das Buch handelt von einem Abenteuer."],
-["sich verabschieden","von+Dat","hat sich verabschiedet","to say goodbye to","w","Wir verabschieden uns von den Gästen."],
-["überzeugen","von+Dat","hat überzeugt","to convince of","w","Überzeug mich von deiner Idee!"],
-// ─── vor + Dat ───
-["Angst haben","vor+Dat","hat gehabt","to be afraid of","s","Ich habe Angst vor Spinnen."],
-["sich fürchten","vor+Dat","hat sich gefürchtet","to be scared of","w","Sie fürchtet sich vor der Prüfung."],
-["sich schützen","vor+Dat","hat sich geschützt","to protect from","w","Schütz dich vor der Sonne!"],
-["warnen","vor+Dat","hat gewarnt","to warn about","w","Der Arzt warnt vor Rauchen."],
-["sich ekeln","vor+Dat","hat sich geekelt","to be disgusted by","w","Ich ekle mich vor Schlangen."],
-["fliehen","vor+Dat","ist geflohen","to flee from","s","Sie fliehen vor dem Krieg."],
-// ─── zu + Dat ───
-["gehören","zu+Dat","hat gehört","to belong to, be part of","w","Das gehört zum Leben."],
-["gratulieren","zu+Dat","hat gratuliert","to congratulate on","w","Ich gratuliere dir zum Geburtstag!"],
-["einladen","zu+Dat","hat eingeladen","to invite to","s","Er lädt sie zum Essen ein."],
-["passen","zu+Dat","hat gepasst","to suit, go with","w","Das passt gut zu dir."],
-["beitragen","zu+Dat","hat beigetragen","to contribute to","s","Das trägt zur Lösung bei."],
-["führen","zu+Dat","hat geführt","to lead to","w","Das führt zu Problemen."],
-["zwingen","zu+Dat","hat gezwungen","to force to","s","Niemand zwingt dich dazu."],
-["neigen","zu+Dat","hat geneigt","to tend to","w","Er neigt zu Übertreibungen."],
-// ─── Verben + Dativ (ohne Präposition) ───
-["helfen","Dat","hat geholfen","to help","s","Ich helfe dir gern."],
-["danken","Dat","hat gedankt","to thank","w","Ich danke Ihnen herzlich."],
-["gefallen","Dat","hat gefallen","to please, to like","s","Das Buch gefällt mir."],
-["fehlen","Dat","hat gefehlt","to be missing, to miss","w","Du fehlst mir."],
-["folgen","Dat","ist gefolgt","to follow","w","Der Hund folgt seinem Besitzer."],
-["vertrauen","Dat","hat vertraut","to trust","w","Ich vertraue dir."],
-["widersprechen","Dat","hat widersprochen","to contradict","s","Er widerspricht dem Chef."],
-["zuhören","Dat","hat zugehört","to listen to","w","Hör mir bitte zu!"],
-["zustimmen","Dat","hat zugestimmt","to agree with","w","Ich stimme dir zu."],
-["begegnen","Dat","ist begegnet","to encounter","w","Ich bin ihr im Supermarkt begegnet."],
-["entsprechen","Dat","hat entsprochen","to correspond to","s","Das entspricht nicht der Wahrheit."],
-["ähneln","Dat","hat geähnelt","to resemble","w","Sie ähnelt ihrer Mutter."],
-["schaden","Dat","hat geschadet","to harm","w","Rauchen schadet der Gesundheit."],
-["drohen","Dat","hat gedroht","to threaten","w","Er droht ihm mit einer Klage."],
-["gelingen","Dat","ist gelungen","to succeed","s","Es ist mir gelungen!"],
-["auffallen","Dat","ist aufgefallen","to notice, stand out","s","Das ist mir sofort aufgefallen."],
-["einfallen","Dat","ist eingefallen","to occur to, come to mind","s","Mir fällt nichts ein."],
-["wehtun","Dat","hat wehgetan","to hurt","s","Mir tut der Kopf weh."],
-["gehören","Dat","hat gehört","to belong to (ownership)","w","Das Buch gehört mir."],
-["schmecken","Dat","hat geschmeckt","to taste good to","w","Die Suppe schmeckt mir gut."],
-["passen","Dat","hat gepasst","to fit (clothing/size)","w","Die Schuhe passen mir nicht."],
-["gratulieren","Dat","hat gratuliert","to congratulate","w","Ich gratuliere dir!"],
-// ─── Verben + Akkusativ (häufig verwechselt) ───
-["fragen","Akk","hat gefragt","to ask (a person)","w","Frag den Lehrer!"],
-["anrufen","Akk","hat angerufen","to call (phone)","s","Ich rufe dich morgen an."],
-["kosten","Akk","hat gekostet","to cost","w","Das kostet mich viel Geld."],
-["kennen","Akk","hat gekannt","to know (person/place)","m","Ich kenne ihn gut."],
-["brauchen","Akk","hat gebraucht","to need","w","Ich brauche deine Hilfe."],
-["stören","Akk","hat gestört","to disturb","w","Stör mich bitte nicht!"],
-["unterrichten","Akk","hat unterrichtet","to teach","w","Sie unterrichtet die Kinder."],
-["besuchen","Akk","hat besucht","to visit","w","Ich besuche meine Grosseltern."],
-["abholen","Akk","hat abgeholt","to pick up","w","Ich hole dich am Bahnhof ab."],
-["verstehen","Akk","hat verstanden","to understand","s","Ich verstehe dich nicht."],
-// ─── ohne Präposition ───
-["aufgeben","Akk","hat aufgegeben","to give up","s","Er gibt seinen Traum nicht auf."],
-["feststellen","Akk","hat festgestellt","to determine, notice","w","Wir haben einen Fehler festgestellt."],
-["anschaffen","Akk","hat angeschafft","to acquire, purchase","w","Du könntest dir ein Auto anschaffen."],
-["umtauschen","Akk","hat umgetauscht","to exchange, return","w","Hoffentlich kann ich die Schuhe umtauschen."],
-["austauschen","Akk","hat ausgetauscht","to exchange, replace","w","Wir müssen die alten Lampen austauschen."],
-["verpassen","Akk","hat verpasst","to miss","w","Ich habe den Zug verpasst."],
-["überlegen","Akk","hat überlegt","to consider, think over","w","Ich würde mir die Sache noch einmal überlegen."],
-// ─── intransitiv / reflexiv ───
-["lächeln","Ohne","hat gelächelt","to smile","w","Das Baby lächelt."],
-["sich verändern","Ohne","hat sich verändert","to change (oneself)","w","Handys haben sich immer wieder verändert."],
-["sich ausruhen","Ohne","hat sich ausgeruht","to rest","w","Am Wochenende ruhe ich mich aus."],
-["sich wohl fühlen","Ohne","hat sich wohl gefühlt","to feel comfortable","w","Ich fühle mich hier wohl."],
-// ─── B1 Modul 22 ───
-["empfehlen","Dat","hat empfohlen","to recommend","s","Ich empfehle dir dieses Restaurant."],
-["vorbeugen","Dat","hat vorgebeugt","to prevent, preempt","w","Man sollte Krankheiten vorbeugen."],
-["beleidigen","Akk","hat beleidigt","to insult","w","Wer hat den Chef beleidigt?"],
-["rudern","Ohne","hat gerudert","to row","w","Er ruderte allein um die Welt."],
-// ─── B1 Modul 22 Tag 2 ───
-["behaupten","Akk","hat behauptet","to claim, assert","w","Er behauptet, dass er Recht hat."],
-["sich ernähren","von+Dat","hat sich ernährt","to nourish oneself, eat","w","Sie ernährt sich nur von Gemüse."],
-["einstufen","Akk","hat eingestuft","to classify, rate","w","Man stuft Klettern als gefährlich ein."],
-["verdauen","Akk","hat verdaut","to digest","w","Der Körper verdaut Ballaststoffe langsam."],
-// ─── V16 ───
-["erziehen", "Akk", "hat erzogen", "to raise, educate", "s", "Die Eltern erziehen ihre Kinder zweisprachig."],
-// ─── V17 ───
-["hören", "Akk", "hat gehört", "to hear", "w", "Ich höre Musik beim Kochen."],
-["sehen", "Akk", "hat gesehen", "to see", "s", "Ich habe ihn gestern im Supermarkt gesehen."],
-["lassen", "Akk", "hat gelassen", "to let, leave", "s", "Lass mich bitte in Ruhe."],
+- **Not verbs** (participles/nouns/adjectives used as entries):
+  geboren, gelegen, gelungen, verboten, verlogen, entstanden,
+  betrieben, verschoben, rausgeschmissen, empfohlen, zufrieden,
+  einverstanden, ausgesprochen, anspruchsvollen, diversen,
+  trocken (adj), detail, schuld, flucht, wandel, waren, wechsel,
+  ofen, haken, haufen, knall, schatten, schatzchen, kauf, zeichen,
+  feier, wicht, leiser, meinetwegen, soeben, hinten, überstunden,
+  gehaltsumfragen, zozusagen, recycling
+- **Already in app** (reflexive/prep form matched):
+  beschweren (sich), kümmern (sich), ausruhen (sich),
+  verabschieden (sich), unterhalten (sich), sorgen (für),
+  gefallen (sich), auskennen (sich), fürchten (→ sich fürchten)
+- **Typo duplicates** (correct form kept, see fixes below):
+  ablenen, ausfullen, begrunden, forsetzen, vebringen,
+  zussamenfassen, umrühen, kundigen, kussen, fullen, ausuben,
+  heraus finden, schätzten, buchstabiere, ermoglichen, wahlen,
+  pfiffen, varieren, storen, sich shämen, verbessen, aufzuhalten,
+  anziehn, einsetzen (comma dupe), fanden, ubrigen, belugen,
+  kampfen, obachten
+- **Too rare/informal for B1**: abschnüffeln, foppen, sieden,
+  gesunden, verharren, siedeln, cutten, eisen, schrägen,
+  hochziehen, anlassen
+
+## Typo corrections
+
+- ablenen → ablehnen, vebringen → verbringen
+- zussamenfassen → zusammenfassen, umrühen → umrühren
+- ermoglichen → ermöglichen, kundigen → kündigen
+- kussen → küssen, furchten → fürchten (already in app)
+- verbessen → verbessern, aufzuhalten → aufhalten
+- buchstabiere → buchstabieren, kampfen → kämpfen
+- wahlen → wählen, pfiffen → pfeifen
+- sich shämen → sich schämen, belugen → belügen
+- dazu gehören → dazugehören, vergnugen → sich vergnügen
+- forsetzen → fortsetzen, begrunden → begründen
+- varieren → variieren, storen → stören (already in app)
+- obachten → beobachten (already in app)
+
+## Notes
+
+- **Verb type (w/s/m)**: Most verbs with regular ge___t participle
+  are "w". Strong verbs with vowel change are "s". Mixed verbs
+  (regular endings but vowel change: brennen→brannte→gebrannt,
+  denken→dachte→gedacht) are "m".
+- **ist vs hat**: Verbs of movement/change-of-state use "ist"
+  (aufstehen, einziehen, aussteigen, etc.). Everything else "hat".
+- **Inseparable prefixes** (be-, emp-, ent-, er-, ge-, miss-,
+  ver-, zer-): no ge- in participle (bekommen→hat bekommen).
+- **Separable prefixes** (ab-, an-, auf-, aus-, ein-, mit-, vor-,
+  zu-, etc.): ge- between prefix and stem (aufstehen→ist aufgestanden).
+
+---
+
+## File: Verben.html
+
+Append to end of `DATA` array (before closing `];`):
+
+```javascript
 // ─── xlsx bulk import (V20) ───
 ["abbiegen","Ohne","ist abgebogen","to turn (direction)","s","Biegen Sie an der Kreuzung links ab."],
 ["sich abfinden","mit+Dat","hat sich abgefunden","to come to terms with","s","Er hat sich mit der Situation abgefunden."],
@@ -829,144 +627,17 @@ const DATA = [
 ["übersetzen","Akk","hat übersetzt","to translate","w","Übersetze den Text ins Deutsche."],
 ["übertreiben","Akk","hat übertrieben","to exaggerate","s","Übertreib nicht so!"],
 ["überwachen","Akk","hat überwacht","to monitor, supervise","w","Die Kamera überwacht den Eingang."],
-["überweisen","Akk","hat überwiesen","to transfer (money)","s","Ich überweise dir das Geld."]
-];
+["überweisen","Akk","hat überwiesen","to transfer (money)","s","Ich überweise dir das Geld."],
+```
 
-// Extract unique prepositions for filter buttons
-const allPreps = [...new Set(DATA.map(d => {
-  const p = d[1];
-  if (p === 'Dat' || p === 'Akk' || p === 'Ohne') return null;
-  return p.split('+')[0];
-}).filter(Boolean))].sort();
+Total: 547 verbs.
+Existing in app: 155. New total after V20: **702**.
 
-let currentCase = 'all', currentPrep = 'all', searchTerm = '';
+## Correction applied during implementation
 
-// Build prep filter bar
-const prepBar = document.getElementById('prep-bar');
-let ph = '<button class="pbtn p-active" data-p="all" onclick="setPrep(this)">alle</button>';
-allPreps.forEach(p => {
-  ph += `<button class="pbtn" data-p="${p}" onclick="setPrep(this)">${p}</button>`;
-});
-ph += '<button class="pbtn" data-p="Dat" onclick="setPrep(this)">nur Dat</button>';
-ph += '<button class="pbtn" data-p="Akk" onclick="setPrep(this)">nur Akk</button>';
-prepBar.innerHTML = ph;
+- `kämpfen`/`Ohne` example was `"Sie kämpft für ihre Rechte."`, which
+  duplicated the existing `für+Akk` entry's meaning and contradicted
+  its own `Ohne` pattern. Changed to `"Er kämpft tapfer."` (genuinely
+  intransitive), keeping it alongside the existing `für+Akk` and
+  `gegen+Akk` entries as a third, distinct usage.
 
-function setCase(btn) {
-  document.querySelectorAll('.fbtn').forEach(b => b.className = 'fbtn');
-  currentCase = btn.dataset.f;
-  btn.classList.add(currentCase === 'all' ? 'f-all' : 'f-' + currentCase.toLowerCase());
-  render();
-}
-function setPrep(btn) {
-  document.querySelectorAll('.pbtn').forEach(b => b.classList.remove('p-active'));
-  currentPrep = btn.dataset.p;
-  btn.classList.add('p-active');
-  render();
-}
-document.getElementById('search').addEventListener('input', function() {
-  searchTerm = this.value.toLowerCase().trim();
-  render();
-});
-
-function getCase(pc) {
-  if (pc === 'Dat' || pc === 'Akk' || pc === 'Ohne') return pc;
-  return pc.split('+')[1] || '';
-}
-function getPrep(pc) {
-  if (pc === 'Dat' || pc === 'Akk' || pc === 'Ohne') return '';
-  return pc.split('+')[0];
-}
-function getPrepLabel(pc) {
-  if (pc === 'Dat') return 'Dativ';
-  if (pc === 'Akk') return 'Akkusativ';
-  if (pc === 'Ohne') return '—';
-  return pc;
-}
-
-let guessMode = false;
-let shuffleMode = false;
-function toggleShuffle() {
-  shuffleMode = !shuffleMode;
-  document.getElementById('shuffle-btn').classList.toggle('guess-active', shuffleMode);
-  render();
-}
-function toggleGuess() {
-  guessMode = !guessMode;
-  document.getElementById('guess-btn').classList.toggle('guess-active', guessMode);
-  render();
-}
-document.getElementById('grid').addEventListener('click', function(e) {
-  const card = e.target.closest('.guess-hidden, .guess-revealed');
-  if (!card || !guessMode) return;
-  if (card.classList.contains('guess-hidden')) {
-    card.classList.remove('guess-hidden'); card.classList.add('guess-revealed');
-  } else {
-    card.classList.remove('guess-revealed'); card.classList.add('guess-hidden');
-  }
-});
-
-function render() {
-  const grid = document.getElementById('grid');
-  const empty = document.getElementById('empty');
-  const stats = document.getElementById('stats');
-
-  let f = DATA;
-
-  // Case filter
-  if (currentCase !== 'all') {
-    f = f.filter(d => getCase(d[1]) === currentCase);
-  }
-
-  // Prep filter
-  if (currentPrep !== 'all') {
-    if (currentPrep === 'Dat' || currentPrep === 'Akk') {
-      // "nur Dat" / "nur Akk" = verbs without preposition
-      f = f.filter(d => d[1] === currentPrep);
-    } else {
-      f = f.filter(d => getPrep(d[1]) === currentPrep);
-    }
-  }
-
-  // Search
-  if (searchTerm) {
-    f = f.filter(d =>
-      d[0].toLowerCase().includes(searchTerm) ||
-      d[3].toLowerCase().includes(searchTerm) ||
-      d[5].toLowerCase().includes(searchTerm) ||
-      d[1].toLowerCase().includes(searchTerm)
-    );
-  }
-  if (shuffleMode) f = shuffleArray(f);
-
-  if (!f.length) {
-    grid.innerHTML = '';
-    empty.style.display = 'block';
-    stats.textContent = '0';
-    return;
-  }
-  empty.style.display = 'none';
-  stats.textContent = f.length + ' Verben';
-
-  let h = '';
-  f.forEach(d => {
-    const [verb, pc, perfekt, meaning, type, example] = d;
-    const cas = getCase(pc);
-    const kc = cas === 'Akk' ? 'k-akk' : cas === 'Dat' ? 'k-dat' : 'k-ohne';
-    const tc = type === 's' ? 't-stark' : type === 'm' ? 't-gemischt' : 't-schwach';
-    const tl = type === 's' ? 'stark' : type === 'm' ? 'gemischt' : 'schwach';
-    const badge = getPrepLabel(pc);
-    const tt = example ? `<div class="tooltip">${example}</div>` : '';
-
-    if (guessMode) {
-      const ttG = tt ? tt.replace('class="tooltip"', 'class="tooltip guess-hide"') : '';
-      h += `<div class="card ${kc} guess-hidden">${ttG}<div class="card-top"><span class="prep-badge guess-hide">${badge}</span><span class="perfekt guess-hide">${perfekt}</span></div><div class="verb-name">${verb}</div><div class="meaning guess-hide">${meaning}</div><span class="type-tag ${tc} guess-hide">${tl}</span></div>`;
-    } else {
-      h += `<div class="card ${kc}">${tt}<div class="card-top"><span class="prep-badge">${badge}</span><span class="perfekt">${perfekt}</span></div><div class="verb-name">${verb}</div><div class="meaning">${meaning}</div><span class="type-tag ${tc}">${tl}</span></div>`;
-    }
-  });
-  grid.innerHTML = h;
-}
-render();
-</script>
-</body>
-</html>
