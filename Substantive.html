@@ -267,7 +267,25 @@ const DATA = [["Jahr", "das", "-e", "year", "time", "Dieses Jahr reise ich in di
 ["Saft", "der", "Säfte", "juice", "food", "Möchten Sie einen Orangensaft?"],
 ["Typ", "der", "-en", "type, guy", "general", "Was für ein Typ ist er?"],
 ["Husten", "der", "(no pl.)", "cough", "health", "Ich habe seit einer Woche Husten."],
-["Joghurt", "das", "-s", "yogurt", "food", "Zum Frühstück esse ich Joghurt mit Früchten."]
+["Joghurt", "das", "-s", "yogurt", "food", "Zum Frühstück esse ich Joghurt mit Früchten."],
+// ─── Manual additions (V17) ───
+["Leder", "das", "-", "leather", "general", "Die Tasche ist aus echtem Leder."],
+["Schlaf", "der", "(no pl.)", "sleep", "health", "Guter Schlaf ist wichtig für die Gesundheit."],
+["Ampel", "die", "-n", "traffic light", "travel", "Die Ampel ist rot, wir müssen warten."],
+["Aquarium", "das", "Aquarien", "aquarium", "home", "Im Aquarium schwimmen bunte Fische."],
+["Briefkasten", "der", "Briefkästen", "mailbox", "home", "Der Briefkasten ist schon wieder voll."],
+["Chaos", "das", "(no pl.)", "chaos", "general", "Nach der Party herrschte totales Chaos."],
+["Couch", "die", "-es", "couch, sofa", "home", "Am Abend liege ich gern auf der Couch."],
+["Flur", "der", "-e", "hallway", "home", "Die Jacken hängen im Flur."],
+["Karton", "der", "-s", "cardboard box", "general", "Die Bücher sind noch im Karton."],
+["Keks", "der", "-e", "cookie, biscuit", "food", "Möchtest du einen Keks zum Kaffee?"],
+["Wagen", "der", "-", "car, wagon", "travel", "Der Wagen steht in der Garage."],
+["Schild", "das", "-er", "sign", "general", "Hast du das Schild an der Tür gelesen?"],
+["Sprung", "der", "Sprünge", "jump, crack", "general", "Der Sprung ins kalte Wasser war mutig."],
+["Schluss", "der", "Schlüsse", "end, conclusion", "general", "Zum Schluss gibt es noch Fragen."],
+["Spalt", "der", "-e", "gap, crack", "general", "Durch den Spalt kommt Licht herein."],
+["Türspalt", "der", "-e", "door gap", "home", "Er schaute durch den Türspalt."],
+["Versteck", "das", "-e", "hiding place", "general", "Die Kinder suchen ein gutes Versteck."]
 ];
 const CATS =[...new Set(DATA.map(d => d[4]))].sort();
 let currentGender = 'all', currentCat = 'all', searchTerm = '';
