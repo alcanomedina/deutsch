@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="assets/favicon.ico" sizes="16x16 32x32 48x48">
+<link rel="icon" href="assets/favicon-32x32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<title>Konjunktiv II – Wünsche, Ratschläge, höfliche Bitten</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/common.css">
+<style>
+body { padding: 24px 16px 48px; }
+.container{max-width:860px;margin:0 auto;}
+header{text-align:center;margin-bottom:24px;position:sticky;top:0;z-index:100;background:#232327ee;backdrop-filter:blur(12px);padding:14px 16px 10px;border-bottom:1px solid #3e3e44;}
+h1{font-family:'JetBrains Mono',monospace;font-size:28px;font-weight:700;color:#f0f0f4;letter-spacing:-0.5px;}
+header p{margin:6px 0 0;font-size:14px;color:#ababba;}
+
+.section-title{
+  font-family:'JetBrains Mono',monospace;
+  font-size:13px;font-weight:700;color:#8888a0;
+  text-transform:uppercase;letter-spacing:1px;
+  margin:32px 0 12px;
+}
+
+/* === FORMATION CARDS === */
+.path-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;margin-bottom:24px;
+}
+.path-card{
+  background:#343438;border-radius:12px;
+  border:1px solid #44444c;overflow:hidden;
+}
+.path-card .card-head{
+  padding:14px 20px 10px;
+  border-bottom:2px solid #a855f7;
+  display:flex;align-items:center;gap:8px;
+}
+.path-card .card-head h2{
+  font-family:'JetBrains Mono',monospace;
+  font-size:16px;font-weight:700;color:#e0e0e4;
+}
+.path-card .card-head .tag{
+  font-family:'JetBrains Mono',monospace;
+  font-size:10px;font-weight:600;
+  padding:2px 8px;border-radius:4px;
+  background:#2a1848;color:#c8a8ff;border:1px solid #7a60c0;
+  text-transform:uppercase;letter-spacing:0.5px;
+}
+.path-card .card-body{padding:12px 20px 16px;}
+.path-card .note{
+  font-size:12px;color:#ababba;font-style:italic;
+  padding:0 20px 14px;
+  border-top:1px solid #3e3e44;
+  margin-top:4px;padding-top:10px;
+}
+
+/* conjugation list */
+.conj-list{list-style:none;padding:0;}
+.conj-list li{
+  display:flex;gap:12px;
+  padding:5px 0;
+  font-size:14px;color:#e0e0e4;
+}
+.conj-list .person{
+  font-family:'JetBrains Mono',monospace;
+  font-size:13px;color:#8888a0;
+  width:60px;flex-shrink:0;
+}
+.conj-list .form{
+  font-family:'JetBrains Mono',monospace;
+  font-weight:600;
+}
+.kii{color:#c084fc;font-weight:700;}
+.umlaut{color:#f0abfc;font-weight:700;}
+
+/* === IRREGULAR TABLE === */
+.table-wrap{
+  background:#343438;border-radius:12px;
+  border:1px solid #44444c;overflow:hidden;
+  margin-bottom:24px;
+}
+.table-title{
+  padding:16px 20px 12px;
+  border-bottom:2px solid #a855f7;
+}
+.table-title h2{
+  font-family:'JetBrains Mono',monospace;
+  font-size:18px;font-weight:700;color:#e0e0e4;
+}
+.table-title p{
+  font-size:13px;color:#ababba;margin-top:2px;
+}
+table{width:100%;border-collapse:collapse;}
+th{
+  font-family:'JetBrains Mono',monospace;
+  font-size:11px;font-weight:700;color:#ababba;
+  text-transform:uppercase;letter-spacing:1px;
+  padding:10px 14px;text-align:left;
+  border-bottom:1px solid #3e3e44;
+  background:#2e2e32;
+}
+td{
+  padding:8px 14px;
+  border-bottom:1px solid #3e3e44;
+  font-size:14px;color:#e0e0e4;
+  line-height:1.5;
+  vertical-align:top;
+}
+tr:last-child td{border-bottom:none;}
+td:first-child{
+  font-family:'JetBrains Mono',monospace;
+  font-size:13px;color:#ababba;
+}
+td:nth-child(2){
+  font-family:'JetBrains Mono',monospace;
+  font-weight:700;color:#c084fc;
+}
+.table-note{
+  font-size:12px;color:#ababba;font-style:italic;
+  padding:10px 20px 14px;
+  border-top:1px solid #3e3e44;
+}
+
+/* === USAGE CARDS === */
+.usage-cards{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(380px,1fr));
+  gap:12px;margin-bottom:24px;
+}
+.usage-card{
+  background:#343438;border-radius:10px;
+  border:1px solid #44444c;
+  border-left:4px solid #a855f7;
+  padding:16px 20px;
+}
+.usage-card .card-emoji{font-size:22px;margin-bottom:6px;}
+.usage-card h3{
+  font-family:'JetBrains Mono',monospace;
+  font-size:16px;font-weight:700;color:#e0e0e4;
+  margin-bottom:10px;
+}
+.usage-card .ex-list{list-style:none;padding:0;}
+.usage-card .ex-list li{
+  padding:4px 0;font-size:13px;
+  line-height:1.6;color:#c0c0c8;
+}
+.usage-card .key-phrase{
+  margin-top:10px;padding:8px 12px;
+  background:#2b2b2f;border-radius:6px;
+  font-size:12px;color:#ababba;
+}
+.usage-card .key-phrase strong{color:#c084fc;}
+.usage-card .structure{
+  margin-top:10px;padding:8px 12px;
+  background:#2a1848;border-radius:6px;
+  border:1px solid #7a60c0;
+  font-family:'JetBrains Mono',monospace;
+  font-size:12px;color:#c8a8ff;
+}
+
+/* === REDEMITTEL TABLE === */
+.redemittel-wrap{
+  background:#343438;border-radius:12px;
+  border:1px solid #44444c;overflow:hidden;
+  margin-bottom:24px;
+}
+.redemittel-wrap .table-title{
+  border-bottom:2px solid #a855f7;
+}
+.redemittel-wrap table{width:100%;}
+.redemittel-wrap td{
+  padding:6px 14px;font-size:13px;
+  width:50%;
+}
+
+/* === CHEAT BOX === */
+.cheat-box{
+  padding:16px 20px;background:#343438;
+  border-radius:10px;border:1px solid #44444c;
+  font-size:14px;line-height:1.8;color:#c0c0c8;
+  margin-bottom:16px;
+}
+.cheat-box .title{
+  font-weight:700;font-family:'JetBrains Mono',monospace;
+  color:#e0e0e4;margin-bottom:8px;font-size:13px;
+}
+
+@media(max-width:600px){
+  body{padding:0 8px 48px;}
+  header{padding:8px 10px 6px;margin-bottom:12px;}
+  h1{font-size:18px;}
+  header p{font-size:11px;}
+  .path-grid{grid-template-columns:1fr;}
+  .usage-cards{grid-template-columns:1fr;}
+  table{font-size:12px;}
+  th{font-size:9px;padding:6px 8px;}
+  td{padding:6px 8px;font-size:12px;}
+  .usage-card h3{font-size:14px;}
+  .section-title{font-size:11px;}
+}
+</style>
+</head>
+<body>
+<div class="container">
+  <header>
+    <h1>Konjunktiv II</h1>
+    <p>Wünsche, Ratschläge und höfliche Bitten</p>
+  </header>
+
+  <!-- ═══ FORMATION ═══ -->
+  <div class="section-title">Zwei Bildungswege</div>
+  <div class="path-grid">
+    <div class="path-card">
+      <div class="card-head">
+        <h2>würde + Infinitiv</h2>
+        <span class="tag">Standard</span>
+      </div>
+      <div class="card-body">
+        <ul class="conj-list">
+          <li><span class="person">ich</span><span class="form"><span class="kii">würde</span> machen</span></li>
+          <li><span class="person">du</span><span class="form"><span class="kii">würdest</span> machen</span></li>
+          <li><span class="person">er/sie</span><span class="form"><span class="kii">würde</span> machen</span></li>
+          <li><span class="person">wir</span><span class="form"><span class="kii">würden</span> machen</span></li>
+          <li><span class="person">ihr</span><span class="form"><span class="kii">würdet</span> machen</span></li>
+          <li><span class="person">sie/Sie</span><span class="form"><span class="kii">würden</span> machen</span></li>
+        </ul>
+      </div>
+      <div class="note">Die sichere Form — funktioniert für jedes Verb. Bei regelmässigen Verben immer würde + Infinitiv benutzen. Der «echte» Konjunktiv II (ich machte) ist identisch mit dem Präteritum und klingt komisch.</div>
+    </div>
+
+    <div class="path-card">
+      <div class="card-head">
+        <h2>Unregelmässige Formen</h2>
+        <span class="tag">Direkt</span>
+      </div>
+      <div class="card-body">
+        <ul class="conj-list">
+          <li><span class="person">sein</span><span class="form">→ <span class="kii">wäre</span></span></li>
+          <li><span class="person">haben</span><span class="form">→ <span class="kii">hätte</span></span></li>
+          <li><span class="person">können</span><span class="form">→ <span class="kii">könnte</span></span></li>
+          <li><span class="person">müssen</span><span class="form">→ <span class="kii">müsste</span></span></li>
+          <li><span class="person">dürfen</span><span class="form">→ <span class="kii">dürfte</span></span></li>
+          <li><span class="person">sollen</span><span class="form">→ <span class="kii">sollte</span></span></li>
+        </ul>
+      </div>
+      <div class="note">Diese Formen klingen natürlich und werden direkt benutzt — kein würde nötig. Die meisten bilden den Umlaut vom Präteritum-Stamm (war→w<span class="umlaut">ä</span>re, hatte→h<span class="umlaut">ä</span>tte).</div>
+    </div>
+  </div>
+
+  <!-- ═══ IRREGULAR FORMS TABLE ═══ -->
+  <div class="section-title">Alle wichtigen unregelmässigen Formen</div>
+  <div class="table-wrap">
+    <div class="table-title">
+      <h2>Konjunktiv II — direkte Formen</h2>
+      <p>Diese Formen musst du auswendig kennen (B1)</p>
+    </div>
+    <div style="overflow-x:auto;">
+    <table>
+      <thead>
+        <tr>
+          <th>Infinitiv</th>
+          <th>Konjunktiv II</th>
+          <th>Beispiel</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>sein</td><td>wäre</td><td>Wenn ich reich <span class="kii">wäre</span>, ...</td></tr>
+        <tr><td>haben</td><td>hätte</td><td>Ich <span class="kii">hätte</span> gern einen Kaffee.</td></tr>
+        <tr><td>können</td><td>könnte</td><td><span class="kii">Könntest</span> du mir helfen?</td></tr>
+        <tr><td>müssen</td><td>müsste</td><td>Ich <span class="kii">müsste</span> eigentlich gehen.</td></tr>
+        <tr><td>dürfen</td><td>dürfte</td><td><span class="kii">Dürfte</span> ich Sie etwas fragen?</td></tr>
+        <tr><td>sollen</td><td>sollte</td><td>Du <span class="kii">solltest</span> mehr schlafen.</td></tr>
+        <tr><td>wissen</td><td>wüsste</td><td>Ich <span class="kii">wüsste</span> gern, ob ...</td></tr>
+        <tr><td>kommen</td><td>käme</td><td>Das <span class="kii">käme</span> mir gelegen.</td></tr>
+        <tr><td>geben</td><td>gäbe</td><td>Es <span class="kii">gäbe</span> eine Möglichkeit.</td></tr>
+        <tr><td>gehen</td><td>ginge</td><td>Das <span class="kii">ginge</span> auch.</td></tr>
+        <tr><td>brauchen</td><td>bräuchte</td><td>Ich <span class="kii">bräuchte</span> deine Hilfe.</td></tr>
+        <tr><td>finden</td><td>fände</td><td>Ich <span class="kii">fände</span> das toll.</td></tr>
+        <tr><td>lassen</td><td>liesse</td><td>Das <span class="kii">liesse</span> sich machen.</td></tr>
+        <tr><td>tun</td><td>täte</td><td>Das <span class="kii">täte</span> mir leid.</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <div class="table-note">Muster: die meisten Formen bilden den Umlaut vom Präteritum-Stamm (war → w<span class="umlaut">ä</span>re, konnte → k<span class="umlaut">ö</span>nnte). Wie die unregelmässigen Subjuntivo-Formen im Spanischen — eine feste Liste zum Lernen.</div>
+  </div>
+
+  <!-- ═══ USAGE PATTERNS ═══ -->
+  <div class="section-title">Verwendung — vier Muster</div>
+  <div class="usage-cards">
+
+    <div class="usage-card">
+      <div class="card-emoji">&#127775;</div>
+      <h3>Irreale Wünsche & Situationen</h3>
+      <ul class="ex-list">
+        <li>Wenn ich mehr Zeit <span class="kii">hätte</span>, <span class="kii">würde</span> ich reisen.</li>
+        <li>Wenn ich du <span class="kii">wäre</span>, <span class="kii">würde</span> ich das nicht machen.</li>
+        <li>Ich <span class="kii">wäre</span> gern Pilot.</li>
+        <li>Es <span class="kii">wäre</span> schön, wenn du kommen <span class="kii">könntest</span>.</li>
+      </ul>
+      <div class="structure">Wenn + Konjunktiv II, ... Konjunktiv II<br>(Verb → Ende im wenn-Satz = Nebensatz)</div>
+    </div>
+
+    <div class="usage-card">
+      <div class="card-emoji">&#128161;</div>
+      <h3>Ratschläge</h3>
+      <ul class="ex-list">
+        <li>An deiner Stelle <span class="kii">würde</span> ich zum Arzt gehen.</li>
+        <li>An Ihrer Stelle <span class="kii">würde</span> ich das Angebot annehmen.</li>
+        <li>Du <span class="kii">solltest</span> mehr Wasser trinken.</li>
+        <li>Ich <span class="kii">würde</span> dir empfehlen, früher aufzustehen.</li>
+        <li>Du <span class="kii">könntest</span> auch Sport machen.</li>
+      </ul>
+      <div class="key-phrase"><strong>An deiner/Ihrer Stelle würde ich ...</strong> = «If I were you, I would ...»</div>
+    </div>
+
+    <div class="usage-card">
+      <div class="card-emoji">&#128591;</div>
+      <h3>Höfliche Bitten</h3>
+      <ul class="ex-list">
+        <li><span class="kii">Könnten</span> Sie mir bitte sagen, wo der Bahnhof ist?</li>
+        <li><span class="kii">Würden</span> Sie bitte das Fenster schliessen?</li>
+        <li><span class="kii">Dürfte</span> ich Sie etwas fragen?</li>
+        <li>Ich <span class="kii">hätte</span> gern einen Kaffee.</li>
+        <li>Ich <span class="kii">wüsste</span> gern, ob der Kurs noch Plätze hat.</li>
+      </ul>
+      <div class="key-phrase"><strong>Könnten Sie ...</strong> ist weicher als «Können Sie ...» — gleicher Unterschied wie «could you» vs «can you» auf Englisch.</div>
+    </div>
+
+    <div class="usage-card">
+      <div class="card-emoji">&#10067;</div>
+      <h3>Indirekte Fragesätze</h3>
+      <ul class="ex-list">
+        <li>Ich <span class="kii">wüsste</span> gern, <strong>wer</strong> der Lehrer ist.</li>
+        <li><span class="kii">Könnten</span> Sie mir sagen, <strong>ob</strong> der Kurs noch läuft?</li>
+        <li>Ich <span class="kii">würde</span> gern wissen, <strong>wie</strong> lange es dauert.</li>
+        <li>Er fragt, <strong>ob</strong> es ein Backhuhn auf der Karte <span class="kii">gäbe</span>.</li>
+      </ul>
+      <div class="structure">Redemittel + W-Frage/ob + ... + Verb (Ende)</div>
+    </div>
+
+  </div>
+
+  <!-- ═══ REDEMITTEL ═══ -->
+  <div class="section-title">Redemittel für indirekte Fragesätze</div>
+  <div class="redemittel-wrap">
+    <div class="table-title">
+      <h2>Nützliche Einleitungen</h2>
+      <p>Zwei Perspektiven: ich vs. er/sie</p>
+    </div>
+    <div style="overflow-x:auto;">
+    <table>
+      <thead>
+        <tr>
+          <th>Perspektive: ich</th>
+          <th>Perspektive: er/sie</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Ich frage mich, ...</td><td>Er/Sie fragt, ...</td></tr>
+        <tr><td>Ich möchte wissen, ...</td><td>Er/Sie möchte wissen, ...</td></tr>
+        <tr><td>Ich weiss nicht, ...</td><td>Er/Sie weiss nicht, ...</td></tr>
+        <tr><td>Ich <span class="kii">wüsste</span> gern, ...</td><td>Er/Sie <span class="kii">wüsste</span> gern, ...</td></tr>
+        <tr><td>Weisst du, ... ?</td><td></td></tr>
+        <tr><td><span class="kii">Könntest</span> du mir sagen, ... ?</td><td>Er/Sie erkundigt sich, ...</td></tr>
+        <tr><td>Es interessiert mich, ...</td><td>Es interessiert ihn/sie, ...</td></tr>
+        <tr><td>Ich bin nicht sicher, ...</td><td>Er/Sie ist nicht sicher, ...</td></tr>
+        <tr><td>Ich habe vergessen, ...</td><td>Er/Sie hat vergessen, ...</td></tr>
+        <tr><td>Ich habe keine Ahnung, ...</td><td>Er/Sie hat keine Ahnung, ...</td></tr>
+      </tbody>
+    </table>
+    </div>
+  </div>
+
+  <!-- ═══ QUICK REFERENCE ═══ -->
+  <div class="cheat-box">
+    <div class="title">Zusammenfassung</div>
+    <strong style="color:#c084fc;">würde + Infinitiv</strong> = die sichere Form für alle Verben<br>
+    <strong style="color:#c084fc;">Direkte Formen</strong> (wäre, hätte, könnte, ...) = für sein, haben und Modalverben<br><br>
+    Vier Verwendungen: <strong>irreale Situationen</strong> (wenn ..., ... würde), <strong>Ratschläge</strong> (an deiner Stelle ...), <strong>höfliche Bitten</strong> (könnten Sie ...), <strong>indirekte Fragen</strong> (ich wüsste gern, ob ...)
+  </div>
+</div>
+</body>
+</html>

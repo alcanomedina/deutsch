@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="assets/favicon.ico" sizes="16x16 32x32 48x48">
+<link rel="icon" href="assets/favicon-32x32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<title>Das Passiv – German Passive Voice</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/common.css">
+<style>
+body { padding: 24px 16px 48px; }
+.container{max-width:860px;margin:0 auto;}
+header{text-align:center;margin-bottom:24px;position:sticky;top:0;z-index:100;background:#232327ee;backdrop-filter:blur(12px);padding:14px 16px 10px;border-bottom:1px solid #3e3e44;}
+h1{font-family:'JetBrains Mono',monospace;font-size:28px;font-weight:700;color:#f0f0f4;letter-spacing:-0.5px;}
+header p{margin:6px 0 0;font-size:14px;color:#ababba;}
+
+.section-title{
+  font-family:'JetBrains Mono',monospace;
+  font-size:13px;font-weight:700;color:#8888a0;
+  text-transform:uppercase;letter-spacing:1px;
+  margin:32px 0 12px;
+}
+
+/* === TABLES === */
+.table-wrap{
+  background:#343438;border-radius:12px;
+  border:1px solid #44444c;overflow:hidden;
+  margin-bottom:24px;
+}
+.table-title{
+  padding:16px 20px 12px;
+  border-bottom:2px solid #14b8a6;
+}
+.table-title h2{
+  font-family:'JetBrains Mono',monospace;
+  font-size:18px;font-weight:700;color:#e0e0e4;
+}
+.table-title p{
+  font-size:13px;color:#ababba;margin-top:2px;
+}
+table{width:100%;border-collapse:collapse;}
+th{
+  font-family:'JetBrains Mono',monospace;
+  font-size:11px;font-weight:700;color:#ababba;
+  text-transform:uppercase;letter-spacing:1px;
+  padding:10px 14px;text-align:left;
+  border-bottom:1px solid #3e3e44;
+  background:#2e2e32;
+}
+td{
+  padding:10px 14px;
+  border-bottom:1px solid #3e3e44;
+  font-size:14px;color:#e0e0e4;
+  line-height:1.6;
+  vertical-align:top;
+}
+tr:last-child td{border-bottom:none;}
+td:first-child{
+  font-family:'JetBrains Mono',monospace;
+  font-size:13px;font-weight:600;color:#ababba;
+  white-space:nowrap;
+}
+.aux{color:#14b8a6;font-weight:700;}
+.pp{color:#f59e0b;font-weight:700;}
+.note{
+  font-size:12px;color:#ababba;font-style:italic;
+  padding:10px 20px 14px;
+  border-top:1px solid #3e3e44;
+}
+
+/* === WERDEN TABLE === */
+.werden-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;margin-bottom:24px;
+}
+.werden-card{
+  background:#343438;border-radius:10px;
+  border:1px solid #44444c;overflow:hidden;
+}
+.werden-card .card-head{
+  padding:12px 16px 8px;
+  font-family:'JetBrains Mono',monospace;
+  font-size:13px;font-weight:700;color:#14b8a6;
+  border-bottom:1px solid #3e3e44;
+}
+.werden-card table{width:100%;}
+.werden-card td{padding:6px 16px;font-size:14px;}
+.werden-card td:first-child{color:#8888a0;font-size:13px;width:70px;}
+.werden-card td:last-child{
+  font-family:'JetBrains Mono',monospace;
+  font-weight:600;color:#e0e0e4;
+}
+
+/* === RULE CARDS === */
+.rules{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(340px,1fr));
+  gap:12px;margin-bottom:24px;
+}
+.rule-card{
+  background:#343438;border-radius:10px;
+  border:1px solid #44444c;padding:16px 20px;
+}
+.rule-card .rule-num{
+  font-family:'JetBrains Mono',monospace;
+  font-size:12px;font-weight:700;color:#14b8a6;
+  text-transform:uppercase;letter-spacing:1px;
+  margin-bottom:6px;
+}
+.rule-card h3{
+  font-family:'JetBrains Mono',monospace;
+  font-size:16px;font-weight:700;color:#e0e0e4;
+  margin-bottom:8px;
+}
+.rule-card p{font-size:13px;line-height:1.6;color:#c0c0c8;}
+.rule-card .ex{
+  margin-top:8px;padding:8px 12px;
+  background:#2b2b2f;border-radius:6px;
+  border-left:3px solid #14b8a6;
+  font-size:13px;line-height:1.7;color:#e0e0e4;
+}
+.rule-card .ex .label{
+  font-family:'JetBrains Mono',monospace;
+  font-size:11px;font-weight:700;color:#8888a0;
+  margin-right:4px;
+}
+.rule-card .ex .hl{font-weight:700;color:#14b8a6;}
+.rule-card .ex .transl{
+  display:block;font-size:11px;color:#ababba;
+  font-style:italic;margin-top:2px;
+}
+
+/* === CHEAT BOX === */
+.cheat-box{
+  padding:16px 20px;background:#343438;
+  border-radius:10px;border:1px solid #44444c;
+  font-size:14px;line-height:1.8;color:#c0c0c8;
+  margin-bottom:16px;
+}
+.cheat-box .title{
+  font-weight:700;font-family:'JetBrains Mono',monospace;
+  color:#e0e0e4;margin-bottom:8px;font-size:13px;
+}
+
+/* === FORMULA === */
+.formula{
+  display:inline-block;
+  background:#1a3038;border:1.5px solid #14b8a6;
+  border-radius:6px;padding:4px 12px;
+  font-family:'JetBrains Mono',monospace;
+  font-size:13px;font-weight:600;color:#5eead4;
+  margin:6px 0;
+}
+
+@media(max-width:600px){
+  body{padding:0 8px 48px;}
+  header{padding:8px 10px 6px;margin-bottom:12px;}
+  h1{font-size:18px;}
+  header p{font-size:11px;}
+  .werden-grid{grid-template-columns:1fr;}
+  .rules{grid-template-columns:1fr;}
+  table{font-size:12px;}
+  th{font-size:9px;padding:6px 8px;}
+  td{padding:6px 8px;font-size:12px;}
+  .rule-card h3{font-size:14px;}
+  .section-title{font-size:11px;}
+}
+</style>
+</head>
+<body>
+<div class="container">
+  <header>
+    <h1>Das Passiv</h1>
+    <p>Die Aktion ist wichtiger als die Person</p>
+  </header>
+
+  <!-- ═══ WERDEN CONJUGATION ═══ -->
+  <div class="section-title">Hilfsverb «werden»</div>
+  <div class="werden-grid">
+    <div class="werden-card">
+      <div class="card-head">Präsens</div>
+      <table>
+        <tr><td>ich</td><td>werde</td></tr>
+        <tr><td>du</td><td>wirst</td></tr>
+        <tr><td>er/sie</td><td>wird</td></tr>
+        <tr><td>wir</td><td>werden</td></tr>
+        <tr><td>ihr</td><td>werdet</td></tr>
+        <tr><td>sie/Sie</td><td>werden</td></tr>
+      </table>
+    </div>
+    <div class="werden-card">
+      <div class="card-head">Präteritum</div>
+      <table>
+        <tr><td>ich</td><td>wurde</td></tr>
+        <tr><td>du</td><td>wurdest</td></tr>
+        <tr><td>er/sie</td><td>wurde</td></tr>
+        <tr><td>wir</td><td>wurden</td></tr>
+        <tr><td>ihr</td><td>wurdet</td></tr>
+        <tr><td>sie/Sie</td><td>wurden</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- ═══ PASSIV BY TENSE ═══ -->
+  <div class="section-title">Passiv nach Tempus</div>
+  <div class="table-wrap">
+    <div class="table-title">
+      <h2>Vorgangspassiv — Bildung</h2>
+      <p>Formel + Aktiv/Passiv-Vergleich</p>
+    </div>
+    <div style="overflow-x:auto;">
+    <table>
+      <thead>
+        <tr>
+          <th>Tempus</th>
+          <th>Formel</th>
+          <th>Aktiv</th>
+          <th>Passiv</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Präsens</td>
+          <td><span class="aux">werden</span> (konj.) + <span class="pp">Partizip II</span></td>
+          <td>Man kocht die Suppe.</td>
+          <td>Die Suppe <span class="aux">wird</span> <span class="pp">gekocht</span>.</td>
+        </tr>
+        <tr>
+          <td>Präteritum</td>
+          <td><span class="aux">wurden</span> (konj.) + <span class="pp">Partizip II</span></td>
+          <td>Man kochte die Suppe.</td>
+          <td>Die Suppe <span class="aux">wurde</span> <span class="pp">gekocht</span>.</td>
+        </tr>
+        <tr>
+          <td>Perfekt</td>
+          <td><span class="aux">sein</span> (konj.) + <span class="pp">Partizip II</span> + <span class="aux">worden</span></td>
+          <td>Man hat die Suppe gekocht.</td>
+          <td>Die Suppe <span class="aux">ist</span> <span class="pp">gekocht</span> <span class="aux">worden</span>.</td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+    <div class="note">Perfekt Passiv: <strong>worden</strong> (nicht geworden!) — das Passiv-Partizip verliert das ge-Präfix.</div>
+  </div>
+
+  <!-- ═══ PASSIV MIT MODALVERBEN ═══ -->
+  <div class="section-title">Passiv mit Modalverben</div>
+  <div class="table-wrap">
+    <div class="table-title">
+      <h2>Modalverb + Partizip II + werden</h2>
+    </div>
+    <div style="overflow-x:auto;">
+    <table>
+      <thead>
+        <tr>
+          <th>Aktiv</th>
+          <th>Passiv</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Man <strong>muss</strong> die Suppe kochen.</td>
+          <td>Die Suppe <span class="aux">muss</span> <span class="pp">gekocht</span> <span class="aux">werden</span>.</td>
+        </tr>
+        <tr>
+          <td>Man <strong>kann</strong> das Auto reparieren.</td>
+          <td>Das Auto <span class="aux">kann</span> <span class="pp">repariert</span> <span class="aux">werden</span>.</td>
+        </tr>
+        <tr>
+          <td>Man <strong>darf</strong> hier nicht parken.</td>
+          <td>Hier <span class="aux">darf</span> nicht <span class="pp">geparkt</span> <span class="aux">werden</span>.</td>
+        </tr>
+        <tr>
+          <td>Man <strong>soll</strong> die Fenster streichen.</td>
+          <td>Die Fenster <span class="aux">sollen</span> <span class="pp">gestrichen</span> <span class="aux">werden</span>.</td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+    <div class="note">Formel: <span class="formula">Modalverb (konj.) + Partizip II + werden</span></div>
+  </div>
+
+  <!-- ═══ TRANSFORMATION RULES ═══ -->
+  <div class="section-title">Aktiv → Passiv — Transformationsregeln</div>
+  <div class="rules">
+    <div class="rule-card">
+      <div class="rule-num">Regel 1</div>
+      <h3>Akkusativobjekt → Subjekt (Nom)</h3>
+      <p>Das Akkusativobjekt im Aktivsatz wird zum Subjekt (Nominativ) im Passivsatz.</p>
+      <div class="ex">
+        <span class="label">Aktiv:</span> Jemand streicht <span class="hl">die Fenster</span>. (Akk)<br>
+        <span class="label">Passiv:</span> <span class="hl">Die Fenster</span> werden gestrichen. (Nom)
+      </div>
+    </div>
+
+    <div class="rule-card">
+      <div class="rule-num">Regel 2</div>
+      <h3>Subjekt → von + Dativ (oder fällt weg)</h3>
+      <p>Das Subjekt des Aktivsatzes wird zu «von + Dativ» (der Agens). Oft wird es weggelassen, wenn die Person unwichtig ist (jemand, man, Leute).</p>
+      <div class="ex">
+        <span class="label">Aktiv:</span> <span class="hl">Der Lehrling</span> schält die Kartoffeln.<br>
+        <span class="label">Passiv:</span> Die Kartoffeln werden <span class="hl">vom Lehrling</span> geschält.
+      </div>
+    </div>
+
+    <div class="rule-card">
+      <div class="rule-num">Regel 3</div>
+      <h3>Dativ bleibt Dativ</h3>
+      <p>Dativobjekte bleiben im Dativ. Es gibt kein neues Nominativ-Subjekt — das Verb steht immer in der 3. Person Singular.</p>
+      <div class="ex">
+        <span class="label">Aktiv:</span> Man hilft <span class="hl">der alten Frau</span>.<br>
+        <span class="label">Passiv:</span> <span class="hl">Der alten Frau</span> wird geholfen.
+      </div>
+    </div>
+
+    <div class="rule-card">
+      <div class="rule-num">Regel 4</div>
+      <h3>Präpositionalergänzung bleibt</h3>
+      <p>Präpositionale Ergänzungen verändern ihren Kasus nicht.</p>
+      <div class="ex">
+        <span class="label">Aktiv:</span> Die Zeitung berichtet <span class="hl">über den Unfall</span>.<br>
+        <span class="label">Passiv:</span> <span class="hl">Über den Unfall</span> wird von der Zeitung berichtet.
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ PASSIV OHNE SUBJEKT ═══ -->
+  <div class="section-title">Passiv ohne Subjekt</div>
+  <div class="cheat-box">
+    <div class="title">Kein Akkusativobjekt im Aktiv → kein Subjekt im Passiv</div>
+    Wenn der Aktivsatz kein Akkusativobjekt hat, hat der Passivsatz kein grammatisches Subjekt. Das Verb steht <strong>immer in der 3. Person Singular</strong>.<br><br>
+    Man hilft den Kindern. → <span style="color:#14b8a6;font-weight:700;">Den Kindern wird geholfen.</span><br>
+    Man tanzt hier. → <span style="color:#14b8a6;font-weight:700;">Hier wird getanzt.</span><br>
+    Man arbeitet sonntags nicht. → <span style="color:#14b8a6;font-weight:700;">Sonntags wird nicht gearbeitet.</span>
+  </div>
+
+  <!-- ═══ QUICK REFERENCE ═══ -->
+  <div class="cheat-box">
+    <div class="title">Zusammenfassung — Die drei Formeln</div>
+    <span class="formula">Präsens / Prät.</span> → <span style="color:#14b8a6;font-weight:600;">werden (konj.)</span> + <span style="color:#f59e0b;font-weight:600;">Partizip II</span><br>
+    <span class="formula">Perfekt</span> → <span style="color:#14b8a6;font-weight:600;">sein (konj.)</span> + <span style="color:#f59e0b;font-weight:600;">Partizip II</span> + <span style="color:#14b8a6;font-weight:600;">worden</span><br>
+    <span class="formula">mit Modalverb</span> → <span style="color:#14b8a6;font-weight:600;">Modalverb (konj.)</span> + <span style="color:#f59e0b;font-weight:600;">Partizip II</span> + <span style="color:#14b8a6;font-weight:600;">werden</span>
+  </div>
+</div>
+</body>
+</html>
