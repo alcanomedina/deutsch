@@ -1127,7 +1127,14 @@ const DATA = [["Jahr", "das", "-e", "year", "time", "Dieses Jahr reise ich in di
 ["Fett", "das", "-e", "fat, grease", "food", "Zu viel Fett ist ungesund."],
 ["Schaufenster", "das", "-", "shop window", "business", "Die neue Kollektion ist im Schaufenster ausgestellt."],
 ["Taxi", "das", "-s", "taxi", "travel", "Wir nehmen ein Taxi zum Flughafen."],
-["Ware", "die", "-n", "goods, merchandise", "business", "Die Waren werden per Lieferwagen transportiert."]
+["Ware", "die", "-n", "goods, merchandise", "business", "Die Waren werden per Lieferwagen transportiert."],
+["Gas", "das", "-e", "gas", "home", "Die Heizung läuft mit Gas."],
+["Handwerker", "der", "-", "craftsman, tradesman", "home", "Der Handwerker repariert die Heizung."],
+["Makler", "der", "-", "broker, estate agent", "business", "Der Makler zeigt uns die Wohnung."],
+["Park", "der", "-s", "park", "nature", "Wir spazieren durch den Park."],
+["Pilot", "der", "-en", "pilot", "travel", "Der Pilot landet das Flugzeug sicher."],
+["Reim", "der", "-e", "rhyme", "general", "Findest du einen Reim auf Liebe?"],
+["Vers", "der", "-e", "verse", "general", "Das Gedicht hat vier Verse."]
 ];
 const CATS =[...new Set(DATA.map(d => d[4]))].sort();
 let currentGender = 'all', currentCat = 'all', searchTerm = '';
