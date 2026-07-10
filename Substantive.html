@@ -340,7 +340,7 @@ const DATA = [["Jahr", "das", "-e", "year", "time", "Dieses Jahr reise ich in di
 ["Augenmerk", "das", "-e", "attention, focus", "general", "Das Augenmerk liegt auf der Qualität."],
 ["Ausbeutung", "die", "-en", "exploitation", "society", "Die Ausbeutung der Arbeiter muss aufhören."],
 ["Ausdruck", "der", "Ausdrücke", "expression, printout", "education", "Dieser Ausdruck ist sehr umgangssprachlich."],
-["Ausführung", "die", "-en", "execution, version", "business", "Es gibt das Modell in verschiedenen Ausführungen."],
+["Ausführung", "die", "-en", "execution, carrying out", "business", "Die Ausführung des Auftrags hat zwei Wochen gedauert."],
 ["Ausgabe", "die", "-n", "expense, edition", "business", "Die Ausgaben sind diesen Monat gestiegen."],
 ["Ausgang", "der", "Ausgänge", "exit, outcome", "general", "Der Ausgang ist rechts um die Ecke."],
 ["Aushilfe", "die", "-n", "temp worker, help", "business", "Wir suchen eine Aushilfe für den Sommer."],
@@ -743,7 +743,7 @@ const DATA = [["Jahr", "das", "-e", "year", "time", "Dieses Jahr reise ich in di
 ["Nachtrag", "der", "Nachträge", "addendum, supplement", "business", "Im Nachtrag stehen die Korrekturen."],
 ["Nachtschicht", "die", "-en", "night shift", "business", "Diese Woche habe ich Nachtschicht."],
 ["Nacken", "der", "-", "neck (back)", "health", "Mein Nacken ist verspannt."],
-["Nagel", "der", "Nägel", "nail", "home", "Schlag den Nagel in die Wand."],
+["Nagel", "der", "Nägel", "nail (finger/toe)", "body", "Sie lässt sich die Nägel lackieren."],
 ["Nahrung", "die", "-en", "food, nourishment", "food", "Gesunde Nahrung ist wichtig."],
 ["Nation", "die", "-en", "nation", "society", "Die Vereinten Nationen haben 193 Mitglieder."],
 ["Nebenwirkung", "die", "-en", "side effect", "health", "Das Medikament hat starke Nebenwirkungen."],
@@ -1123,7 +1123,11 @@ const DATA = [["Jahr", "das", "-e", "year", "time", "Dieses Jahr reise ich in di
 ["Hupe", "die", "-n", "horn (car)", "travel", "Der Fahrer drückt auf die Hupe."],
 ["Lieferwagen", "der", "-", "delivery van", "travel", "Der Lieferwagen bringt die Pakete."],
 ["Meerjungfrau", "die", "-en", "mermaid", "general", "Die kleine Meerjungfrau ist ein Märchen von Andersen."],
-["Wal", "der", "-e", "whale", "nature", "Der Blauwal ist das grösste Tier der Welt."]
+["Wal", "der", "-e", "whale", "nature", "Der Blauwal ist das grösste Tier der Welt."],
+["Fett", "das", "-e", "fat, grease", "food", "Zu viel Fett ist ungesund."],
+["Schaufenster", "das", "-", "shop window", "business", "Die neue Kollektion ist im Schaufenster ausgestellt."],
+["Taxi", "das", "-s", "taxi", "travel", "Wir nehmen ein Taxi zum Flughafen."],
+["Ware", "die", "-n", "goods, merchandise", "business", "Die Waren werden per Lieferwagen transportiert."]
 ];
 const CATS =[...new Set(DATA.map(d => d[4]))].sort();
 let currentGender = 'all', currentCat = 'all', searchTerm = '';

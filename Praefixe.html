@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="assets/favicon.ico" sizes="16x16 32x32 48x48">
+<link rel="icon" href="assets/favicon-32x32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<title>Präfixe — Trennbare und untrennbare Verben</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/common.css">
+<style>
+body { padding: 0 0 48px; }
+
+header {
+  position: sticky; top: 0; z-index: 100;
+  background: #232327ee;
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid #3e3e44;
+  padding: 14px 20px;
+  display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: 8px;
+}
+h1 {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 26px; font-weight: 700;
+  color: #f0f0f4; letter-spacing: -0.5px;
+}
+nav { display: flex; gap: 6px; flex-wrap: wrap; }
+nav a {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px; font-weight: 500;
+  padding: 5px 9px;
+  border-radius: 8px;
+  background: #343438;
+  color: #8888a0;
+  text-decoration: none;
+  border: 1px solid #44444c;
+  transition: all .15s;
+}
+nav a:hover, nav a.active {
+  background: #1a3a22;
+  color: #fff;
+  border-color: #40a060;
+}
+
+.container { max-width: 880px; margin: 0 auto; padding: 0 16px; }
+
+.section { margin-top: 32px; scroll-margin-top: 70px; }
+.section-title {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 26px; font-weight: 700;
+  color: #e0e0e4;
+  display: flex; align-items: center; gap: 8px;
+  margin-bottom: 2px;
+}
+.section-title .dot {
+  width: 10px; height: 10px;
+  border-radius: 50%; display: inline-block;
+}
+.section-sub {
+  font-size: 14px; color: #ababba;
+  margin-bottom: 16px; font-style: italic;
+}
+.sub-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 17px; font-weight: 700;
+  margin-bottom: 8px; margin-top: 24px;
+  color: #e0e0e4;
+}
+.sub-label .hint {
+  font-weight: 400; font-size: 13px; color: #ababba;
+}
+
+/* ─── Overview card ─── */
+.overview-card {
+  background: #343438;
+  border: 1px solid #44444c;
+  border-radius: 10px;
+  padding: 16px 20px;
+  font-size: 15px; line-height: 1.8; color: #c0c0c8;
+}
+
+/* ─── Prefix table ─── */
+.prefix-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin: 16px 0;
+}
+.prefix-col {
+  border-radius: 10px;
+  padding: 14px 16px;
+  border: 2px solid;
+}
+.prefix-col h3 {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 15px; font-weight: 700;
+  margin-bottom: 10px;
+}
+.prefix-col ul {
+  list-style: none; padding: 0; margin: 0;
+}
+.prefix-col ul li {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 14px; font-weight: 500;
+  padding: 3px 0;
+}
+.col-trenn { background: #0f2918; border-color: #22c55e; }
+.col-trenn h3 { color: #22c55e; }
+.col-trenn li { color: #6ee7a0; }
+.col-untrenn { background: #2a1010; border-color: #ef4444; }
+.col-untrenn h3 { color: #ef4444; }
+.col-untrenn li { color: #fca5a5; }
+.col-wechsel { background: #2a1e08; border-color: #f59e0b; }
+.col-wechsel h3 { color: #f59e0b; }
+.col-wechsel li { color: #fcd34d; }
+
+/* ─── Rule cards ─── */
+.rule-cards { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 14px; }
+.rule-card {
+  flex: 1 1 100%;
+  background: #343438;
+  border: 1px solid #44444c;
+  border-left: 3px solid;
+  border-radius: 10px;
+  padding: 14px 18px;
+}
+.rule-card .rule-title {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 15px; font-weight: 700;
+  margin-bottom: 8px;
+}
+.rule-card .rule-row {
+  display: flex; gap: 12px; align-items: baseline;
+  margin: 6px 0;
+  font-size: 14px; line-height: 1.6;
+}
+.rule-card .rule-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px; font-weight: 700;
+  color: #8888a0;
+  min-width: 90px;
+  flex-shrink: 0;
+}
+.rule-card .rule-ex {
+  color: #c0c0c8;
+}
+.rule-card .rule-ex em {
+  font-style: normal; font-weight: 700;
+}
+
+kw {
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 700; padding: 1px 5px;
+  border-radius: 4px; font-size: 0.95em;
+}
+kw.t { background: #0f2918; color: #22c55e; }
+kw.u { background: #2a1010; color: #ef4444; }
+kw.w { background: #2a1e08; color: #f59e0b; }
+
+/* ─── Wechsel pair cards ─── */
+.wechsel-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+  gap: 8px;
+  margin: 14px 0;
+}
+.wechsel-card {
+  background: #343438;
+  border: 1px solid #44444c;
+  border-radius: 10px;
+  padding: 14px 16px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+.wechsel-side {
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 2px solid;
+}
+.wechsel-side .ws-verb {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 15px; font-weight: 700;
+  margin-bottom: 4px;
+}
+.wechsel-side .ws-ex {
+  font-size: 13px; line-height: 1.5;
+  margin-bottom: 4px;
+}
+.wechsel-side .ws-meaning {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px; font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+.ws-trenn { background: #0f2918; border-color: #22c55e; color: #6ee7a0; }
+.ws-trenn .ws-meaning { color: #22c55e; }
+.ws-untrenn { background: #2a1010; border-color: #ef4444; color: #fca5a5; }
+.ws-untrenn .ws-meaning { color: #ef4444; }
+
+/* ─── Zwei Präfixe table ─── */
+.zwei-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 3px;
+  margin: 14px 0;
+}
+.zwei-table th {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px; font-weight: 700;
+  color: #8888a0; text-transform: uppercase;
+  padding: 4px 8px; text-align: left;
+}
+.zwei-table td {
+  background: #343438;
+  padding: 8px 12px;
+  font-size: 14px;
+  border-top: 1px solid #3e3e44;
+  border-bottom: 1px solid #3e3e44;
+  color: #c0c0c8;
+  line-height: 1.5;
+}
+.zwei-table td:first-child {
+  border-left: 1px solid #3e3e44;
+  border-radius: 8px 0 0 8px;
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 700;
+  color: #e0e0e4;
+}
+.zwei-table td:last-child {
+  border-right: 1px solid #3e3e44;
+  border-radius: 0 8px 8px 0;
+}
+.zwei-table td.is-trenn { color: #6ee7a0; }
+.zwei-table td.is-untrenn { color: #fca5a5; }
+
+/* ─── Notes ─── */
+.notes {
+  margin-top: 16px; padding: 14px 18px;
+  background: #343438; border-radius: 10px;
+  border: 1px solid #44444c;
+  font-size: 15px; line-height: 1.8; color: #c0c0c8;
+}
+.notes .notes-title {
+  font-weight: 700;
+  font-family: 'JetBrains Mono', monospace;
+  color: #e0e0e4; margin-bottom: 6px; font-size: 13px;
+}
+.warn { background: #3a2e10; border-color: #9a7a20; }
+.warn .notes-title { color: #e8a840; }
+
+/* ─── Responsive ─── */
+@media (max-width: 700px) {
+  header { padding: 10px 12px; }
+  h1 { font-size: 18px; }
+  .container { padding: 0 10px; }
+  nav a { font-size: 10px; padding: 4px 6px; }
+  .section-title { font-size: 22px; }
+  .sub-label { font-size: 15px; }
+  .prefix-grid { grid-template-columns: 1fr; }
+  .wechsel-grid { grid-template-columns: 1fr; }
+  .wechsel-card { grid-template-columns: 1fr; }
+  .table-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; margin: 12px 0; }
+  .zwei-table td { font-size: 13px; padding: 6px 8px; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Präfixe</h1>
+  <nav>
+    <a href="#uebersicht">Übersicht</a>
+    <a href="#tabelle">Tabelle</a>
+    <a href="#trennbar">Trennbar</a>
+    <a href="#untrennbar">Untrennbar</a>
+    <a href="#wechsel">Wechsel</a>
+    <a href="#zwei">Zwei Präfixe</a>
+  </nav>
+</header>
+
+<div class="container">
+
+<!-- ═══════════════════════════════════════ -->
+<!-- SECTION 1: ÜBERSICHT                    -->
+<!-- ═══════════════════════════════════════ -->
+<div class="section" id="uebersicht">
+  <div class="section-title">
+    <span class="dot" style="background:#22c55e;"></span>
+    Übersicht
+  </div>
+  <div class="section-sub">Trennbare und untrennbare Verben</div>
+
+  <div class="overview-card">
+    <kw class="t">Trennbare Präfixe</kw> are stressed and split off in main clauses.
+    <kw class="u">Untrennbare Präfixe</kw> are unstressed and stay attached.
+    <kw class="w">Wechselpräfixe</kw> can be either — the meaning changes.
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- SECTION 2: TABELLE                      -->
+<!-- ═══════════════════════════════════════ -->
+<div class="section" id="tabelle">
+  <div class="section-title">
+    <span class="dot" style="background:#f59e0b;"></span>
+    Präfix-Tabelle
+  </div>
+  <div class="section-sub">Die drei Kategorien auf einen Blick</div>
+
+  <div class="prefix-grid">
+    <div class="prefix-col col-trenn">
+      <h3>Trennbar (separable)</h3>
+      <ul>
+        <li>ab-</li>
+        <li>an-</li>
+        <li>auf-</li>
+        <li>aus-</li>
+        <li>bei-</li>
+        <li>ein-</li>
+        <li>her-</li>
+        <li>hin-</li>
+        <li>los-</li>
+        <li>mit-</li>
+        <li>nach-</li>
+        <li>vor-</li>
+        <li>weg-</li>
+        <li>zu-</li>
+        <li>zurück-</li>
+      </ul>
+    </div>
+    <div class="prefix-col col-untrenn">
+      <h3>Untrennbar (inseparable)</h3>
+      <ul>
+        <li>be-</li>
+        <li>emp-</li>
+        <li>ent-</li>
+        <li>er-</li>
+        <li>ge-</li>
+        <li>miss-</li>
+        <li>ver-</li>
+        <li>zer-</li>
+      </ul>
+    </div>
+    <div class="prefix-col col-wechsel">
+      <h3>Wechsel (either)</h3>
+      <ul>
+        <li>durch-</li>
+        <li>über-</li>
+        <li>um-</li>
+        <li>unter-</li>
+        <li>wieder-</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- SECTION 3: TRENNBARE VERBEN             -->
+<!-- ═══════════════════════════════════════ -->
+<div class="section" id="trennbar">
+  <div class="section-title">
+    <span class="dot" style="background:#22c55e;"></span>
+    Trennbare Verben
+  </div>
+  <div class="section-sub">Das Präfix trennt sich vom Verb — Betonung auf dem Präfix</div>
+
+  <div class="rule-card" style="border-left-color: #22c55e;">
+    <div class="rule-title" style="color: #22c55e;">Bildungsregeln</div>
+
+    <div class="rule-row">
+      <div class="rule-label">Präsens</div>
+      <div class="rule-ex">Präfix trennt sich ans Satzende → Ich <em>stehe</em> um 7 Uhr <em>auf</em>.</div>
+    </div>
+    <div class="rule-row">
+      <div class="rule-label">Perfekt</div>
+      <div class="rule-ex">ge- geht ZWISCHEN Präfix und Stamm → Ich bin um 7 Uhr <em>auf</em>ge<em>standen</em>.</div>
+    </div>
+    <div class="rule-row">
+      <div class="rule-label">Nebensatz</div>
+      <div class="rule-ex">Bleibt zusammen am Ende → …, weil ich um 7 Uhr <em>aufstehe</em>.</div>
+    </div>
+    <div class="rule-row">
+      <div class="rule-label">zu-Infinitiv</div>
+      <div class="rule-ex">zu geht ZWISCHEN Präfix und Stamm → Ich versuche, früh <em>auf</em>zu<em>stehen</em>.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- SECTION 4: UNTRENNBARE VERBEN           -->
+<!-- ═══════════════════════════════════════ -->
+<div class="section" id="untrennbar">
+  <div class="section-title">
+    <span class="dot" style="background:#ef4444;"></span>
+    Untrennbare Verben
+  </div>
+  <div class="section-sub">Das Präfix bleibt immer am Verb — Betonung auf dem Stamm</div>
+
+  <div class="rule-card" style="border-left-color: #ef4444;">
+    <div class="rule-title" style="color: #ef4444;">Bildungsregeln</div>
+
+    <div class="rule-row">
+      <div class="rule-label">Alle Formen</div>
+      <div class="rule-ex">Präfix trennt sich NIE → Ich <em>verstehe</em> das. (nicht: *Ich stehe das ver.)</div>
+    </div>
+    <div class="rule-row">
+      <div class="rule-label">Perfekt</div>
+      <div class="rule-ex">KEIN ge-! → Ich habe das <em>verstanden</em>. (nicht: *geverstanden)</div>
+    </div>
+    <div class="rule-row">
+      <div class="rule-label">zu-Infinitiv</div>
+      <div class="rule-ex">zu kommt VOR das ganze Verb → Es ist schwer, das <em>zu verstehen</em>.</div>
+    </div>
+    <div class="rule-row">
+      <div class="rule-label">Betonung</div>
+      <div class="rule-ex">Stamm ist betont → ver<em>STEH</em>en, be<em>KOMM</em>en, er<em>ZÄHL</em>en</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- SECTION 5: WECHSELPRÄFIXE               -->
+<!-- ═══════════════════════════════════════ -->
+<div class="section" id="wechsel">
+  <div class="section-title">
+    <span class="dot" style="background:#f59e0b;"></span>
+    Wechselpräfixe
+  </div>
+  <div class="section-sub">Dasselbe Präfix, verschiedene Bedeutungen — trennbar = konkret, untrennbar = abstrakt</div>
+
+  <div class="notes" style="margin-bottom:16px; border-left:3px solid #f59e0b;">
+    <div class="notes-title" style="color:#f59e0b;">Faustregel</div>
+    <kw class="t">Trennbar</kw> = konkrete / wörtliche Bedeutung<br>
+    <kw class="u">Untrennbar</kw> = abstrakte / übertragene Bedeutung
+  </div>
+
+  <div class="wechsel-grid">
+
+    <div class="wechsel-card">
+      <div class="wechsel-side ws-trenn">
+        <div class="ws-verb">umfahren</div>
+        <div class="ws-ex">Er fährt den Baum <strong>um</strong>.</div>
+        <div class="ws-meaning">knocks over</div>
+      </div>
+      <div class="wechsel-side ws-untrenn">
+        <div class="ws-verb">umfahren</div>
+        <div class="ws-ex">Er <strong>um</strong>fährt den Baum.</div>
+        <div class="ws-meaning">drives around</div>
+      </div>
+    </div>
+
+    <div class="wechsel-card">
+      <div class="wechsel-side ws-trenn">
+        <div class="ws-verb">übersetzen</div>
+        <div class="ws-ex">Er setzt ans andere Ufer <strong>über</strong>.</div>
+        <div class="ws-meaning">crosses over</div>
+      </div>
+      <div class="wechsel-side ws-untrenn">
+        <div class="ws-verb">übersetzen</div>
+        <div class="ws-ex">Er <strong>über</strong>setzt den Text.</div>
+        <div class="ws-meaning">translates</div>
+      </div>
+    </div>
+
+    <div class="wechsel-card">
+      <div class="wechsel-side ws-trenn">
+        <div class="ws-verb">unterstellen</div>
+        <div class="ws-ex">Stell das Velo <strong>unter</strong>!</div>
+        <div class="ws-meaning">put underneath</div>
+      </div>
+      <div class="wechsel-side ws-untrenn">
+        <div class="ws-verb">unterstellen</div>
+        <div class="ws-ex">Er <strong>unter</strong>stellt mir Lügen.</div>
+        <div class="ws-meaning">accuses of</div>
+      </div>
+    </div>
+
+    <div class="wechsel-card">
+      <div class="wechsel-side ws-trenn">
+        <div class="ws-verb">durchbrechen</div>
+        <div class="ws-ex">Das Eis bricht <strong>durch</strong>.</div>
+        <div class="ws-meaning">breaks through</div>
+      </div>
+      <div class="wechsel-side ws-untrenn">
+        <div class="ws-verb">durchbrechen</div>
+        <div class="ws-ex">Er <strong>durch</strong>bricht die Schallmauer.</div>
+        <div class="ws-meaning">breaks through (fig.)</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- SECTION 6: ZWEI PRÄFIXE                 -->
+<!-- ═══════════════════════════════════════ -->
+<div class="section" id="zwei">
+  <div class="section-title">
+    <span class="dot" style="background:#c8a8ff;"></span>
+    Zwei Präfixe
+  </div>
+  <div class="section-sub">Das äussere Präfix bestimmt die Trennbarkeit</div>
+
+  <div class="notes" style="margin-bottom:16px;">
+    <div class="notes-title">📌 Regel</div>
+    Wenn ein Verb <strong>zwei Präfixe</strong> hat, bestimmt das <strong>äussere (erste) Präfix</strong>, ob das Verb trennbar ist oder nicht.
+  </div>
+
+  <div class="table-scroll">
+    <table class="zwei-table">
+      <thead>
+        <tr>
+          <th>Verb</th>
+          <th>Äusseres Präfix</th>
+          <th>Trennbar?</th>
+          <th>Präsens</th>
+          <th>Perfekt</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>ab·bestellen</td>
+          <td class="is-trenn">ab- (trenn.)</td>
+          <td class="is-trenn">✓</td>
+          <td>Ich bestelle das Abo <strong>ab</strong></td>
+          <td>hat <strong>ab</strong>bestellt</td>
+        </tr>
+        <tr>
+          <td>an·erkennen</td>
+          <td class="is-trenn">an- (trenn.)</td>
+          <td class="is-trenn">✓</td>
+          <td>Er erkennt den Titel <strong>an</strong></td>
+          <td>hat <strong>an</strong>erkannt</td>
+        </tr>
+        <tr>
+          <td>be·antragen</td>
+          <td class="is-untrenn">be- (untr.)</td>
+          <td class="is-untrenn">✗</td>
+          <td>Er <strong>be</strong>antragt ein Visum</td>
+          <td>hat <strong>be</strong>antragt</td>
+        </tr>
+        <tr>
+          <td>vor·bereiten</td>
+          <td class="is-trenn">vor- (trenn.)</td>
+          <td class="is-trenn">✓</td>
+          <td>Ich bereite mich <strong>vor</strong></td>
+          <td>hat <strong>vor</strong>bereitet</td>
+        </tr>
+        <tr>
+          <td>ver·anstalten</td>
+          <td class="is-untrenn">ver- (untr.)</td>
+          <td class="is-untrenn">✗</td>
+          <td>Er <strong>ver</strong>anstaltet ein Fest</td>
+          <td>hat <strong>ver</strong>anstaltet</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+</div>
+
+<script>
+const sections = document.querySelectorAll('.section[id]');
+const navLinks = document.querySelectorAll('nav a');
+function updateNav() {
+  let current = '';
+  sections.forEach(s => { if (window.scrollY >= s.offsetTop - 90) current = s.id; });
+  navLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + current));
+}
+window.addEventListener('scroll', updateNav, { passive: true });
+updateNav();
+navLinks.forEach(a => {
+  a.addEventListener('click', e => {
+    e.preventDefault();
+    document.querySelector(a.getAttribute('href'))?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+});
+</script>
+</body>
+</html>
