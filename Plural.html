@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="assets/favicon.ico" sizes="16x16 32x32 48x48">
+<link rel="icon" href="assets/favicon-32x32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<title>Pluralbildung — Wie bildet man den Plural?</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/common.css">
+<style>
+body { padding: 0 0 48px; }
+
+/* ─── Header ─── */
+header {
+  position: sticky; top: 0; z-index: 100;
+  background: #232327ee;
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid #3e3e44;
+  padding: 14px 20px;
+  display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: 8px;
+}
+h1 {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 26px; font-weight: 700;
+  color: #f0f0f4; letter-spacing: -0.5px;
+}
+nav { display: flex; gap: 6px; flex-wrap: wrap; }
+nav a, nav button {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px; font-weight: 500;
+  padding: 5px 9px;
+  border-radius: 8px;
+  background: #343438;
+  color: #8888a0;
+  text-decoration: none;
+  border: 1px solid #44444c;
+  transition: all .15s;
+  cursor: pointer;
+}
+nav a:hover, nav a.active {
+  background: #3a2010;
+  color: #fff;
+  border-color: #e87040;
+}
+
+.container { max-width: 880px; margin: 0 auto; padding: 0 16px; }
+
+/* ─── Sections ─── */
+.section { margin-top: 32px; scroll-margin-top: 70px; }
+.section-title {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 26px; font-weight: 700;
+  color: #e0e0e4;
+  display: flex; align-items: center; gap: 8px;
+  margin-bottom: 2px;
+}
+.section-title .dot {
+  width: 10px; height: 10px;
+  border-radius: 50%; display: inline-block;
+}
+.section-sub {
+  font-size: 14px; color: #ababba;
+  margin-bottom: 16px; font-style: italic;
+}
+
+/* ─── Tables ─── */
+.tbl-wrap { overflow-x: auto; margin: 12px 0; }
+table {
+  width: 100%; border-collapse: collapse;
+  font-size: 14px;
+}
+th {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.5px;
+  color: #ababba;
+  background: #2b2b2f;
+  padding: 8px 12px;
+  text-align: left;
+  border-bottom: 2px solid #44444c;
+  position: sticky; top: 0;
+}
+td {
+  padding: 8px 12px;
+  border-bottom: 1px solid #3a3a40;
+  color: #e0e0e4;
+  vertical-align: top;
+  line-height: 1.5;
+}
+tr:hover td { background: #38383e; }
+td:first-child {
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 600;
+}
+td.mono {
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 600;
+}
+
+/* ─── Gender colors in table cells ─── */
+.g-der { color: #8ec4ff; }
+.g-die { color: #ffa0c8; }
+.g-das { color: #f0d060; }
+.g-der-bg { background: #1e3050; }
+.g-die-bg { background: #4a1e35; }
+.g-das-bg { background: #3a3510; }
+
+/* ─── Reliability pills ─── */
+.pill {
+  display: inline-block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px; font-weight: 700;
+  padding: 1px 6px;
+  border-radius: 4px;
+  margin-right: 4px;
+  vertical-align: middle;
+}
+.pill-always { background: #1a3a22; color: #70d890; border: 1px solid #40a060; }
+.pill-almost { background: #3a3510; color: #f0d060; border: 1px solid #9a7a20; }
+.pill-mostly { background: #3a2e10; color: #e8a840; border: 1px solid #7a6020; }
+
+/* ─── Example text ─── */
+.ex-text {
+  font-size: 13px; color: #ababba;
+  font-style: italic;
+}
+
+/* ─── Notes card ─── */
+.notes {
+  margin-top: 16px; padding: 14px 18px;
+  background: #343438; border-radius: 10px;
+  border: 1px solid #44444c;
+  font-size: 15px; line-height: 1.8; color: #c0c0c8;
+}
+.notes .notes-title {
+  font-weight: 700;
+  font-family: 'JetBrains Mono', monospace;
+  color: #e0e0e4; margin-bottom: 6px; font-size: 13px;
+}
+
+/* ─── Guess Mode ─── */
+.guess-btn { font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 500; padding: 5px 10px; border-radius: 8px; background: #343438; color: #8888a0; border: 1px solid #44444c; transition: all .15s; cursor: pointer; }
+.guess-btn:hover, .guess-btn.active { background: #2a1848; color: #c8a8ff; border-color: #7a60c0; }
+
+/* ─── Legend ─── */
+.legend {
+  display: flex; flex-wrap: wrap; gap: 10px;
+  margin: 12px 0;
+}
+.legend-item {
+  display: flex; align-items: center; gap: 5px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px; color: #ababba;
+}
+
+@media (max-width: 600px) {
+  header { padding: 10px 12px; }
+  h1 { font-size: 20px; }
+  nav a, nav button { font-size: 10px; padding: 4px 7px; }
+  .section-title { font-size: 20px; }
+  table { font-size: 13px; }
+  th, td { padding: 6px 8px; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Pluralbildung</h1>
+  <nav>
+    <a href="#endung">Endung</a>
+    <a href="#artikel-endung">Endung+Artikel</a>
+    <a href="#artikel-default">Artikel-Default</a>
+    <a href="#umlaut">Umlaut</a>
+    <a href="#sonder">Sonderfälle</a>
+    <button class="guess-btn" id="guess-btn" onclick="toggleGuess()">🎯 Raten</button>
+  </nav>
+</header>
+
+<div class="container">
+
+<!-- ═══ SECTION 1: Regeln nach Endung ═══ -->
+<div class="section" id="endung">
+  <div class="section-title">
+    <span class="dot" style="background:#e87040"></span>
+    Regeln nach Endung
+  </div>
+  <div class="section-sub">Suffix bestimmt den Plural — zuverlässigste Methode.</div>
+
+  <div class="legend">
+    <div class="legend-item"><span class="pill pill-always">immer</span> 100 %</div>
+    <div class="legend-item"><span class="pill pill-almost">fast immer</span> ~95 %</div>
+    <div class="legend-item"><span class="pill pill-mostly">meistens</span> ~80 %</div>
+  </div>
+
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Endung</th><th>Plural</th><th>Gilt für</th><th class="guess-col">Beispiele</th></tr></thead>
+      <tbody>
+        <tr><td><span class="pill pill-always">immer</span> -ung</td><td class="mono guess-target">-(e)n</td><td>alle (die)</td><td class="guess-target"><span class="ex-text">Wohnung → Wohnungen</span></td></tr>
+        <tr><td><span class="pill pill-always">immer</span> -heit</td><td class="mono guess-target">-(e)n</td><td>alle (die)</td><td class="guess-target"><span class="ex-text">Freiheit → Freiheiten</span></td></tr>
+        <tr><td><span class="pill pill-always">immer</span> -keit</td><td class="mono guess-target">-(e)n</td><td>alle (die)</td><td class="guess-target"><span class="ex-text">Möglichkeit → Möglichkeiten</span></td></tr>
+        <tr><td><span class="pill pill-always">immer</span> -schaft</td><td class="mono guess-target">-(e)n</td><td>alle (die)</td><td class="guess-target"><span class="ex-text">Gesellschaft → Gesellschaften</span></td></tr>
+        <tr><td><span class="pill pill-always">immer</span> -tion</td><td class="mono guess-target">-(e)n</td><td>alle (die)</td><td class="guess-target"><span class="ex-text">Information → Informationen</span></td></tr>
+        <tr><td><span class="pill pill-always">immer</span> -tät</td><td class="mono guess-target">-(e)n</td><td>alle (die)</td><td class="guess-target"><span class="ex-text">Universität → Universitäten</span></td></tr>
+        <tr><td><span class="pill pill-almost">fast immer</span> -ie</td><td class="mono guess-target">-n</td><td>alle (die)</td><td class="guess-target"><span class="ex-text">Energie → Energien</span></td></tr>
+        <tr><td><span class="pill pill-mostly">meistens</span> -ik</td><td class="mono guess-target">-(e)n</td><td>alle (die)</td><td class="guess-target"><span class="ex-text">Musik → Musiken <i>(selten)</i></span></td></tr>
+        <tr><td><span class="pill pill-always">immer</span> -in <span class="ex-text">(Agentin)</span></td><td class="mono guess-target">-nen</td><td>alle (die)</td><td class="guess-target"><span class="ex-text">Ärztin → Ärztinnen</span></td></tr>
+        <tr><td><span class="pill pill-always">immer</span> -nis</td><td class="mono guess-target">-nisse</td><td>alle</td><td class="guess-target"><span class="ex-text">Ergebnis → Ergebnisse</span></td></tr>
+        <tr><td><span class="pill pill-always">immer</span> -chen</td><td class="mono guess-target">—</td><td>alle (das)</td><td class="guess-target"><span class="ex-text">Mädchen → Mädchen</span></td></tr>
+        <tr><td><span class="pill pill-always">immer</span> -lein</td><td class="mono guess-target">—</td><td>alle (das)</td><td class="guess-target"><span class="ex-text">Büchlein → Büchlein</span></td></tr>
+        <tr><td><span class="pill pill-almost">fast immer</span> -e <span class="ex-text">(fem.)</span></td><td class="mono guess-target">-n</td><td><span class="g-die">die</span></td><td class="guess-target"><span class="ex-text">Blume → Blumen, Lampe → Lampen</span></td></tr>
+        <tr><td><span class="pill pill-almost">fast immer</span> Fremdwort + Vokal</td><td class="mono guess-target">-s</td><td>meist <span class="g-das">das</span></td><td class="guess-target"><span class="ex-text">Auto → Autos, Büro → Büros</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ═══ SECTION 2: Endung + Artikel ═══ -->
+<div class="section" id="artikel-endung">
+  <div class="section-title">
+    <span class="dot" style="background:#e87040"></span>
+    Endung + Artikel
+  </div>
+  <div class="section-sub">Die Endungen -er, -el, -en verhalten sich je nach Genus anders.</div>
+
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Endung</th><th>Artikel</th><th class="guess-col">Plural</th><th class="guess-col">Beispiele</th></tr></thead>
+      <tbody>
+        <tr><td class="mono">-er</td><td><span class="g-der">der</span> / <span class="g-das">das</span></td><td class="mono guess-target">— (±Umlaut)</td><td class="guess-target"><span class="ex-text">Lehrer → Lehrer, Vater → Väter</span></td></tr>
+        <tr><td class="mono">-er</td><td><span class="g-die">die</span></td><td class="mono guess-target">-n</td><td class="guess-target"><span class="ex-text">Schwester → Schwestern, Feder → Federn</span></td></tr>
+        <tr><td class="mono">-el</td><td><span class="g-der">der</span> / <span class="g-das">das</span></td><td class="mono guess-target">— (±Umlaut)</td><td class="guess-target"><span class="ex-text">Schlüssel → Schlüssel, Nagel → Nägel</span></td></tr>
+        <tr><td class="mono">-el</td><td><span class="g-die">die</span></td><td class="mono guess-target">-n</td><td class="guess-target"><span class="ex-text">Gabel → Gabeln, Schüssel → Schüsseln</span></td></tr>
+        <tr><td class="mono">-en</td><td><span class="g-der">der</span> / <span class="g-das">das</span></td><td class="mono guess-target">— (±Umlaut)</td><td class="guess-target"><span class="ex-text">Zeichen → Zeichen, Ofen → Öfen</span></td></tr>
+        <tr><td class="mono">-en</td><td><span class="g-die">die</span></td><td class="mono guess-target">—</td><td class="guess-target"><span class="ex-text"><i>(selten als Endung bei die)</i></span></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ═══ SECTION 3: Standard nach Artikel ═══ -->
+<div class="section" id="artikel-default">
+  <div class="section-title">
+    <span class="dot" style="background:#e87040"></span>
+    Standard nach Artikel
+  </div>
+  <div class="section-sub">Wenn keine Endungs-Regel greift, ist das Genus der beste Indikator.</div>
+
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Artikel</th><th class="guess-col">Häufigstes Muster</th><th class="guess-col">Beispiele</th></tr></thead>
+      <tbody>
+        <tr><td><span class="g-die">die</span></td><td class="mono guess-target">-(e)n (~95 %)</td><td class="guess-target"><span class="ex-text">Tür → Türen, Uhr → Uhren</span></td></tr>
+        <tr><td><span class="g-die">die</span> <span class="ex-text">(Sondergruppe)</span></td><td class="mono guess-target">-¨e</td><td class="guess-target"><span class="ex-text">Hand → Hände, Stadt → Städte, Nacht → Nächte, Kraft → Kräfte</span></td></tr>
+        <tr><td><span class="g-der">der</span> <span class="ex-text">(einsilbig)</span></td><td class="mono guess-target">-¨e</td><td class="guess-target"><span class="ex-text">Baum → Bäume, Kopf → Köpfe, Stuhl → Stühle</span></td></tr>
+        <tr><td><span class="g-der">der</span> <span class="ex-text">(mehrsilbig)</span></td><td class="mono guess-target">-e</td><td class="guess-target"><span class="ex-text">Beruf → Berufe, Erfolg → Erfolge</span></td></tr>
+        <tr><td><span class="g-das">das</span> <span class="ex-text">(einsilbig)</span></td><td class="mono guess-target">-er / -¨er</td><td class="guess-target"><span class="ex-text">Kind → Kinder, Bild → Bilder, Buch → Bücher</span></td></tr>
+        <tr><td><span class="g-das">das</span> <span class="ex-text">(mehrsilbig)</span></td><td class="mono guess-target">-e</td><td class="guess-target"><span class="ex-text">Geschenk → Geschenke, Ergebnis → Ergebnisse</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ═══ SECTION 4: Umlaut-Tendenzen ═══ -->
+<div class="section" id="umlaut">
+  <div class="section-title">
+    <span class="dot" style="background:#e87040"></span>
+    Umlaut-Tendenzen
+  </div>
+  <div class="section-sub">Wann erwartet man einen Umlaut im Plural?</div>
+
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Wann?</th><th class="guess-col">Umlaut?</th><th class="guess-col">Beispiele</th></tr></thead>
+      <tbody>
+        <tr><td>Einsilbig <span class="g-der">der</span> + a/o/u</td><td class="mono guess-target">häufig</td><td class="guess-target"><span class="ex-text">Baum → Bäume, Kopf → Köpfe, Hut → Hüte</span></td></tr>
+        <tr><td>Einsilbig <span class="g-der">der</span> + a/o/u <span class="ex-text">(Ausnahmen)</span></td><td class="mono guess-target">nein</td><td class="guess-target"><span class="ex-text">Hund → Hunde, Tag → Tage, Schuh → Schuhe</span></td></tr>
+        <tr><td>Einsilbig <span class="g-die">die</span> + a/o/u/-au</td><td class="mono guess-target">häufig</td><td class="guess-target"><span class="ex-text">Hand → Hände, Nacht → Nächte, Maus → Mäuse</span></td></tr>
+        <tr><td>Plural auf -er</td><td class="mono guess-target">fast immer</td><td class="guess-target"><span class="ex-text">Haus → Häuser, Buch → Bücher, Wald → Wälder</span></td></tr>
+        <tr><td>-el, -er, -en (<span class="g-der">der</span>/<span class="g-das">das</span>)</td><td class="mono guess-target">manchmal</td><td class="guess-target"><span class="ex-text">Vater → Väter, Nagel → Nägel, Ofen → Öfen</span></td></tr>
+        <tr><td>Fremdwörter</td><td class="mono guess-target">nie</td><td class="guess-target"><span class="ex-text">Auto → Autos, Hotel → Hotels</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ═══ SECTION 5: Sonderfälle ═══ -->
+<div class="section" id="sonder">
+  <div class="section-title">
+    <span class="dot" style="background:#e87040"></span>
+    Sonderfälle
+  </div>
+  <div class="section-sub">Unregelmässige Pluralformen — auswendig lernen.</div>
+
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Singular</th><th class="guess-col">Plural</th><th class="guess-col">Besonderheit</th></tr></thead>
+      <tbody>
+        <tr><td class="mono"><span class="g-das">das</span> Herz</td><td class="mono guess-target"><span class="g-die">die</span> Herzen</td><td class="guess-target"><span class="ex-text">Mischform (n-Deklination im Singular)</span></td></tr>
+        <tr><td class="mono"><span class="g-das">das</span> Museum</td><td class="mono guess-target"><span class="g-die">die</span> Museen</td><td class="guess-target"><span class="ex-text">Lateinisch: -um → -en</span></td></tr>
+        <tr><td class="mono"><span class="g-das">das</span> Thema</td><td class="mono guess-target"><span class="g-die">die</span> Themen</td><td class="guess-target"><span class="ex-text">Griechisch: -a → -en</span></td></tr>
+        <tr><td class="mono"><span class="g-das">das</span> Datum</td><td class="mono guess-target"><span class="g-die">die</span> Daten</td><td class="guess-target"><span class="ex-text">Lateinisch: -um → -en</span></td></tr>
+        <tr><td class="mono"><span class="g-das">das</span> Visum</td><td class="mono guess-target"><span class="g-die">die</span> Visa</td><td class="guess-target"><span class="ex-text">Lateinisch: -um → -a</span></td></tr>
+        <tr><td class="mono"><span class="g-der">der</span> Atlas</td><td class="mono guess-target"><span class="g-die">die</span> Atlanten</td><td class="guess-target"><span class="ex-text">Griechisch</span></td></tr>
+        <tr><td class="mono"><span class="g-der">der</span> Globus</td><td class="mono guess-target"><span class="g-die">die</span> Globen</td><td class="guess-target"><span class="ex-text">Lateinisch</span></td></tr>
+        <tr><td class="mono"><span class="g-der">der</span> Rhythmus</td><td class="mono guess-target"><span class="g-die">die</span> Rhythmen</td><td class="guess-target"><span class="ex-text">Griechisch: -us → -en</span></td></tr>
+        <tr><td class="mono"><span class="g-die">die</span> Firma</td><td class="mono guess-target"><span class="g-die">die</span> Firmen</td><td class="guess-target"><span class="ex-text">Italienisch: -a → -en</span></td></tr>
+        <tr><td class="mono"><span class="g-der">der</span> Modus</td><td class="mono guess-target"><span class="g-die">die</span> Modi</td><td class="guess-target"><span class="ex-text">Lateinisch: -us → -i</span></td></tr>
+        <tr><td class="mono"><span class="g-das">das</span> Praktikum</td><td class="mono guess-target"><span class="g-die">die</span> Praktika</td><td class="guess-target"><span class="ex-text">Lateinisch: -um → -a</span></td></tr>
+        <tr><td class="mono"><span class="g-der">der</span> Kaktus</td><td class="mono guess-target"><span class="g-die">die</span> Kakteen</td><td class="guess-target"><span class="ex-text">Lateinisch: -us → -een</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+</div><!-- /container -->
+
+<script src="js/common.js"></script>
+<script>
+let guessMode = false;
+function toggleGuess() {
+  guessMode = !guessMode;
+  document.getElementById('guess-btn').classList.toggle('active', guessMode);
+  const cells = document.querySelectorAll('.guess-target');
+  cells.forEach(cell => {
+    if (guessMode) {
+      cell.classList.add('guess-cell-hidden');
+      cell.classList.remove('guess-cell-revealed');
+      cell.addEventListener('click', toggleCell);
+    } else {
+      cell.classList.remove('guess-cell-hidden', 'guess-cell-revealed');
+      cell.removeEventListener('click', toggleCell);
+    }
+  });
+}
+function toggleCell() {
+  if (this.classList.contains('guess-cell-hidden')) {
+    this.classList.remove('guess-cell-hidden'); this.classList.add('guess-cell-revealed');
+  } else {
+    this.classList.remove('guess-cell-revealed'); this.classList.add('guess-cell-hidden');
+  }
+}
+
+// Nav link active on scroll
+const sections = document.querySelectorAll('.section');
+const navLinks = document.querySelectorAll('nav a');
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      navLinks.forEach(a => a.classList.remove('active'));
+      const link = document.querySelector(`nav a[href="#${entry.target.id}"]`);
+      if (link) link.classList.add('active');
+    }
+  });
+}, { rootMargin: '-80px 0px -60% 0px' });
+sections.forEach(s => observer.observe(s));
+</script>
+</body>
+</html>
