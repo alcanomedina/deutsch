@@ -1145,7 +1145,12 @@ const DATA = [["Jahr", "das", "-e", "year", "time", "Dieses Jahr reise ich in di
 ["Prinzip", "das", "-ien", "principle", "general", "Im Prinzip hast du recht, aber es ist nicht so einfach."],
 ["Mahlzeit", "die", "-en", "meal", "food", "Drei Mahlzeiten pro Tag sind für mich genug."],
 ["Gips", "der", "-e", "plaster, cast", "health", "Nach dem Unfall hatte sie sechs Wochen einen Gips am Arm."],
-["Salbe", "die", "-n", "ointment, cream", "health", "Der Arzt hat mir eine Salbe gegen den Ausschlag verschrieben."]
+["Salbe", "die", "-n", "ointment, cream", "health", "Der Arzt hat mir eine Salbe gegen den Ausschlag verschrieben."],
+["Scherbe", "die", "-n", "shard, broken piece", "home", "Pass auf, da liegen Scherben auf dem Boden!"],
+["Vogelspinne", "die", "-n", "tarantula", "nature", "Vogelspinnen können bis zu 30 cm gross werden."],
+["Boot", "das", "-e", "boat", "travel", "Im Sommer fahren wir mit dem Boot über den See."],
+["AGB", "die", "(pl.)", "general terms and conditions", "business", "Bitte lesen Sie die AGB vor dem Kauf."],
+["Überfall", "der", "Überfälle", "assault, robbery, raid", "law", "Der Überfall auf die Bank geschah am Morgen."]
 ];
 const CATS =[...new Set(DATA.map(d => d[4]))].sort();
 let currentGender = 'all', currentCat = 'all', searchTerm = '';
@@ -1200,7 +1205,7 @@ function render() {
   let f = DATA;
   if (currentGender !== 'all') f = f.filter(d => d[1] === currentGender);
   if (currentCat !== 'all') f = f.filter(d => d[4] === currentCat);
-  if (searchTerm) f = f.filter(d => d[0].toLowerCase().includes(searchTerm) || d[3].toLowerCase().includes(searchTerm));
+  if (searchTerm) f = f.filter(d => normalize(d[0].toLowerCase()).includes(normalize(searchTerm)) || normalize(d[3].toLowerCase()).includes(normalize(searchTerm)));
   if (shuffleMode) f = shuffleArray(f);
   if (!f.length) { grid.innerHTML = ''; empty.style.display = 'block'; stats.textContent = '0'; return; }
   empty.style.display = 'none';

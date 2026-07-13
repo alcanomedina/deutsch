@@ -1,3 +1,7 @@
+function normalize(s) {
+  return s.normalize('NFD').replace(/[̀-ͯ]/g, '');
+}
+
 /**
  * Fisher-Yates shuffle — returns a new shuffled array.
  * Does NOT mutate the input.

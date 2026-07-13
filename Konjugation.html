@@ -360,7 +360,7 @@ function render() {
   if (currentPat !== 'all') f = f.filter(v => v[6] === currentPat);
   if (currentAux !== 'all') f = f.filter(v => v[4] === currentAux);
   if (onlySC) f = f.filter(v => v[7] !== '');
-  if (searchTerm) f = f.filter(v => v[0].toLowerCase().includes(searchTerm) || v[5].toLowerCase().includes(searchTerm));
+  if (searchTerm) f = f.filter(v => normalize(v[0].toLowerCase()).includes(normalize(searchTerm)) || normalize(v[5].toLowerCase()).includes(normalize(searchTerm)));
 
   if (!f.length) { tbody.innerHTML = ''; empty.style.display = 'block'; stats.textContent = '0'; return; }
   empty.style.display = 'none';

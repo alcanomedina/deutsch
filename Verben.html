@@ -844,7 +844,17 @@ const DATA = [
 ["frieren","Ohne","hat gefroren","to freeze, to be cold","s","Im Winter friere ich immer an den Händen."],
 ["beauftragen","Akk","hat beauftragt","to commission, to assign","w","Wir haben eine Firma mit der Reparatur beauftragt."],
 ["treiben","Akk","hat getrieben","to drive, to push; to do (sport)","s","Er treibt regelmässig Sport."],
-["beissen","Akk","hat gebissen","to bite","s","Der Hund hat mich ins Bein gebissen."]
+["beissen","Akk","hat gebissen","to bite","s","Der Hund hat mich ins Bein gebissen."],
+["schimpfen","Ohne","hat geschimpft","to scold, to complain","w","Die Mutter schimpft mit dem Kind, weil es nicht aufräumt."],
+["pinkeln","Ohne","hat gepinkelt","to pee","w","Das Kind muss dringend pinkeln."],
+["erbrechen","Akk","hat sich erbrochen","to vomit (sich erbrechen)","s","Nach dem Essen hat er sich erbrochen."],
+["schreiben","Akk","hat geschrieben","to write","s","Sie schreibt ihrer Freundin einen Brief."],
+["beschreiben","Akk","hat beschrieben","to describe","s","Kannst du mir den Weg beschreiben?"],
+["vorschreiben","Dat+Akk","hat vorgeschrieben","to prescribe, to dictate","s","Das Gesetz schreibt eine Helmpflicht vor."],
+["wegräumen","Akk","hat weggeräumt","to clear away, to put away","w","Räum bitte die Scherben weg!"],
+["unterschreiben","Akk","hat unterschrieben","to sign","s","Bitte unterschreiben Sie den Vertrag hier unten."],
+["lesen","Akk","hat gelesen","to read","s","Sie liest jeden Abend ein Buch."],
+["durchlesen","Akk","hat durchgelesen","to read through","s","Lies den Vertrag bitte gründlich durch."]
 ];
 
 // Extract unique prepositions for filter buttons
@@ -945,10 +955,10 @@ function render() {
   // Search
   if (searchTerm) {
     f = f.filter(d =>
-      d[0].toLowerCase().includes(searchTerm) ||
-      d[3].toLowerCase().includes(searchTerm) ||
-      d[5].toLowerCase().includes(searchTerm) ||
-      d[1].toLowerCase().includes(searchTerm)
+      normalize(d[0].toLowerCase()).includes(normalize(searchTerm)) ||
+      normalize(d[3].toLowerCase()).includes(normalize(searchTerm)) ||
+      normalize(d[5].toLowerCase()).includes(normalize(searchTerm)) ||
+      normalize(d[1].toLowerCase()).includes(normalize(searchTerm))
     );
   }
   if (shuffleMode) f = shuffleArray(f);
