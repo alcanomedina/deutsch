@@ -307,6 +307,7 @@ const ARTICLE_ENDINGS = [
 const CASE_CLASSES = ["c-nom", "c-akk", "c-dat", "c-gen"];
 
 function classForCell(ending, caseIdx, genderIdx) {
+  if (ending === "-en") return "c-exc-en";
   if (ending === ARTICLE_ENDINGS[caseIdx][genderIdx]) {
     return CASE_CLASSES[caseIdx];
   }
