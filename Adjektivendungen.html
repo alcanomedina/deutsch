@@ -147,11 +147,66 @@
   .c-text-exc-e { color: #c0a0e0; }
   .c-text-exc-en { color: #c0c0c8; }
 
+  /* ─── Spezielle Formen ─── */
+  .special-section { margin-top: 28px; }
+  .special-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 18px; font-weight: 700;
+    color: #e0e0e4; margin-bottom: 14px;
+  }
+  .special-rule {
+    background: #343438; border: 1px solid #44444c;
+    border-radius: 10px; padding: 14px 18px; margin-bottom: 10px;
+  }
+  .special-rule .rule-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px; font-weight: 700;
+    color: #c8a8ff; margin-bottom: 6px;
+  }
+  .special-rule p {
+    font-size: 14px; color: #b0b0b8; line-height: 1.6; margin: 0;
+  }
+  .special-rule .ex {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px; color: #ababba; font-style: italic; margin-top: 6px;
+  }
+  .stem-change { color: #c8a8ff; font-weight: 700; font-family: 'JetBrains Mono', monospace; }
+  .special-rule table {
+    width: 100%; border-collapse: collapse; margin-top: 8px;
+  }
+  .special-rule th, .special-rule td {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px; padding: 5px 10px; text-align: left;
+    border-bottom: 1px solid #3a3a42;
+  }
+  .special-rule th { color: #8888a0; font-weight: 700; }
+  .special-rule td { color: #c0c0c8; }
+
+  /* ─── Akk callout boxes ─── */
+  .akk-callout {
+    background: #3a2e10; border: 1px solid #7a6020;
+    border-left: 3px solid #e8a840;
+    border-radius: 8px; padding: 10px 14px; margin-top: 10px;
+    font-size: 13px; line-height: 1.6; color: #c0c0c8;
+  }
+  .akk-callout .callout-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 700; color: #e8a840; margin-bottom: 4px; font-size: 13px;
+  }
+  .akk-callout .callout-line {
+    font-family: 'JetBrains Mono', monospace; font-size: 12px;
+  }
+  .end-hl { font-weight: 700; color: #e8a840; }
+
   @media (max-width: 600px) {
     body { padding: 0 8px 40px; }
     header { padding: 8px 10px 6px; margin-bottom: 12px; }
     h1 { font-size: 20px; }
     header p { font-size: 12px; }
+    .special-rule table { font-size: 11px; }
+    .special-rule th, .special-rule td { padding: 4px 6px; }
+    .akk-callout { font-size: 11px; }
+    .akk-callout .callout-line { font-size: 11px; }
   }
   /* ─── Guess Mode ─── */
   .guess-cell-hidden.tile { background: #343438 !important; border-color: #4a4a52 !important; }
@@ -233,6 +288,65 @@
     <strong><span class="mono c-text-exc-en">Grey -en</span></strong>
     = the universal default. No case signal needed — just
     <span class="mono c-text-exc-en">-en</span>.
+  </div>
+
+  <div class="special-section">
+    <div class="special-title">Spezielle Formen</div>
+
+    <div class="special-rule">
+      <div class="rule-label">Adjektive auf -el</div>
+      <p>Bei der Deklination fällt das <span class="stem-change">-e-</span> der Stammsilbe weg.</p>
+      <table>
+        <tr><th>Grundform</th><th>Dekliniert</th><th>Beispiel</th></tr>
+        <tr><td>dunkel</td><td><span class="stem-change">dunkl</span>- + Endung</td><td>das dunkl<strong>e</strong> Kleid</td></tr>
+        <tr><td>edel</td><td><span class="stem-change">edl</span>- + Endung</td><td>ein edl<strong>er</strong> Wein</td></tr>
+        <tr><td>flexibel</td><td><span class="stem-change">flexibl</span>- + Endung</td><td>eine flexibl<strong>e</strong> Lösung</td></tr>
+      </table>
+    </div>
+
+    <div class="special-rule">
+      <div class="rule-label">Adjektive auf Vokal + -er</div>
+      <p>Das <span class="stem-change">-e-</span> der Stammsilbe fällt weg.</p>
+      <table>
+        <tr><th>Grundform</th><th>Dekliniert</th><th>Beispiel</th></tr>
+        <tr><td>sauer</td><td><span class="stem-change">saur</span>- + Endung</td><td>die saur<strong>e</strong> Gurke</td></tr>
+        <tr><td>teuer</td><td><span class="stem-change">teur</span>- + Endung</td><td>ein teur<strong>es</strong> Auto</td></tr>
+      </table>
+    </div>
+
+    <div class="special-rule">
+      <div class="rule-label">hoch → hoh-</div>
+      <p>Sonderform bei Deklination: <span class="stem-change">hoch</span> wird zu <span class="stem-change">hoh</span>-</p>
+      <div class="ex">ein hoher Turm · das hohe Gebäude · die hohen Berge</div>
+    </div>
+
+    <div class="special-rule">
+      <div class="rule-label">Adjektive auf -a — undeklinierbar</div>
+      <p>Keine Endung möglich: <span class="stem-change">rosa</span>, <span class="stem-change">lila</span>, <span class="stem-change">extra</span>, <span class="stem-change">prima</span></p>
+      <div class="ex">die rosa Bluse · ein lila Kleid · eine extra Portion</div>
+    </div>
+
+    <div class="special-rule">
+      <div class="rule-label">Farbadjektive: -farben</div>
+      <p>Undeklinierbare Farben werden mit <span class="stem-change">-farben</span> deklinierbar.</p>
+      <div class="ex">die beigefarbenen Handschuhe · das türkisfarbene Meer · der rosafarbene Ball</div>
+    </div>
+
+    <div class="special-rule">
+      <div class="rule-label">Nach Zahlwörtern</div>
+      <p>Adjektivendungen folgen dem <span class="stem-change">Nullartikel (Plural)</span>-Muster.</p>
+      <div class="ex">drei weisse T-Shirts · zwei blaue Taschen · fünf neue Bücher</div>
+    </div>
+
+    <div class="special-rule">
+      <div class="rule-label">viel / mehr / wenig</div>
+      <table>
+        <tr><th></th><th>Unzählbar</th><th>Zählbar</th></tr>
+        <tr><td><span class="stem-change">viel</span></td><td>keine Endung: <em>viel Hunger</em></td><td>mit Endung: <em>viele Kinder</em></td></tr>
+        <tr><td><span class="stem-change">mehr</span></td><td>keine Endung: <em>mehr Geld</em></td><td>keine Endung: <em>mehr Schuhe</em></td></tr>
+        <tr><td><span class="stem-change">wenig</span></td><td>keine Endung: <em>wenig Zeit</em></td><td>optional: <em>wenig(e) Fragen</em></td></tr>
+      </table>
+    </div>
   </div>
 </div>
 
@@ -337,6 +451,25 @@ Object.entries(DATA).forEach(([key, table]) => {
   html += `</div>`;
   grid.innerHTML = html;
   container.appendChild(grid);
+
+  if (key === "indefinite") {
+    const c = document.createElement("div");
+    c.className = "akk-callout";
+    c.innerHTML = `<div class="callout-title">⚠️ Maskulin Akk ≠ Nom!</div>
+<div class="callout-line">Nom: ein schwarz<span class="end-hl">er</span> Hut (Endung spiegelt <em>der</em>)</div>
+<div class="callout-line">Akk: einen schwarz<span class="end-hl">en</span> Hut</div>
+<div class="callout-line" style="color:#8888a0;margin-top:4px">Bei Fem. und Neut. sind Nom und Akk identisch!</div>`;
+    grid.appendChild(c);
+  }
+  if (key === "none") {
+    const c = document.createElement("div");
+    c.className = "akk-callout";
+    c.innerHTML = `<div class="callout-title">⚠️ Maskulin Akk: einziges Kasussignal!</div>
+<div class="callout-line">Nom: schwarz<span class="end-hl">er</span> Kaffee (spiegelt <em>der</em>)</div>
+<div class="callout-line">Akk: schwarz<span class="end-hl">en</span> Kaffee (spiegelt <em>den</em>)</div>
+<div class="callout-line" style="color:#8888a0;margin-top:4px">Ohne Artikel trägt die Endung die gesamte Kasusinformation!</div>`;
+    grid.appendChild(c);
+  }
 });
 </script>
 </body>

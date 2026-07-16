@@ -219,11 +219,63 @@ header p { margin: 6px 0 0; font-size: 15px; color: #ababba; }
   font-size: 13px; color: #ababba; font-style: italic; margin-top: 5px;
 }
 
+/* ─── Genitivattribut ─── */
+.gen-table {
+  display: grid;
+  grid-template-columns: 80px repeat(4, 1fr);
+  gap: 4px; align-items: stretch;
+}
+.gen-cell {
+  border-radius: 8px; padding: 8px 6px;
+  text-align: center;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px; font-weight: 500;
+  border: 1px solid;
+}
+.gen-corner, .gen-col-header, .gen-row-label {
+  background: transparent; border-color: transparent;
+}
+.gen-col-header {
+  font-weight: 700; font-size: 13px;
+  text-transform: uppercase; letter-spacing: 0.5px;
+  display: flex; align-items: center; justify-content: center;
+}
+.gen-row-label {
+  font-weight: 700; color: #8888a0; font-size: 12px;
+  text-align: right; padding-right: 8px;
+  display: flex; align-items: center; justify-content: flex-end;
+}
+.gen-cell.c-m { background: #1e3a5f; border-color: #3a6ea8; color: #8ec4ff; }
+.gen-cell.c-f { background: #5a1e3a; border-color: #a84070; color: #ffa0c8; }
+.gen-cell.c-n { background: #4a3a10; border-color: #9a7a20; color: #f0d060; }
+.gen-cell.c-pl { background: #1a4a2a; border-color: #40a060; color: #80e8a0; }
+.gen-cell.c-von { background: #3a2e10; border-color: #7a6020; color: #e8a840; }
+.gen-end-table { margin-top: 8px; }
+.gen-end-row {
+  display: flex; gap: 12px; align-items: baseline;
+  padding: 5px 0; border-bottom: 1px solid #3a3a42; font-size: 13px;
+}
+.gen-end-rule { color: #b0b0b8; flex: 1 1 160px; }
+.gen-end-suffix {
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 700; color: #f0d060;
+  min-width: 50px; text-align: center;
+}
+.gen-end-ex {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px; color: #ababba; font-style: italic;
+  flex: 1 1 180px;
+}
+
 @media (max-width: 600px) {
   h1 { font-size: 24px; }
   .tile { height: 52px; font-size: 16px; }
   .grids { gap: 20px; }
   .grid-table { grid-template-columns: 44px repeat(4, 1fr); }
+  .gen-table { grid-template-columns: 60px repeat(4, 1fr); }
+  .gen-cell { font-size: 11px; padding: 6px 3px; }
+  .gen-end-row { flex-wrap: wrap; gap: 4px; font-size: 12px; }
+  .gen-end-ex { flex-basis: 100%; }
 }
 /* ─── Guess Mode ─── */
 .guess-cell-hidden.tile { background: #343438 !important; border-color: #4a4a52 !important; }
@@ -235,7 +287,7 @@ header p { margin: 6px 0 0; font-size: 15px; color: #ababba; }
 
 <header>
   <h1>Artikel</h1>
-  <p>bestimmt · unbestimmt · Negativartikel · Verschmelzungen · hover for examples</p>
+  <p>bestimmt · unbestimmt · Negativartikel · Verschmelzungen · Genitivattribut · hover for examples</p>
   <button class="guess-btn" id="guess-btn" onclick="toggleGuess()">🎯 Raten</button>
 </header>
 
@@ -467,6 +519,109 @@ header p { margin: 6px 0 0; font-size: 15px; color: #ababba; }
   <div class="notes" style="margin-top:16px; border-left:3px solid #6366f1">
     <div class="notes-title">🎯 Warum sind Artikel so wichtig?</div>
     Die Artikel-Endungen sind das <strong style="color:#e0e0e4">Fundament</strong> für alles andere. Possessivpronomen (<em>mein, dein, sein</em>) folgen dem <span class="mono" style="color:#8ec4ff">ein</span>-Muster. Demonstrativpronomen (<em>dieser, jener, welcher</em>) folgen dem <span class="mono" style="color:#8ec4ff">der</span>-Muster. Adjektivendungen hängen davon ab, welcher Artikel davor steht. Lern die Artikel-Tabellen, und der Rest folgt.
+  </div>
+</div>
+
+<!-- ═══════════════════════════════ -->
+<!-- GENITIVATTRIBUT                -->
+<!-- ═══════════════════════════════ -->
+<div class="section">
+  <div class="section-title">
+    <span class="dot" style="background:#9a7a20"></span>
+    Das Genitivattribut
+  </div>
+  <div class="section-sub">gehört zu einem Nomen und beschreibt es genauer — Fragewort: <strong style="color:#f0d060">wessen?</strong></div>
+
+  <div class="notes" style="border-left: 3px solid #9a7a20">
+    <div class="notes-title" style="color:#f0d060">📍 Position</div>
+    <strong style="color:#e0e0e4">Normale Nomen:</strong> Genitivattribut steht <strong style="color:#f0d060">rechts</strong> → <em>die Farbe <strong>des T-Shirts</strong></em><br>
+    <strong style="color:#e0e0e4">Eigennamen:</strong> Genitiv steht <strong style="color:#f0d060">links</strong> → <em><strong>Sandras</strong> Handy</em>
+  </div>
+
+  <div class="grids" style="margin-top:18px">
+    <div class="mini-grid" style="max-width:100%;flex-basis:100%">
+      <div class="grid-label">
+        <div class="label">Genitiv-Artikelformen</div>
+        <div class="sub">wessen?</div>
+      </div>
+      <div class="gen-table">
+        <div class="gen-cell gen-corner"></div>
+        <div class="gen-cell gen-col-header" style="color:#7ab3f0">m.</div>
+        <div class="gen-cell gen-col-header" style="color:#f0a0c0">f.</div>
+        <div class="gen-cell gen-col-header" style="color:#e0b850">n.</div>
+        <div class="gen-cell gen-col-header" style="color:#70d070">pl.</div>
+
+        <div class="gen-cell gen-row-label">Definit</div>
+        <div class="gen-cell c-m">des Lehrers</div>
+        <div class="gen-cell c-f">der Frau</div>
+        <div class="gen-cell c-n">des T-Shirts</div>
+        <div class="gen-cell c-pl">der Schuhe</div>
+
+        <div class="gen-cell gen-row-label">Possessiv</div>
+        <div class="gen-cell c-m">meines Lehrers</div>
+        <div class="gen-cell c-f">meiner Frau</div>
+        <div class="gen-cell c-n">meines T-Shirts</div>
+        <div class="gen-cell c-pl">meiner Schuhe</div>
+
+        <div class="gen-cell gen-row-label">Indefinit</div>
+        <div class="gen-cell c-m">eines Lehrers</div>
+        <div class="gen-cell c-f">einer Frau</div>
+        <div class="gen-cell c-n">eines T-Shirts</div>
+        <div class="gen-cell c-von">von Schuhen</div>
+
+        <div class="gen-cell gen-row-label">Negation</div>
+        <div class="gen-cell c-m">keines Lehrers</div>
+        <div class="gen-cell c-f">keiner Frau</div>
+        <div class="gen-cell c-n">keines T-Shirts</div>
+        <div class="gen-cell c-pl">keiner Schuhe</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="notes" style="margin-top:14px;border-left:3px solid #e8a840">
+    <div class="notes-title" style="color:#e8a840">⚠️ Nullartikel Plural</div>
+    Im Plural ohne Artikel gibt es <strong>keine Genitivform</strong> — stattdessen: <span class="mono" style="color:#e8a840">von + Dativ</span><br>
+    <em style="color:#ababba">der Preis von Schuhen</em> (nicht: <span style="text-decoration:line-through;color:#8888a0">Schuher</span>)
+  </div>
+
+  <div class="rule-cards" style="margin-top:16px">
+    <div class="rule-card" style="border-left-color:#9a7a20">
+      <div class="rule-title" style="color:#f0d060">Genitivendungen am Nomen</div>
+      <div class="gen-end-table">
+        <div class="gen-end-row">
+          <span class="gen-end-rule">Mehrsilbige Nomen</span>
+          <span class="gen-end-suffix">-s</span>
+          <span class="gen-end-ex">des Lehrers, des Studiums</span>
+        </div>
+        <div class="gen-end-row">
+          <span class="gen-end-rule">Einsilbige dt. Nomen</span>
+          <span class="gen-end-suffix">-(e)s</span>
+          <span class="gen-end-ex">des Hundes, des Arztes</span>
+        </div>
+        <div class="gen-end-row">
+          <span class="gen-end-rule">auf -s, -sch, -z, -x</span>
+          <span class="gen-end-suffix">-es</span>
+          <span class="gen-end-ex">des Platzes, des Hauses</span>
+        </div>
+        <div class="gen-end-row">
+          <span class="gen-end-rule">auf -nis</span>
+          <span class="gen-end-suffix">-ses</span>
+          <span class="gen-end-ex">des Zeugnisses</span>
+        </div>
+        <div class="gen-end-row">
+          <span class="gen-end-rule">Eigennamen</span>
+          <span class="gen-end-suffix">-s</span>
+          <span class="gen-end-ex">Sandras Handy</span>
+        </div>
+      </div>
+    </div>
+    <div class="rule-card" style="border-left-color:#9a7a20">
+      <div class="rule-title" style="color:#f0d060">Eigennamen auf -s, -z, -x</div>
+      <p>Apostroph statt <strong>-s</strong>:</p>
+      <div class="example">Carlos' Buch · Max' Idee</div>
+      <p style="margin-top:8px">Fremdwörter und Kurzwörter oft nur <strong>-s</strong>:</p>
+      <div class="example">des Films · des Chefs · des Tests</div>
+    </div>
   </div>
 </div>
 
