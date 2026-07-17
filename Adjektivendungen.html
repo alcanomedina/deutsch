@@ -404,10 +404,8 @@ const CASE_CLASSES = ["c-nom", "c-akk", "c-dat", "c-gen"];
 
 function classForCell(ending, caseIdx, genderIdx, gridKey) {
   if (ending === "-en") return "c-exc-en";
-  if (ending === ARTICLE_ENDINGS[caseIdx][genderIdx]) {
-    if (gridKey === "none") return caseIdx === 2 ? "c-dat" : "c-akk";
-    return CASE_CLASSES[caseIdx];
-  }
+  if (gridKey === "definite") return ending === "-e" ? "c-exc-e" : "c-exc-en";
+  if (ending === ARTICLE_ENDINGS[caseIdx][genderIdx]) return CASE_CLASSES[caseIdx];
   return ending === "-e" ? "c-exc-e" : "c-exc-en";
 }
 
