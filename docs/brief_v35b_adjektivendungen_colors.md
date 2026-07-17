@@ -1,52 +1,68 @@
-# V35b — Adjektivendungen: Kasusfarben wiederherstellen + bestimmter Artikel Fix
+# V35b — Adjektivendungen: Color Fixes
 
 **Depends on:** V35 deployed.
-**Source:** Visual review — two color issues identified.
+**Source:** Visual review — two color issues.
 
 ---
 
 ## Adjektivendungen.html — Fixes
 
-### 1. Revert "ohne Artikel" to original 4-case coloring
+### 1. Fix "bestimmter Artikel" — all -e cells must be lila (purple)
 
-V35 changed all strong endings in the `none` grid to blue (`c-akk`). This was wrong — the original case-based coloring should be restored:
+**Bug:** `classForCell()` doesn't know which grid it's rendering. When a `-e` ending coincidentally matches the article ending for that position, it gets a case color instead of purple.
 
-- **NOM → rot** (`c-nom`, red)
-- **AKK → blau** (`c-akk`, blue) — already correct
-- **DAT → grün** (`c-dat`, green) — already correct
-- **GEN → gelb** (`c-gen`, gold)
+**Fix:** Make `classForCell()` grid-aware (pass the grid key). For the `definite` grid, ALL non-`-en` endings are `c-exc-e` (purple). ALL `-en` endings are `c-exc-en` (grey). Never case-colored.
 
-Revert the `classForCell()` logic for the `none` grid to use `CASE_CLASSES[caseIdx]` for all matching endings. This is the original behavior before V35.
+### 2. Fix "ohne Artikel" — AKK Mask. and DAT Pl. must be case-colored, not grey
 
-### 2. Fix "bestimmter Artikel" — all -e cells must be lila (purple)
+**Bug:** The function short-circuits ALL `-en` to grey (`c-exc-en`) before checking whether the ending matches the article. This is wrong for the `none` grid, where `-en` CAN be a meaningful case signal:
 
-**Bug:** `classForCell()` doesn't know which grid it's rendering. When a `-e` ending coincidentally matches the article ending for that position, it gets a case color instead of purple. Examples:
+- **AKK Mask. -en** mirrors *den* → should be **blue** (`c-akk`), not grey
+- **DAT Pl. -en** mirrors *den* (Dat. Pl.) → should be **green** (`c-dat`), not grey
+- **GEN Mask. -en** does NOT mirror *-es* → stays **grey** (true exception)
+- **GEN Neut. -en** does NOT mirror *-es* → stays **grey** (true exception)
 
-- NOM Fem: `-e` matches `ARTICLE_ENDINGS[0][1]` → gets `c-nom` (red) ✗ — should be `c-exc-e` (purple)
-- AKK Fem: `-e` matches `ARTICLE_ENDINGS[1][1]` → gets `c-akk` (blue) ✗ — should be `c-exc-e` (purple)
+**Fix:** For the `none` grid, remove the `-en` short-circuit. Check article match FIRST for all endings — if the ending matches `ARTICLE_ENDINGS[caseIdx][genderIdx]`, apply `CASE_CLASSES[caseIdx]`. Only fall through to grey if there's no match.
 
-**Fix:** Make `classForCell()` grid-aware (pass the grid key). For the `definite` grid, ALL non-`-en` endings should be `c-exc-e` (purple/lila) — never case-colored. The definite article always carries the case signal, so all adjective endings are weak.
+### Combined logic
 
-Logic:
 ```
-if grid === "definite":
-    ending === "-en" → c-exc-en (grey)
-    ending === "-e"  → c-exc-e  (purple)
+function classForCell(ending, caseIdx, genderIdx, gridKey) {
+  // Definite: everything is weak — purple or grey, never case-colored
+  if (gridKey === "definite") {
+    return ending === "-en" ? "c-exc-en" : "c-exc-e";
+  }
 
-if grid === "indefinite" or "none":
-    ending === "-en" → c-exc-en (grey)
-    ending matches ARTICLE_ENDINGS[case][gender] → CASE_CLASSES[case]
-    ending === "-e"  → c-exc-e  (purple)
-    else → c-exc-en (grey)
+  // None: check article match FIRST (even for -en)
+  if (gridKey === "none") {
+    if (ending === ARTICLE_ENDINGS[caseIdx][genderIdx]) {
+      return CASE_CLASSES[caseIdx];
+    }
+    return "c-exc-en"; // Gen M. and Gen N. fall here
+  }
+
+  // Indefinite: -en is always grey, then check article match
+  if (ending === "-en") return "c-exc-en";
+  if (ending === ARTICLE_ENDINGS[caseIdx][genderIdx]) {
+    return CASE_CLASSES[caseIdx];
+  }
+  return ending === "-e" ? "c-exc-e" : "c-exc-en";
+}
 ```
 
-### 3. Legend label stays "schwach"
+Result for "ohne Artikel" grid (only 2 grey cells instead of 4):
 
-No change needed — "schwach" is correct. (V35 already changed it from "weak" to "schwach".)
+```
+NOM:  rot    rot    rot    rot
+AKK:  BLAU   blau   blau   blau    ← M. -en now blue (was grey)
+DAT:  grün   grün   grün   GRÜN    ← Pl. -en now green (was grey)
+GEN:  grau   gelb   grau   gelb    ← M. and N. stay grey (true exceptions)
+```
 
 ---
 
 ## Notes
 
 - The other V35 changes (callout removal, explanation translation, site-wide Germanization) remain correct and unchanged.
-- The `indefinite` grid is NOT affected — its case-colored cells (NOM M/N, AKK N) are correct because the indefinite article doesn't signal case in those positions.
+- Legend label "schwach" stays as-is.
+- Pass `gridKey` from the `Object.entries(DATA).forEach()` loop — the key is already available (`key` variable: "definite", "indefinite", "none").
