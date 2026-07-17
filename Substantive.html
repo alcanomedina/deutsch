@@ -145,12 +145,12 @@
 <body>
 <div class="top-bar">
   <h1>Deutsche Substantive</h1>
-  <p class="sub">hover for example phrase · search German or English · filter by gender or category</p>
+  <p class="sub">für Beispielsatz hovern · Deutsch oder Englisch suchen · nach Genus oder Kategorie filtern</p>
   <div class="controls">
     <input type="text" class="search-box" id="search" placeholder="Suchen..." autofocus>
     <button class="filter-btn" id="guess-btn" onclick="toggleGuess()">🎯 Raten</button>
     <button class="filter-btn" id="shuffle-btn" onclick="toggleShuffle()">🔀 Mischen</button>
-    <button class="filter-btn active-all" data-gender="all" onclick="setGender(this)">All</button>
+    <button class="filter-btn active-all" data-gender="all" onclick="setGender(this)">Alle</button>
     <button class="filter-btn" data-gender="der" onclick="setGender(this)">der</button>
     <button class="filter-btn" data-gender="die" onclick="setGender(this)">die</button>
     <button class="filter-btn" data-gender="das" onclick="setGender(this)">das</button>
@@ -1200,7 +1200,7 @@ const CATS =[...new Set(DATA.map(d => d[4]))].sort();
 let currentGender = 'all', currentCat = 'all', searchTerm = '';
 
 const catBar = document.getElementById('cat-bar');
-let ch = '<button class="cat-btn active-cat" data-cat="all" onclick="setCat(this)">all</button>';
+let ch = '<button class="cat-btn active-cat" data-cat="all" onclick="setCat(this)">Alle</button>';
 CATS.forEach(c => { ch += `<button class="cat-btn" data-cat="${c}" onclick="setCat(this)">${c}</button>`; });
 catBar.innerHTML = ch;
 

@@ -182,22 +182,6 @@
   .special-rule th { color: #8888a0; font-weight: 700; }
   .special-rule td { color: #c0c0c8; }
 
-  /* ─── Akk callout boxes ─── */
-  .akk-callout {
-    background: #3a2e10; border: 1px solid #7a6020;
-    border-left: 3px solid #e8a840;
-    border-radius: 8px; padding: 10px 14px; margin-top: 10px;
-    font-size: 13px; line-height: 1.6; color: #c0c0c8;
-  }
-  .akk-callout .callout-title {
-    font-family: 'JetBrains Mono', monospace;
-    font-weight: 700; color: #e8a840; margin-bottom: 4px; font-size: 13px;
-  }
-  .akk-callout .callout-line {
-    font-family: 'JetBrains Mono', monospace; font-size: 12px;
-  }
-  .end-hl { font-weight: 700; color: #e8a840; }
-
   @media (max-width: 600px) {
     body { padding: 0 8px 40px; }
     header { padding: 8px 10px 6px; margin-bottom: 12px; }
@@ -205,8 +189,6 @@
     header p { font-size: 12px; }
     .special-rule table { font-size: 11px; }
     .special-rule th, .special-rule td { padding: 4px 6px; }
-    .akk-callout { font-size: 11px; }
-    .akk-callout .callout-line { font-size: 11px; }
   }
   /* ─── Guess Mode ─── */
   .guess-cell-hidden.tile { background: #343438 !important; border-color: #4a4a52 !important; }
@@ -218,7 +200,7 @@
 <div class="container">
   <header>
     <h1>Adjektivendungen</h1>
-    <p>hover any tile for an example phrase</p>
+    <p>Kachel hovern für Beispielsatz</p>
     <button class="guess-btn" id="guess-btn" onclick="toggleGuess()">🎯 Raten</button>
     <div class="legend">
       <div class="legend-item">
@@ -249,13 +231,13 @@
         <div class="legend-swatch tile c-exc-e" style="height:20px;min-width:28px;">
           <span style="font-size:10px;font-weight:700;color:#c0a0e0;font-family:'JetBrains Mono',monospace;">-e</span>
         </div>
-        <span class="legend-label">weak</span>
+        <span class="legend-label">schwach</span>
       </div>
       <div class="legend-item">
         <div class="legend-swatch tile c-exc-en" style="height:20px;min-width:28px;">
           <span style="font-size:10px;font-weight:700;color:#c0c0c8;font-family:'JetBrains Mono',monospace;">-en</span>
         </div>
-        <span class="legend-label">default</span>
+        <span class="legend-label">Standard</span>
       </div>
     </div>
   </header>
@@ -263,30 +245,30 @@
   <div class="grids" id="grids"></div>
 
   <div class="notes">
-    <div class="notes-title">How to read this</div>
+    <div class="notes-title">So liest man die Tabellen</div>
 
-    <strong>Case colors</strong> = the adjective ending mirrors
-    the definite article ending
+    <strong>Kasusfarben</strong> = die Adjektivendung spiegelt
+    die Endung des bestimmten Artikels
     (<span class="mono c-text-nom">Nominativ</span>,
     <span class="mono c-text-akk">Akkusativ</span>,
     <span class="mono c-text-dat">Dativ</span>,
     <span class="mono c-text-gen">Genitiv</span>).
-    The less article you have, the more colored cells appear —
-    because the adjective must take over the article's
-    job.<br><br>
+    Je weniger Artikel vorhanden ist, desto mehr farbige Kacheln
+    erscheinen — weil das Adjektiv die Aufgabe des Artikels
+    übernehmen muss.<br><br>
 
-    <strong>ohne Artikel</strong> = the adjective mirrors
-    <em>der/die/das</em> endings in almost every cell. Only
-    Gen&nbsp;M and Gen&nbsp;N stay
-    <span class="mono c-text-exc-en">-en</span> because the
-    noun's <em>-(e)s</em> already signals Genitiv.<br><br>
+    <strong>ohne Artikel</strong> = das Adjektiv spiegelt die
+    Endungen von <em>der/die/das</em> in fast jeder Zelle. Nur
+    Gen&nbsp;M und Gen&nbsp;N bleiben
+    <span class="mono c-text-exc-en">-en</span>, weil das
+    <em>-(e)s</em> des Nomens den Genitiv bereits signalisiert.<br><br>
 
-    <strong><span class="mono c-text-exc-e">Purple -e</span></strong>
-    = weak. The article already signals gender and case, so the
-    adjective relaxes to a soft
+    <strong><span class="mono c-text-exc-e">Lila -e</span></strong>
+    = schwach. Der Artikel signalisiert bereits Genus und Kasus,
+    also entspannt sich das Adjektiv zu einem weichen
     <span class="mono c-text-exc-e">-e</span>.<br>
-    <strong><span class="mono c-text-exc-en">Grey -en</span></strong>
-    = the universal default. No case signal needed — just
+    <strong><span class="mono c-text-exc-en">Grau -en</span></strong>
+    = der universelle Standard. Kein Kasussignal nötig — einfach
     <span class="mono c-text-exc-en">-en</span>.
   </div>
 
@@ -420,9 +402,10 @@ const ARTICLE_ENDINGS = [
 
 const CASE_CLASSES = ["c-nom", "c-akk", "c-dat", "c-gen"];
 
-function classForCell(ending, caseIdx, genderIdx) {
+function classForCell(ending, caseIdx, genderIdx, gridKey) {
   if (ending === "-en") return "c-exc-en";
   if (ending === ARTICLE_ENDINGS[caseIdx][genderIdx]) {
+    if (gridKey === "none") return caseIdx === 2 ? "c-dat" : "c-akk";
     return CASE_CLASSES[caseIdx];
   }
   return ending === "-e" ? "c-exc-e" : "c-exc-en";
@@ -442,7 +425,7 @@ Object.entries(DATA).forEach(([key, table]) => {
   CASES.forEach((cas, ri) => {
     html += `<div class="row-label">${cas}</div>`;
     table.data[ri].forEach((ending, ci) => {
-      const cls = classForCell(ending, ri, ci);
+      const cls = classForCell(ending, ri, ci, key);
       const ex = table.examples[ri][ci];
       html += `<div class="tile ${cls}"><span class="ending">${ending}</span><div class="tooltip">${ex}</div></div>`;
     });
@@ -452,24 +435,6 @@ Object.entries(DATA).forEach(([key, table]) => {
   grid.innerHTML = html;
   container.appendChild(grid);
 
-  if (key === "indefinite") {
-    const c = document.createElement("div");
-    c.className = "akk-callout";
-    c.innerHTML = `<div class="callout-title">⚠️ Maskulin Akk ≠ Nom!</div>
-<div class="callout-line">Nom: ein schwarz<span class="end-hl">er</span> Hut (Endung spiegelt <em>der</em>)</div>
-<div class="callout-line">Akk: einen schwarz<span class="end-hl">en</span> Hut</div>
-<div class="callout-line" style="color:#8888a0;margin-top:4px">Bei Fem. und Neut. sind Nom und Akk identisch!</div>`;
-    grid.appendChild(c);
-  }
-  if (key === "none") {
-    const c = document.createElement("div");
-    c.className = "akk-callout";
-    c.innerHTML = `<div class="callout-title">⚠️ Maskulin Akk: einziges Kasussignal!</div>
-<div class="callout-line">Nom: schwarz<span class="end-hl">er</span> Kaffee (spiegelt <em>der</em>)</div>
-<div class="callout-line">Akk: schwarz<span class="end-hl">en</span> Kaffee (spiegelt <em>den</em>)</div>
-<div class="callout-line" style="color:#8888a0;margin-top:4px">Ohne Artikel trägt die Endung die gesamte Kasusinformation!</div>`;
-    grid.appendChild(c);
-  }
 });
 </script>
 </body>
