@@ -280,9 +280,11 @@ header p { margin: 6px 0 0; font-size: 15px; color: #ababba; }
 /* ─── Guess Mode ─── */
 .guess-cell-hidden.tile { background: #343438 !important; border-color: #4a4a52 !important; }
 .contraction-card .to.guess-cell-hidden,
-.contraction-card .arrow.guess-cell-hidden { color: transparent; }
+.contraction-card .arrow.guess-cell-hidden,
+.contraction-card .ex.guess-cell-hidden { color: transparent; }
 .contraction-card .to.guess-cell-revealed,
-.contraction-card .arrow.guess-cell-revealed { color: inherit; }
+.contraction-card .arrow.guess-cell-revealed,
+.contraction-card .ex.guess-cell-revealed { color: inherit; }
 .guess-btn { font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 500; padding: 5px 12px; border-radius: 7px; background: #343438; color: #8888a0; border: 1px solid #44444c; transition: all .15s; cursor: pointer; margin-top: 6px; }
 .guess-btn:hover, .guess-btn.active { background: #2a1848; color: #c8a8ff; border-color: #7a60c0; }
 </style>
@@ -650,29 +652,23 @@ function toggleGuess() {
   document.querySelectorAll('.contraction-card').forEach(card => {
     const to = card.querySelector('.to');
     const arrow = card.querySelector('.arrow');
+    const ex = card.querySelector('.ex');
     if (guessMode) {
-      to.classList.add('guess-cell-hidden');
-      to.classList.remove('guess-cell-revealed');
-      arrow.classList.add('guess-cell-hidden');
-      arrow.classList.remove('guess-cell-revealed');
+      [to, arrow, ex].forEach(el => { el.classList.add('guess-cell-hidden'); el.classList.remove('guess-cell-revealed'); });
       card.addEventListener('click', toggleContraction);
     } else {
-      to.classList.remove('guess-cell-hidden', 'guess-cell-revealed');
-      arrow.classList.remove('guess-cell-hidden', 'guess-cell-revealed');
+      [to, arrow, ex].forEach(el => { el.classList.remove('guess-cell-hidden', 'guess-cell-revealed'); });
       card.removeEventListener('click', toggleContraction);
     }
   });
 }
 function toggleContraction() {
-  const to = this.querySelector('.to');
-  const arrow = this.querySelector('.arrow');
-  if (to.classList.contains('guess-cell-hidden')) {
-    to.classList.remove('guess-cell-hidden'); to.classList.add('guess-cell-revealed');
-    arrow.classList.remove('guess-cell-hidden'); arrow.classList.add('guess-cell-revealed');
-  } else {
-    to.classList.remove('guess-cell-revealed'); to.classList.add('guess-cell-hidden');
-    arrow.classList.remove('guess-cell-revealed'); arrow.classList.add('guess-cell-hidden');
-  }
+  const els = [this.querySelector('.to'), this.querySelector('.arrow'), this.querySelector('.ex')];
+  const hidden = els[0].classList.contains('guess-cell-hidden');
+  els.forEach(el => {
+    if (hidden) { el.classList.remove('guess-cell-hidden'); el.classList.add('guess-cell-revealed'); }
+    else { el.classList.remove('guess-cell-revealed'); el.classList.add('guess-cell-hidden'); }
+  });
 }
 function toggleCell() {
   if (this.classList.contains('guess-cell-hidden')) {
