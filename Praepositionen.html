@@ -109,6 +109,24 @@ header p{margin:4px 0 0;font-size:14px;color:#ababba;}
   color:#e0e0e4;margin-bottom:8px;font-size:13px;
 }
 .mono{font-family:'JetBrains Mono',monospace;font-weight:700;}
+/* Guess mode */
+.guess-btn { font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 500; padding: 5px 12px; border-radius: 7px; background: #343438; color: #8888a0; border: 1px solid #44444c; transition: all .15s; cursor: pointer; margin-top: 6px; }
+.guess-btn:hover, .guess-btn.active { background: #2a1848; color: #c8a8ff; border-color: #7a60c0; }
+
+.prep-card.guess-neutral {
+  background: #2e2e34;
+  border-color: #555;
+}
+.prep-card.guess-neutral:hover {
+  box-shadow: 0 4px 12px #55555566;
+}
+.prep-card.guess-neutral .tooltip {
+  display: none !important;
+}
+.prep-card.guess-neutral .prep-case-tag {
+  display: none;
+}
+
 @media(max-width:600px){
   .prep-grid{grid-template-columns:1fr;}
   .tooltip{min-width:220px;font-size:12px;}
@@ -120,6 +138,7 @@ header p{margin:4px 0 0;font-size:14px;color:#ababba;}
   <header>
     <h1>Präpositionen &amp; Kasus</h1>
     <p>für Beispielsätze hovern · hervorgehobene Wörter zeigen den Kasus</p>
+    <button class="guess-btn" id="guess-btn" onclick="toggleGuess()">🎯 Raten</button>
   </header>
 
   <!-- AKKUSATIV -->
@@ -177,6 +196,7 @@ header p{margin:4px 0 0;font-size:14px;color:#ababba;}
   </div>
 </div>
 
+<script src="js/common.js"></script>
 <script>
 const AKK = [
   ["bis","until, to, by","Wir fahren <em>bis München</em>.","Bis nächste Woche! (Until next week!)"],
@@ -262,6 +282,69 @@ buildCards(AKK, 'akk-grid', 'c-akk', 'tag-akk', 'Akkusativ', false);
 buildCards(DAT, 'dat-grid', 'c-dat', 'tag-dat', 'Dativ', false);
 buildCards(WECHSEL, 'wechsel-grid', 'c-wechsel', 'tag-wechsel', 'Akk ↔ Dat', true);
 buildCards(GEN, 'gen-grid', 'c-gen', 'tag-gen', 'Genitiv', false);
+
+let guessMode = false;
+const sections = document.querySelectorAll('.section');
+const mnemonicBoxes = document.querySelectorAll('.mnemonic-box');
+let guessGrid = null;
+
+function toggleGuess() {
+  guessMode = !guessMode;
+  document.getElementById('guess-btn').classList.toggle('active', guessMode);
+
+  if (guessMode) {
+    sections.forEach(s => s.style.display = 'none');
+    mnemonicBoxes.forEach(b => b.style.display = 'none');
+
+    if (!guessGrid) {
+      guessGrid = document.createElement('div');
+      guessGrid.className = 'prep-grid';
+      guessGrid.id = 'guess-grid';
+      document.querySelector('.container').insertBefore(guessGrid, mnemonicBoxes[0]);
+    }
+
+    const allCards = [];
+    function collectCards(data, cardClass, tagClass, tagLabel, isWechsel) {
+      data.forEach(d => {
+        const [word, meaning, ex1, ex2] = d;
+        let tipContent;
+        if (isWechsel) {
+          tipContent = `<span class="ex-line">${ex1}</span><span class="ex-line" style="margin-top:6px;">${ex2}</span>`;
+        } else {
+          tipContent = `<span class="ex-line">${ex1}</span><span class="ex-line">${ex2}</span>`;
+        }
+        allCards.push({ word, meaning, tipContent, cardClass, tagClass, tagLabel });
+      });
+    }
+    collectCards(AKK, 'c-akk', 'tag-akk', 'Akkusativ', false);
+    collectCards(DAT, 'c-dat', 'tag-dat', 'Dativ', false);
+    collectCards(WECHSEL, 'c-wechsel', 'tag-wechsel', 'Akk ↔ Dat', true);
+    collectCards(GEN, 'c-gen', 'tag-gen', 'Genitiv', false);
+
+    const shuffled = shuffleArray(allCards);
+    guessGrid.innerHTML = shuffled.map((c, i) => `<div class="prep-card guess-neutral" data-idx="${i}" data-class="${c.cardClass}" onclick="revealCard(this)">
+      <div class="tooltip">${c.tipContent}</div>
+      <div class="prep-word">${c.word}</div>
+      <div class="prep-meaning">${c.meaning}</div>
+      <span class="prep-case-tag ${c.tagClass}">${c.tagLabel}</span>
+    </div>`).join('');
+    guessGrid.style.display = '';
+  } else {
+    sections.forEach(s => s.style.display = '');
+    mnemonicBoxes.forEach(b => b.style.display = '');
+    if (guessGrid) guessGrid.style.display = 'none';
+  }
+}
+
+function revealCard(card) {
+  if (card.classList.contains('guess-neutral')) {
+    card.classList.remove('guess-neutral');
+    card.classList.add(card.dataset.class);
+  } else {
+    card.classList.remove(card.dataset.class);
+    card.classList.add('guess-neutral');
+  }
+}
 </script>
 </body>
 </html>
