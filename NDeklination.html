@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="assets/favicon.ico" sizes="16x16 32x32 48x48">
+<link rel="icon" href="assets/favicon-32x32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<title>N-Deklination — Maskuline Nomen mit -n/-en</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/common.css">
+<style>
+body { padding: 0 0 48px; }
+
+header {
+  position: sticky; top: 0; z-index: 100;
+  background: #232327ee;
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid #3e3e44;
+  padding: 14px 20px;
+  display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: 8px;
+}
+h1 {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 26px; font-weight: 700;
+  color: #f0f0f4; letter-spacing: -0.5px;
+}
+.subtitle {
+  font-size: 13px; color: #ababba; font-style: italic;
+}
+.back-link {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px; font-weight: 500;
+  padding: 5px 9px; border-radius: 8px;
+  background: #343438; color: #8888a0;
+  text-decoration: none; border: 1px solid #44444c;
+  transition: all .15s;
+}
+.back-link:hover {
+  background: #2a1848; color: #c8a8ff;
+  border-color: #7a60c0;
+}
+
+.container { max-width: 880px; margin: 0 auto; padding: 0 16px; }
+
+/* ─── Declination tables ─── */
+.tables-wrap {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-top: 28px;
+}
+.decl-table {
+  background: #343438;
+  border: 1px solid #44444c;
+  border-radius: 12px;
+  overflow: hidden;
+}
+.decl-table .table-title {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 15px; font-weight: 700;
+  color: #f0f0f4;
+  padding: 12px 14px 8px;
+  border-bottom: 1px solid #3e3e44;
+}
+.decl-table table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.decl-table th, .decl-table td {
+  padding: 8px 12px;
+  font-size: 14px;
+  text-align: left;
+  border-bottom: 1px solid #3e3e44;
+}
+.decl-table th {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px; font-weight: 600;
+  color: #8888a0;
+}
+.decl-table tr:last-child td { border-bottom: none; }
+.decl-table .case-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px; font-weight: 700;
+  width: 50px;
+}
+.decl-table td { color: #e0e0e4; font-family: 'JetBrains Mono', monospace; font-size: 13px; }
+.decl-table .end { color: #ffa0c8; font-weight: 700; }
+
+.c-nom .case-label { color: #f08888; }
+.c-akk .case-label { color: #8ec4ff; }
+.c-dat .case-label { color: #70d890; }
+.c-gen .case-label { color: #e8a840; }
+
+.c-nom td:not(.case-label) { background: #3a202020; }
+.c-akk td:not(.case-label) { background: #1e305020; }
+.c-dat td:not(.case-label) { background: #1a302020; }
+.c-gen td:not(.case-label) { background: #3a351020; }
+
+.no-s-note {
+  font-size: 12px; color: #ababba;
+  padding: 8px 14px 12px;
+  font-style: italic;
+}
+
+/* ─── Rules callout ─── */
+.rules-box {
+  margin-top: 24px;
+  background: #2a1848;
+  border: 1px solid #7a60c0;
+  border-radius: 12px;
+  padding: 18px 20px;
+}
+.rules-box .rules-title {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 16px; font-weight: 700;
+  color: #c8a8ff;
+  margin-bottom: 12px;
+}
+.rules-box ul {
+  list-style: none; padding: 0; margin: 0;
+}
+.rules-box li {
+  font-size: 14px; color: #e0e0e4;
+  padding: 5px 0;
+  padding-left: 18px;
+  position: relative;
+}
+.rules-box li::before {
+  content: '→';
+  position: absolute; left: 0;
+  color: #c8a8ff;
+}
+.rules-box li strong { color: #f0f0f4; }
+.rules-box li em { color: #ababba; font-style: italic; }
+
+/* ─── Category cards ─── */
+.category {
+  margin-top: 24px;
+  background: #343438;
+  border: 1px solid #44444c;
+  border-radius: 12px;
+  overflow: hidden;
+}
+.cat-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 14px 18px;
+  cursor: pointer;
+  user-select: none;
+  transition: background .15s;
+}
+.cat-header:hover { background: #3a3a40; }
+.cat-title {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 15px; font-weight: 700;
+  color: #f0f0f4;
+}
+.cat-toggle {
+  font-size: 18px; color: #8888a0;
+  transition: transform .2s;
+}
+.category.collapsed .cat-toggle { transform: rotate(-90deg); }
+.category.collapsed .cat-body { display: none; }
+.cat-body {
+  padding: 0 18px 16px;
+  border-top: 1px solid #3e3e44;
+}
+.cat-body table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 12px;
+}
+.cat-body th {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px; font-weight: 600;
+  color: #8888a0;
+  text-align: left;
+  padding: 6px 10px;
+  border-bottom: 1px solid #3e3e44;
+}
+.cat-body td {
+  font-size: 13px; color: #e0e0e4;
+  padding: 8px 10px;
+  border-bottom: 1px solid #33333a;
+  vertical-align: top;
+}
+.cat-body tr:last-child td { border-bottom: none; }
+.cat-body .group-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px; font-weight: 600;
+  color: #c8a8ff;
+  white-space: nowrap;
+}
+.cat-body .examples {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px; color: #e0e0e4;
+  line-height: 1.6;
+}
+
+/* ─── Footnotes ─── */
+.footnotes {
+  margin-top: 24px;
+  background: #343438;
+  border: 1px solid #44444c;
+  border-radius: 12px;
+  padding: 16px 20px;
+}
+.footnotes .fn-title {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 14px; font-weight: 700;
+  color: #ababba;
+  margin-bottom: 10px;
+}
+.footnotes p {
+  font-size: 13px; color: #ababba;
+  margin: 6px 0;
+  line-height: 1.5;
+}
+.footnotes strong { color: #e0e0e4; }
+
+@media (max-width: 600px) {
+  h1 { font-size: 20px; }
+  .subtitle { display: none; }
+  .tables-wrap { grid-template-columns: 1fr; }
+  .decl-table th, .decl-table td { padding: 6px 8px; font-size: 12px; }
+  .cat-body td, .cat-body th { padding: 6px 8px; font-size: 12px; }
+  .rules-box { padding: 14px 16px; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div>
+    <h1>N-Deklination</h1>
+    <div class="subtitle">Maskuline Nomen mit -n/-en in Akk, Dat und Gen Singular</div>
+  </div>
+  <a class="back-link" href="index.html">← Übersicht</a>
+</header>
+
+<div class="container">
+
+<!-- ═══ DECLINATION TABLES ═══ -->
+<div class="tables-wrap">
+
+  <div class="decl-table">
+    <div class="table-title">der Löwe</div>
+    <table>
+      <tr><th class="case-label"></th><th>Singular</th><th>Plural</th></tr>
+      <tr class="c-nom"><td class="case-label">NOM</td><td>der Löwe</td><td>die Löwen</td></tr>
+      <tr class="c-akk"><td class="case-label">AKK</td><td>den Löwe<span class="end">n</span></td><td>die Löwen</td></tr>
+      <tr class="c-dat"><td class="case-label">DAT</td><td>dem Löwe<span class="end">n</span></td><td>den Löwen</td></tr>
+      <tr class="c-gen"><td class="case-label">GEN</td><td>des Löwe<span class="end">n</span></td><td>der Löwen</td></tr>
+    </table>
+    <div class="no-s-note">Kein -s im Genitiv! (vgl. <em>des Mannes</em>)</div>
+  </div>
+
+  <div class="decl-table">
+    <div class="table-title">der Elefant</div>
+    <table>
+      <tr><th class="case-label"></th><th>Singular</th><th>Plural</th></tr>
+      <tr class="c-nom"><td class="case-label">NOM</td><td>der Elefant</td><td>die Elefanten</td></tr>
+      <tr class="c-akk"><td class="case-label">AKK</td><td>den Elefante<span class="end">n</span></td><td>die Elefanten</td></tr>
+      <tr class="c-dat"><td class="case-label">DAT</td><td>dem Elefante<span class="end">n</span></td><td>den Elefanten</td></tr>
+      <tr class="c-gen"><td class="case-label">GEN</td><td>des Elefante<span class="end">n</span></td><td>der Elefanten</td></tr>
+    </table>
+    <div class="no-s-note">Kein -s im Genitiv! (vgl. <em>des Tisches</em>)</div>
+  </div>
+
+</div>
+
+<!-- ═══ RULES ═══ -->
+<div class="rules-box">
+  <div class="rules-title">Regeln</div>
+  <ul>
+    <li>Nur <strong>maskuline</strong> Nomen <em>(eine Ausnahme: das Herz)</em></li>
+    <li>Endung <strong>-n</strong> oder <strong>-en</strong> in <strong>Akkusativ, Dativ und Genitiv Singular</strong></li>
+    <li><strong>Kein -s</strong> im Genitiv <em>(anders als reguläre Maskulina)</em></li>
+    <li>Pluralendung ist immer <strong>-n/-en</strong></li>
+    <li>Meist <strong>Lebewesen</strong> <em>(Personen, Tiere, Nationalitäten)</em></li>
+  </ul>
+</div>
+
+<!-- ═══ KATEGORIE 1 ═══ -->
+<div class="category" id="kat1">
+  <div class="cat-header" onclick="toggle('kat1')">
+    <div class="cat-title">Kategorie 1 — Maskuline Lebewesen mit Endung -e</div>
+    <span class="cat-toggle">▼</span>
+  </div>
+  <div class="cat-body">
+    <table>
+      <tr><th>Gruppe</th><th>Beispiele</th></tr>
+      <tr><td class="group-label">Nationalitäten</td><td class="examples">Chinese, Däne, Finne, Grieche, Pole, Russe, Tscheche</td></tr>
+      <tr><td class="group-label">Tiere</td><td class="examples">Affe, Hase, Löwe, Schimpanse</td></tr>
+      <tr><td class="group-label">Andere Personen</td><td class="examples">Experte, Junge, Kollege, Kunde, Neffe, Zeuge</td></tr>
+    </table>
+  </div>
+</div>
+
+<!-- ═══ KATEGORIE 2 ═══ -->
+<div class="category" id="kat2">
+  <div class="cat-header" onclick="toggle('kat2')">
+    <div class="cat-title">Kategorie 2 — Fremdwörter (Griechisch/Lateinisch)</div>
+    <span class="cat-toggle">▼</span>
+  </div>
+  <div class="cat-body">
+    <table>
+      <tr><th>Endung</th><th>Beispiele</th></tr>
+      <tr><td class="group-label">-ist</td><td class="examples">Egoist, Journalist, Kapitalist, Kommunist, Polizist, Spezialist, Terrorist, Tourist</td></tr>
+      <tr><td class="group-label">-ent, -ant, -and</td><td class="examples">Absolvent, Assistent, Dirigent, Präsident, Student, Demonstrant, Elefant, Emigrant, Lieferant, Praktikant, Doktorand</td></tr>
+      <tr><td class="group-label">-at, -et, -it, -ot</td><td class="examples">Demokrat, Diplomat, Kandidat, Soldat, Athlet, Poet, Bandit, Favorit, Idiot, Pilot</td></tr>
+      <tr><td class="group-label">-nom, -oge</td><td class="examples">Astronom, Ökonom, Biologe, Psychologe, Soziologe, Pädagoge</td></tr>
+      <tr><td class="group-label">-soph, -graf</td><td class="examples">Fotograf, Philosoph</td></tr>
+      <tr><td class="group-label">Ausserdem</td><td class="examples">Architekt, Astronaut, Bär, Bauer*, Chirurg, Herr**, Mensch, Monarch, Nachbar*, Prinz</td></tr>
+    </table>
+  </div>
+</div>
+
+<!-- ═══ KATEGORIE 3 ═══ -->
+<div class="category" id="kat3">
+  <div class="cat-header" onclick="toggle('kat3')">
+    <div class="cat-title">Kategorie 3 — Spezialformen</div>
+    <span class="cat-toggle">▼</span>
+  </div>
+  <div class="cat-body">
+    <table>
+      <tr><th>Form</th><th>Beispiele</th><th>Erklärung</th></tr>
+      <tr><td class="group-label">Genitiv -ns</td><td class="examples">Gedanke, Buchstabe, Name</td><td class="examples">Akk/Dat: -n, Gen: -ns (<em>des Gedankens, des Namens</em>)</td></tr>
+      <tr><td class="group-label">Einziges Neutrum</td><td class="examples">das Herz</td><td class="examples">Nom/Akk: <em>das Herz</em>, Dat: <em>dem Herzen</em>, Gen: <em>des Herzens</em></td></tr>
+    </table>
+  </div>
+</div>
+
+<!-- ═══ FOOTNOTES ═══ -->
+<div class="footnotes">
+  <div class="fn-title">Fussnoten</div>
+  <p>* <strong>Bauer/Nachbar:</strong> Endung <strong>-n</strong> (nicht -en)</p>
+  <p>** <strong>Herr:</strong> Nom Sg. <em>Herr</em>, Akk/Dat/Gen Sg. <em>Herrn</em>, Plural <em>Herren</em></p>
+  <p>Nicht zur N-Deklination: Nomen mit Endung <strong>-or</strong> (z.B. Autor, Doktor)</p>
+</div>
+
+</div>
+
+<script>
+function toggle(id) {
+  document.getElementById(id).classList.toggle('collapsed');
+}
+</script>
+</body>
+</html>
