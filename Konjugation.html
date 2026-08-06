@@ -116,6 +116,38 @@
 }
 /* ─── Guess Mode ─── */
 .fbtn.guess-active{background:#2a1848;border-color:#7a60c0;color:#c8a8ff}
+/* ─── Futur I ─── */
+.futur-grid {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 4px 16px;
+  font-size: 14px;
+  margin: 12px 0 16px;
+  max-width: 420px;
+}
+.futur-grid .fg-pron { color: #ababba; font-family: 'JetBrains Mono', monospace; font-size: 13px; }
+.futur-grid .fg-form { color: #e0e0e4; }
+.futur-grid .fg-form em { color: #60d0e8; font-style: normal; font-weight: 600; }
+.futur-note {
+  background: #2e2e34;
+  border-left: 3px solid #60d0e8;
+  padding: 12px 16px;
+  border-radius: 6px;
+  margin: 12px 0;
+  font-size: 13px;
+  color: #c8c8d0;
+  line-height: 1.6;
+}
+.futur-note strong { color: #60d0e8; font-weight: 600; }
+.futur-ex {
+  margin: 6px 0;
+  padding-left: 12px;
+  border-left: 2px solid #3a3a40;
+  color: #c8c8d0;
+  font-size: 13px;
+  line-height: 1.7;
+}
+.futur-ex em { color: #e8a840; font-style: normal; }
 </style>
 </head>
 <body>
@@ -230,6 +262,49 @@
     <strong style="color:#60d0e8">als</strong> → PQP kann in beiden Teilsätzen stehen:<br>
     <span style="font-family:'JetBrains Mono',monospace;font-size:13px;color:#e0e0e4;margin-left:16px"><em>Als ich den Brief <span style="color:#e8a840;font-weight:700">gelesen hatte</span>, <span style="color:#c8a8ff;font-weight:700">habe</span> ich angefangen zu lachen.</em></span>
   </div>
+</div>
+
+<!-- ═══ FUTUR I ═══ -->
+<div class="sec-label" style="margin-top:32px"><span class="dot" style="background:#60d0e8"></span> Futur I</div>
+
+<div style="color:#ababba;font-size:13px;margin-bottom:8px">
+  Bildung: <strong style="color:#60d0e8">werden</strong> <span style="color:#ababba">(konjugiert)</span> + <strong style="color:#e8a840">Infinitiv</strong> <span style="color:#ababba">(am Satzende)</span>
+</div>
+
+<div class="futur-grid">
+  <span class="fg-pron">ich</span>     <span class="fg-form"><em>werde</em> … Infinitiv</span>
+  <span class="fg-pron">du</span>      <span class="fg-form"><em>wirst</em> … Infinitiv</span>
+  <span class="fg-pron">er/sie/es</span> <span class="fg-form"><em>wird</em> … Infinitiv</span>
+  <span class="fg-pron">wir</span>     <span class="fg-form"><em>werden</em> … Infinitiv</span>
+  <span class="fg-pron">ihr</span>     <span class="fg-form"><em>werdet</em> … Infinitiv</span>
+  <span class="fg-pron">sie/Sie</span> <span class="fg-form"><em>werden</em> … Infinitiv</span>
+</div>
+
+<div style="color:#c8a8ff;font-size:13px;font-weight:600;margin:16px 0 6px">Verwendung</div>
+
+<div class="futur-ex">
+  <strong style="color:#60d0e8;font-size:12px">Zukunft</strong><br>
+  Morgen <em>werde</em> ich einkaufen <em>gehen</em>.<br>
+  Nächstes Jahr <em>werden</em> wir nach Japan <em>reisen</em>.
+</div>
+
+<div class="futur-ex">
+  <strong style="color:#60d0e8;font-size:12px">Vermutung</strong><br>
+  Er <em>wird</em> wohl krank <em>sein</em>.<br>
+  Sie <em>wird</em> wahrscheinlich schon zu Hause <em>sein</em>.
+</div>
+
+<div class="futur-ex">
+  <strong style="color:#60d0e8;font-size:12px">Versprechen / Vorsatz</strong><br>
+  Ich <em>werde</em> das nie <em>vergessen</em>.<br>
+  Wir <em>werden</em> unser Bestes <em>tun</em>.
+</div>
+
+<div class="futur-note">
+  <strong>Gesprochenes Deutsch:</strong> Oft wird <strong>Präsens + Zeitangabe</strong> statt Futur I benutzt:<br>
+  <em style="color:#e8a840">Morgen gehe ich einkaufen.</em> = <em style="color:#e8a840">Morgen werde ich einkaufen gehen.</em><br><br>
+  <strong>Nebensatz-Wortstellung:</strong> <em>werden</em> geht ans Satzende:<br>
+  Ich weiss, dass er morgen <em style="color:#e8a840">kommen wird</em>.
 </div>
 
 <script src="js/common.js"></script>

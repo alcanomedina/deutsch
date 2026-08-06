@@ -194,6 +194,89 @@
   .guess-cell-hidden.tile { background: #343438 !important; border-color: #4a4a52 !important; }
   .guess-btn { font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 500; padding: 4px 10px; border-radius: 7px; background: #343438; color: #8888a0; border: 1px solid #44444c; transition: all .15s; cursor: pointer; }
   .guess-btn:hover, .guess-btn.active { background: #2a1848; color: #c8a8ff; border-color: #7a60c0; }
+  /* ─── Nominalisierte Adjektive ─── */
+  .nom-adj-section {
+    margin-top: 28px;
+    padding: 20px;
+    background: #2e2e34;
+    border-radius: 8px;
+  }
+  .nom-adj-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 16px;
+    font-weight: 700;
+    color: #f0f0f4;
+    margin-bottom: 12px;
+  }
+  .nom-adj-subtitle {
+    font-size: 12px;
+    color: #ababba;
+    margin-bottom: 14px;
+    line-height: 1.5;
+  }
+  .nom-grid {
+    display: grid;
+    grid-template-columns: 80px 1fr 1fr;
+    gap: 0;
+    font-size: 13px;
+    margin-bottom: 16px;
+    border-radius: 6px;
+    overflow: hidden;
+    max-width: 520px;
+  }
+  .nom-grid .ng-header {
+    background: #3a3a42;
+    padding: 8px 12px;
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 600;
+    font-size: 11px;
+    color: #c8c8d0;
+    text-align: center;
+  }
+  .nom-grid .ng-case {
+    background: #333338;
+    padding: 8px 12px;
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 600;
+    font-size: 12px;
+    color: #ababba;
+    display: flex;
+    align-items: center;
+  }
+  .nom-grid .ng-cell {
+    padding: 8px 12px;
+    color: #e0e0e4;
+    border-bottom: 1px solid #3a3a40;
+    text-align: center;
+  }
+  .nom-grid .ng-cell em { color: #60d0e8; font-style: normal; font-weight: 700; }
+  .nom-adj-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    font-weight: 600;
+    color: #c8a8ff;
+    margin: 16px 0 6px;
+  }
+  .nom-adj-ex {
+    font-size: 13px;
+    color: #c8c8d0;
+    line-height: 1.7;
+    margin: 4px 0 4px 12px;
+    border-left: 2px solid #3a3a40;
+    padding-left: 12px;
+  }
+  .nom-adj-ex em { color: #e8a840; font-style: normal; }
+  .nom-adj-note {
+    background: #333338;
+    border-left: 3px solid #e8a840;
+    padding: 10px 14px;
+    border-radius: 6px;
+    margin: 14px 0;
+    font-size: 12px;
+    color: #ababba;
+    line-height: 1.6;
+  }
+  .nom-adj-note strong { color: #e8a840; font-weight: 600; }
 </style>
 </head>
 <body>
@@ -328,6 +411,70 @@
         <tr><td><span class="stem-change">mehr</span></td><td>keine Endung: <em>mehr Geld</em></td><td>keine Endung: <em>mehr Schuhe</em></td></tr>
         <tr><td><span class="stem-change">wenig</span></td><td>keine Endung: <em>wenig Zeit</em></td><td>optional: <em>wenig(e) Fragen</em></td></tr>
       </table>
+    </div>
+  </div>
+
+  <div class="nom-adj-section">
+    <div class="nom-adj-title">Nominalisierte Adjektive</div>
+    <div class="nom-adj-subtitle">
+      Nach <strong style="color:#60d0e8">viel · etwas · wenig · nichts</strong> und <strong style="color:#c8a8ff">alles</strong> wird das Adjektiv gross geschrieben und dekliniert wie ein Neutrum Singular.
+    </div>
+
+    <div class="nom-adj-label">viel / etwas / wenig / nichts + Adjektiv</div>
+    <div class="nom-adj-subtitle">→ Deklination wie Neutrum Singular <strong style="color:#60d0e8">ohne Artikel</strong></div>
+
+    <div class="nom-grid">
+      <div class="ng-header"></div>
+      <div class="ng-header">Pronomen</div>
+      <div class="ng-header">+ Adjektiv</div>
+
+      <div class="ng-case">NOM</div>
+      <div class="ng-cell">etwas / nichts / …</div>
+      <div class="ng-cell">Schön<em>es</em></div>
+
+      <div class="ng-case">AKK</div>
+      <div class="ng-cell">etwas / nichts / …</div>
+      <div class="ng-cell">Schön<em>es</em></div>
+
+      <div class="ng-case">DAT</div>
+      <div class="ng-cell">(mit) etwas / nichts / …</div>
+      <div class="ng-cell">Schön<em>em</em></div>
+    </div>
+
+    <div class="nom-adj-label">alles + Adjektiv</div>
+    <div class="nom-adj-subtitle">→ Deklination wie Neutrum Singular <strong style="color:#c8a8ff">mit bestimmtem Artikel</strong> (<em>alles</em> ist ein Artikelwort)</div>
+
+    <div class="nom-grid">
+      <div class="ng-header"></div>
+      <div class="ng-header">Pronomen</div>
+      <div class="ng-header">+ Adjektiv</div>
+
+      <div class="ng-case">NOM</div>
+      <div class="ng-cell">alles</div>
+      <div class="ng-cell">Schön<em>e</em></div>
+
+      <div class="ng-case">AKK</div>
+      <div class="ng-cell">alles</div>
+      <div class="ng-cell">Schön<em>e</em></div>
+
+      <div class="ng-case">DAT</div>
+      <div class="ng-cell">(mit) allem</div>
+      <div class="ng-cell">Schön<em>en</em></div>
+    </div>
+
+    <div class="nom-adj-label">Beispiele</div>
+    <div class="nom-adj-ex">
+      Wir haben viel <em>Interessantes</em> erlebt.<br>
+      Ist etwas <em>Schlimmes</em> passiert?<br>
+      Ich wünsche mir nichts <em>Anderes</em> als einen freien Tag.<br>
+      Alles <em>Gute</em> zum Geburtstag!<br>
+      Ich freue mich über alles <em>Neue</em> im Leben.<br>
+      Von allem <em>Schönen</em> war das der beste Moment.
+    </div>
+
+    <div class="nom-adj-note">
+      <strong>Merke:</strong> Das nominalisierte Adjektiv wird immer <strong>gross</strong> geschrieben — ausser <em>anders</em> (etwas anderes).<br>
+      Genitiv kommt in dieser Konstruktion praktisch nicht vor.
     </div>
   </div>
 </div>
