@@ -148,6 +148,57 @@
   line-height: 1.7;
 }
 .futur-ex em { color: #e8a840; font-style: normal; }
+/* ─── werden Übersicht ─── */
+.werden-section {
+  margin-top: 28px;
+  padding: 20px;
+  background: #2e2e34;
+  border-radius: 8px;
+}
+.werden-title {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 16px;
+  font-weight: 700;
+  color: #f0f0f4;
+  margin-bottom: 12px;
+}
+.werden-grid {
+  display: grid;
+  grid-template-columns: auto 1fr 1fr 1fr;
+  gap: 0;
+  font-size: 13px;
+  border-radius: 6px;
+  overflow: hidden;
+}
+.werden-grid .wg-header {
+  background: #3a3a42;
+  padding: 8px 12px;
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 600;
+  font-size: 11px;
+  color: #c8c8d0;
+  text-align: center;
+}
+.werden-grid .wg-fn {
+  background: #333338;
+  padding: 10px 12px;
+  font-weight: 600;
+  color: #e0e0e4;
+  border-bottom: 1px solid #3a3a40;
+  display: flex;
+  align-items: center;
+}
+.werden-grid .wg-cell {
+  padding: 10px 12px;
+  color: #c8c8d0;
+  border-bottom: 1px solid #3a3a40;
+  line-height: 1.5;
+}
+.werden-grid .wg-cell em { font-style: normal; font-weight: 700; }
+.werden-grid .wg-cell .w-cyan { color: #60d0e8; }
+.werden-grid .wg-cell .w-gold { color: #e8a840; }
+.werden-grid .wg-cell .w-pink { color: #f08888; }
+.werden-grid .wg-cell .w-purp { color: #c8a8ff; }
 </style>
 </head>
 <body>
@@ -305,6 +356,38 @@
   <em style="color:#e8a840">Morgen gehe ich einkaufen.</em> = <em style="color:#e8a840">Morgen werde ich einkaufen gehen.</em><br><br>
   <strong>Nebensatz-Wortstellung:</strong> <em>werden</em> geht ans Satzende:<br>
   Ich weiss, dass er morgen <em style="color:#e8a840">kommen wird</em>.
+</div>
+
+<!-- ═══ WERDEN ÜBERSICHT ═══ -->
+<div class="werden-section">
+  <div class="werden-title">Die Funktionen von „werden"</div>
+
+  <div class="werden-grid">
+    <div class="wg-header">Funktion</div>
+    <div class="wg-header">Struktur</div>
+    <div class="wg-header">Beispiel</div>
+    <div class="wg-header">Partizip II</div>
+
+    <div class="wg-fn" style="color:#60d0e8">Vollverb</div>
+    <div class="wg-cell"><em class="w-cyan">wird</em> + Adjektiv/Nomen</div>
+    <div class="wg-cell">Das Klima <em class="w-cyan">wird</em> immer heisser.</div>
+    <div class="wg-cell"><em class="w-gold">geworden</em></div>
+
+    <div class="wg-fn" style="color:#e8a840">Futur I</div>
+    <div class="wg-cell"><em class="w-cyan">wird</em> + <em class="w-gold">Infinitiv</em></div>
+    <div class="wg-cell">Ich <em class="w-cyan">werde</em> morgen <em class="w-gold">kommen</em>.</div>
+    <div class="wg-cell">—</div>
+
+    <div class="wg-fn" style="color:#f08888">Passiv</div>
+    <div class="wg-cell"><em class="w-cyan">wird</em> + <em class="w-pink">Partizip II</em></div>
+    <div class="wg-cell">Das Haus <em class="w-cyan">wird</em> <em class="w-pink">gebaut</em>.</div>
+    <div class="wg-cell"><em class="w-gold">worden</em></div>
+
+    <div class="wg-fn" style="color:#c8a8ff">Konjunktiv II</div>
+    <div class="wg-cell"><em class="w-purp">würde</em> + <em class="w-gold">Infinitiv</em></div>
+    <div class="wg-cell">Ich <em class="w-purp">würde</em> gerne <em class="w-gold">reisen</em>.</div>
+    <div class="wg-cell">—</div>
+  </div>
 </div>
 
 <script src="js/common.js"></script>
