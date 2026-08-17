@@ -1269,7 +1269,13 @@ const DATA = [["Jahr", "das", "-e", "year", "time", "Dieses Jahr reise ich in di
 ["Erschöpfung", "die", "-en", "exhaustion", "general", "Nach dem Marathon war die Erschöpfung gross."],
 ["Geldschein", "der", "-e", "banknote, bill", "general", "Er bezahlte mit einem 50-Franken-Geldschein."],
 ["Sockel", "der", "-", "pedestal, base", "general", "Die Statue steht auf einem hohen Sockel."],
-["Ärmel", "der", "-", "sleeve", "general", "Kremple bitte die Ärmel hoch!"]
+["Ärmel", "der", "-", "sleeve", "general", "Kremple bitte die Ärmel hoch!"],
+// ─── V45 additions ───
+["Fahrkarte", "die", "-n", "ticket (transport)", "general", "Hast du schon eine Fahrkarte für den Zug gekauft?"],
+["Kanal", "der", "Kanäle", "channel; canal", "general", "Auf welchem Kanal läuft die Sendung?"],
+["Kontaktlinse", "die", "-n", "contact lens", "general", "Ich trage seit drei Jahren Kontaktlinsen."],
+["Kupplung", "die", "-en", "clutch (vehicle)", "general", "Bei einem Gangwechsel muss man die Kupplung treten."],
+["Schreibtisch", "der", "-e", "desk", "general", "Auf meinem Schreibtisch liegt immer zu viel Papier."]
 ];
 const CATS =[...new Set(DATA.map(d => d[4]))].sort();
 let currentGender = 'all', currentCat = 'all', searchTerm = '';
