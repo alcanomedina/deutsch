@@ -108,6 +108,82 @@ kw.v{background:#3a1818;color:#f08888}
 /* ─── Guess Mode ─── */
 .guess-btn{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:500;padding:5px 9px;border-radius:8px;background:#343438;color:#8888a0;text-decoration:none;border:1px solid #44444c;transition:all .15s;cursor:pointer}
 .guess-btn:hover,.guess-btn.active{background:#2a1848;color:#c8a8ff;border-color:#7a60c0}
+/* ─── Alternativformen ─── */
+.alt-section {
+  margin-top: 28px;
+  padding: 20px;
+  background: #2e2e34;
+  border-radius: 8px;
+}
+.alt-title {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 16px;
+  font-weight: 700;
+  color: #f0f0f4;
+  margin-bottom: 4px;
+}
+.alt-subtitle {
+  font-size: 12px;
+  color: #ababba;
+  margin-bottom: 16px;
+  line-height: 1.5;
+}
+.alt-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  margin-bottom: 2px;
+}
+.alt-row-header {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  background: #3a3a42;
+  border-radius: 6px 6px 0 0;
+  padding: 8px 14px;
+  margin-top: 16px;
+}
+.alt-row-header span {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 600;
+  color: #c8c8d0;
+}
+.alt-cell {
+  padding: 10px 14px;
+  font-size: 13px;
+  border-bottom: 1px solid #3a3a40;
+  line-height: 1.6;
+}
+.alt-cell.modal { color: #ababba; }
+.alt-cell.alt { color: #e0e0e4; }
+.alt-cell em { font-style: normal; font-weight: 700; }
+.alt-cell .m-verb { color: #70d890; }
+.alt-cell .a-verb { color: #60d0e8; }
+.alt-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  font-weight: 600;
+  color: #c8a8ff;
+  margin: 20px 0 4px;
+}
+.alt-note {
+  background: #333338;
+  border-left: 3px solid #70d890;
+  padding: 10px 14px;
+  border-radius: 6px;
+  margin: 14px 0;
+  font-size: 12px;
+  color: #ababba;
+  line-height: 1.6;
+}
+.alt-note strong { color: #70d890; font-weight: 600; }
+.alt-note em { color: #60d0e8; font-style: normal; }
+
+@media(max-width:600px){
+  .alt-row, .alt-row-header{grid-template-columns:1fr;gap:0}
+  .alt-cell{padding:6px 14px}
+}
 </style>
 </head>
 <body>
@@ -429,6 +505,80 @@ kw.v{background:#3a1818;color:#f08888}
       Du <strong>musst</strong> hier nicht parkieren = You don't have to park here. (andere Bedeutung!)
     </span>
   </div>
+</div>
+
+<!-- ═══ ALTERNATIVFORMEN ═══ -->
+<div class="section" id="alternativformen">
+  <div class="section-title"><span class="dot" style="background:#70d890"></span> Alternativformen</div>
+  <div class="section-sub">Formellere Ausdrücke statt Modalverben</div>
+
+<div class="alt-section">
+
+  <!-- ── brauchen + zu ── -->
+  <div class="alt-label">brauchen … nicht/kein/nur + zu + Infinitiv → statt „müssen (nicht)"</div>
+
+  <div class="alt-row-header">
+    <span>Modalverb</span>
+    <span>Alternative</span>
+  </div>
+
+  <div class="alt-row">
+    <div class="alt-cell modal">Man <em class="m-verb">muss</em> keine Verkehrsregeln <em class="m-verb">befolgen</em>.</div>
+    <div class="alt-cell alt">Man <em class="a-verb">braucht</em> keine Verkehrsregeln <em class="a-verb">zu befolgen</em>.</div>
+  </div>
+  <div class="alt-row">
+    <div class="alt-cell modal">Du <em class="m-verb">musst</em> nicht so früh <em class="m-verb">aufstehen</em>.</div>
+    <div class="alt-cell alt">Du <em class="a-verb">brauchst</em> nicht so früh <em class="a-verb">aufzustehen</em>.</div>
+  </div>
+  <div class="alt-row">
+    <div class="alt-cell modal">Man <em class="m-verb">muss</em> nur einen Knopf <em class="m-verb">drücken</em>.</div>
+    <div class="alt-cell alt">Man <em class="a-verb">braucht</em> nur einen Knopf <em class="a-verb">zu drücken</em>.</div>
+  </div>
+
+  <!-- ── haben + zu ── -->
+  <div class="alt-label">haben + zu + Infinitiv → statt „müssen" (aktiv)</div>
+
+  <div class="alt-row-header">
+    <span>Modalverb</span>
+    <span>Alternative</span>
+  </div>
+
+  <div class="alt-row">
+    <div class="alt-cell modal">Man <em class="m-verb">muss</em> die Verkehrsregeln <em class="m-verb">befolgen</em>.</div>
+    <div class="alt-cell alt">Man <em class="a-verb">hat</em> die Verkehrsregeln <em class="a-verb">zu befolgen</em>.</div>
+  </div>
+  <div class="alt-row">
+    <div class="alt-cell modal">Die Angestellten <em class="m-verb">müssen</em> viel <em class="m-verb">erledigen</em>.</div>
+    <div class="alt-cell alt">Die Angestellten <em class="a-verb">haben</em> viel <em class="a-verb">zu erledigen</em>.</div>
+  </div>
+
+  <!-- ── sein + zu ── -->
+  <div class="alt-label">sein + zu + Infinitiv → statt „können" / „müssen" (passiv)</div>
+
+  <div class="alt-row-header">
+    <span>Modalverb + Passiv</span>
+    <span>Alternative</span>
+  </div>
+
+  <div class="alt-row">
+    <div class="alt-cell modal">Das Klima <em class="m-verb">kann</em> beeinflusst <em class="m-verb">werden</em>.</div>
+    <div class="alt-cell alt">Das Klima <em class="a-verb">ist</em> <em class="a-verb">zu beeinflussen</em>.</div>
+  </div>
+  <div class="alt-row">
+    <div class="alt-cell modal">Hunde <em class="m-verb">müssen</em> an der Leine geführt <em class="m-verb">werden</em>.</div>
+    <div class="alt-cell alt">Hunde <em class="a-verb">sind</em> an der Leine <em class="a-verb">zu führen</em>.</div>
+  </div>
+  <div class="alt-row">
+    <div class="alt-cell modal">Das Jungfraujoch <em class="m-verb">kann</em> nicht mit dem Fahrrad erreicht <em class="m-verb">werden</em>.</div>
+    <div class="alt-cell alt">Das Jungfraujoch <em class="a-verb">ist</em> nicht mit dem Fahrrad <em class="a-verb">zu erreichen</em>.</div>
+  </div>
+
+  <div class="alt-note">
+    <strong>brauchen + zu</strong> → immer mit <em>nicht</em>, <em>kein</em> oder <em>nur</em>. Ohne Negation/Einschränkung benutzt man <em>müssen</em>.<br><br>
+    <strong>haben + zu</strong> → formell, aktive Pflicht. Subjekt = Person, die handeln muss.<br><br>
+    <strong>sein + zu</strong> → formell, passive Möglichkeit/Pflicht. Subjekt = Sache. Ob <em>können</em> oder <em>müssen</em> gemeint ist, ergibt sich aus dem Kontext.
+  </div>
+</div>
 </div>
 
 </div>

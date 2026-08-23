@@ -1275,7 +1275,13 @@ const DATA = [["Jahr", "das", "-e", "year", "time", "Dieses Jahr reise ich in di
 ["Kanal", "der", "Kanäle", "channel; canal", "general", "Auf welchem Kanal läuft die Sendung?"],
 ["Kontaktlinse", "die", "-n", "contact lens", "general", "Ich trage seit drei Jahren Kontaktlinsen."],
 ["Kupplung", "die", "-en", "clutch (vehicle)", "general", "Bei einem Gangwechsel muss man die Kupplung treten."],
-["Schreibtisch", "der", "-e", "desk", "general", "Auf meinem Schreibtisch liegt immer zu viel Papier."]
+["Schreibtisch", "der", "-e", "desk", "general", "Auf meinem Schreibtisch liegt immer zu viel Papier."],
+// ─── V46 additions ───
+["Boiler", "der", "-", "boiler, water heater", "general", "Der Hausmeister muss den Boiler regelmässig entkalken."],
+["Kassette", "die", "-n", "cassette (tape)", "general", "Früher hat man Musik auf Kassetten gehört."],
+["Kutsche", "die", "-n", "carriage, coach", "general", "Früher musste man Pferde haben, um die Kutsche zu benutzen."],
+["Reisetasche", "die", "-n", "travel bag", "general", "Ich packe meine Reisetasche für das Wochenende."],
+["Schlaufe", "die", "-n", "loop, strap", "general", "Halte dich an der Schlaufe fest!"]
 ];
 const CATS =[...new Set(DATA.map(d => d[4]))].sort();
 let currentGender = 'all', currentCat = 'all', searchTerm = '';

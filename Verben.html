@@ -76,6 +76,40 @@
 }
 /* ─── Guess Mode ─── */
 .fbtn.guess-active{background:#2a1848;border-color:#7a60c0;color:#c8a8ff}
+/* ─── wissen vs kennen ─── */
+.wk-callout {
+  background: #2e2e34;
+  border-left: 3px solid #e8a840;
+  padding: 14px 18px;
+  border-radius: 6px;
+  margin: 20px 0;
+  font-size: 13px;
+  color: #c8c8d0;
+  line-height: 1.7;
+  max-width: 640px;
+}
+.wk-callout .wk-title {
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 700;
+  font-size: 14px;
+  color: #e8a840;
+  margin-bottom: 8px;
+}
+.wk-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px 20px;
+  margin: 8px 0;
+}
+.wk-grid .wk-col-title {
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 700;
+  font-size: 13px;
+  margin-bottom: 2px;
+}
+.wk-grid em { font-style: normal; font-weight: 600; }
+.wk-grid .wk-wissen { color: #60d0e8; }
+.wk-grid .wk-kennen { color: #c8a8ff; }
 </style>
 </head>
 <body>
@@ -98,6 +132,26 @@
   <div id="prep-label" class="section-label" style="display:none;"></div>
   <div class="grid" id="grid"></div>
   <div class="empty" id="empty">Keine Verben gefunden.</div>
+</div>
+
+<div class="wk-callout">
+  <div class="wk-title">wissen vs. kennen</div>
+  <div class="wk-grid">
+    <div>
+      <div class="wk-col-title wk-wissen">wissen</div>
+      <div>abstrakt: Informationen, Fakten</div>
+      <div style="margin-top:4px;color:#ababba;font-size:12px">+ Nebensatz / Fragewort</div>
+      <div style="margin-top:6px"><em class="wk-wissen">Ich weiss</em>, wo das Grossmünster <em class="wk-wissen">ist</em>.</div>
+      <div><em class="wk-wissen">Weisst</em> du, wie spät es <em class="wk-wissen">ist</em>?</div>
+    </div>
+    <div>
+      <div class="wk-col-title wk-kennen">kennen</div>
+      <div>konkret: Personen, Orte, Dinge</div>
+      <div style="margin-top:4px;color:#ababba;font-size:12px">+ Akkusativobjekt</div>
+      <div style="margin-top:6px"><em class="wk-kennen">Ich kenne</em> Stephan seit dem Kindergarten.</div>
+      <div><em class="wk-kennen">Kennst</em> du ein gutes Restaurant?</div>
+    </div>
+  </div>
 </div>
 
 <script src="js/common.js"></script>
@@ -943,7 +997,9 @@ const DATA = [
 ["aufladen", "Akk", "hat aufgeladen", "to charge; to load up", "s", "Ich muss mein Handy aufladen."],
 ["einführen", "Akk", "hat eingeführt", "to introduce, to implement", "w", "Die Firma hat ein neues System eingeführt."],
 ["komponieren", "Akk", "hat komponiert", "to compose (music)", "w", "Beethoven hat neun Sinfonien komponiert."],
-["schneien", "Ohne", "hat geschneit", "to snow", "w", "Im Winter schneit es in Zürich selten."]
+["schneien", "Ohne", "hat geschneit", "to snow", "w", "Im Winter schneit es in Zürich selten."],
+// ─── V46 additions ───
+["wissen", "Akk", "hat gewusst", "to know (fact/information)", "m", "Ich weiss, wo das Grossmünster ist."]
 ];
 
 // Conjugation data: [Präsens 3.P.Sg., Präteritum 3.P.Sg.]
@@ -1743,7 +1799,8 @@ const CONJ = {
 "aufladen":["lädt auf","lud auf"],
 "einführen":["führt ein","führte ein"],
 "komponieren":["komponiert","komponierte"],
-"schneien":["schneit","schneite"]
+"schneien":["schneit","schneite"],
+"wissen":["weiss","wusste"]
 };
 
 // Extract unique prepositions for filter buttons
