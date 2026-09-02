@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="assets/favicon.ico" sizes="16x16 32x32 48x48">
+<link rel="icon" href="assets/favicon-32x32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<title>Konnektoren — Referenz</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/common.css">
+<style>
+body { padding: 0 0 48px; }
+
+/* ─── Header ─── */
+.top-bar {
+  position: sticky; top: 0; z-index: 100;
+  background: #232327ee;
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid #3e3e44;
+  padding: 16px 20px 14px;
+  text-align: center;
+}
+.top-bar h1 {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 28px; font-weight: 700;
+  color: #f0f0f4;
+}
+.top-bar .sub {
+  font-size: 14px; color: #ababba; margin-top: 4px;
+}
+
+/* ─── Controls ─── */
+.controls {
+  max-width: 960px; margin: 10px auto 0; padding: 0;
+  text-align: center;
+}
+.search-row {
+  display: flex; gap: 10px; justify-content: center;
+  flex-wrap: wrap; margin-bottom: 12px;
+}
+.search-box {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 15px;
+  padding: 10px 16px;
+  border: 1.5px solid #58585e;
+  border-radius: 8px;
+  background: #3a3a42;
+  color: #e0e0e4;
+  width: 340px; max-width: 100%;
+  outline: none;
+  transition: border-color 0.2s;
+}
+.search-box:focus { border-color: #7a80f0; }
+.search-box::placeholder { color: #ababba; }
+
+.filter-row {
+  display: flex; gap: 6px; flex-wrap: wrap;
+  justify-content: center; margin-bottom: 8px;
+}
+.filter-btn {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px; font-weight: 600;
+  padding: 6px 14px;
+  border: 2px solid #58585e;
+  border-radius: 7px;
+  background: #343438;
+  color: #8888a0;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.filter-btn:hover { border-color: #ababba; }
+.filter-btn.active-all { background: #3a3a42; border-color: #ababba; color: #e0e0e4; }
+.filter-btn.active-konj { background: #1a3a28; border-color: #40a060; color: #70d890; }
+.filter-btn.active-subj { background: #1a2848; border-color: #4080c0; color: #60d0e8; }
+.filter-btn.active-konadv { background: #3a2e18; border-color: #9a7a20; color: #e8a840; }
+.filter-btn.active-zweigl { background: #2a1848; border-color: #7a60c0; color: #c8a8ff; }
+.filter-btn.guess-active { background: #2a1848; border-color: #7a60c0; color: #c8a8ff; }
+
+.cat-row {
+  display: flex; gap: 5px; flex-wrap: wrap;
+  justify-content: center; margin-bottom: 6px;
+}
+.cat-btn {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px; font-weight: 500;
+  padding: 4px 10px;
+  border: 1.5px solid #58585e;
+  border-radius: 6px;
+  background: #343438;
+  color: #8888a0;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.cat-btn:hover { border-color: #ababba; }
+.cat-btn.active-cat { background: #2a2a50; border-color: #7a80f0; color: #a0a8ff; }
+
+.count {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px; color: #ababba; margin-top: 8px; margin-bottom: 16px;
+}
+
+/* ─── Card Grid ─── */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 12px;
+  max-width: 920px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+/* ─── Cards ─── */
+.card {
+  background: #343438;
+  border: 1px solid #44444c;
+  border-radius: 12px;
+  padding: 16px;
+  position: relative;
+}
+.card:hover { border-color: #6a6a78; }
+.card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.type-badge {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 6px;
+  letter-spacing: 0.5px;
+}
+.cat-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 500;
+}
+.card-word {
+  font-family: 'Inter', sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: #f0f0f4;
+  margin-bottom: 8px;
+}
+.card-pos {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  color: #8888a0;
+  margin-bottom: 6px;
+}
+.card-eng {
+  font-size: 13px;
+  color: #ababba;
+  margin-bottom: 8px;
+}
+.card-ex {
+  font-size: 13px;
+  color: #e0e0e4;
+  font-style: italic;
+  line-height: 1.5;
+  padding-top: 8px;
+  border-top: 1px solid #3e3e44;
+}
+
+@media (max-width: 600px) {
+  .top-bar { padding: 8px 10px 6px; }
+  .top-bar h1 { font-size: 18px; }
+  .top-bar .sub { display: none; }
+  .controls { margin-top: 6px; }
+  .search-box { width: 100%; font-size: 13px; padding: 6px 10px; }
+  .search-row { margin-bottom: 6px; }
+  .cat-row { overflow-x: auto; flex-wrap: nowrap; justify-content: flex-start; padding: 0 10px; }
+  .cat-btn { white-space: nowrap; flex-shrink: 0; }
+  .grid { grid-template-columns: 1fr; }
+  .card-word { font-size: 18px; }
+}
+</style>
+</head>
+<body>
+
+<div class="top-bar">
+  <h1>Konnektoren</h1>
+  <div class="sub">Konjunktionen · Subjunktionen · Konjunktionaladverbien · Zweigliedrige — Deutsch oder Englisch suchen</div>
+  <div class="controls">
+    <div class="search-row">
+      <input type="text" class="search-box" id="search" placeholder="Suchen ..." autocomplete="off">
+      <button class="filter-btn" id="guess-btn" onclick="toggleGuess()">🎯 Raten</button>
+      <button class="filter-btn" id="shuffle-btn" onclick="toggleShuffle()">🔀 Mischen</button>
+    </div>
+    <div class="filter-row" id="typeFilters"></div>
+    <div class="cat-row" id="catFilters"></div>
+    <div class="count" id="count"></div>
+  </div>
+</div>
+
+<div class="grid" id="grid"></div>
+
+<!-- ═══ REFERENZ ═══ -->
+<div style="max-width:920px;margin:32px auto 0;padding:0 16px;">
+  <div style="font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:#c8a8ff;margin-bottom:12px;">Wortstellung — Kurzreferenz</div>
+
+  <div style="background:#343438;border:1px solid #44444c;border-radius:12px;padding:20px;">
+    <table style="width:100%;border-collapse:collapse;">
+      <thead>
+        <tr>
+          <th style="text-align:left;padding:8px 10px;border-bottom:2px solid #3e3e44;color:#8888a0;font-size:12px;font-family:'JetBrains Mono',monospace;">Typ</th>
+          <th style="text-align:left;padding:8px 10px;border-bottom:2px solid #3e3e44;color:#8888a0;font-size:12px;font-family:'JetBrains Mono',monospace;">Position</th>
+          <th style="text-align:left;padding:8px 10px;border-bottom:2px solid #3e3e44;color:#8888a0;font-size:12px;font-family:'JetBrains Mono',monospace;">Wortstellung</th>
+          <th style="text-align:left;padding:8px 10px;border-bottom:2px solid #3e3e44;color:#8888a0;font-size:12px;font-family:'JetBrains Mono',monospace;">Beispiel</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="padding:8px 10px;border-bottom:1px solid #3e3e44;"><span style="background:#1a3a28;color:#70d890;padding:2px 8px;border-radius:6px;font-size:12px;font-weight:600;">KONJ</span></td>
+          <td style="padding:8px 10px;border-bottom:1px solid #3e3e44;color:#e0e0e4;font-size:13px;">Pos 0</td>
+          <td style="padding:8px 10px;border-bottom:1px solid #3e3e44;color:#ababba;font-size:13px;">HS, <strong style="color:#70d890">[konj]</strong> HS</td>
+          <td style="padding:8px 10px;border-bottom:1px solid #3e3e44;color:#e0e0e4;font-size:13px;">..., <strong style="color:#70d890">denn</strong> er <strong>ist</strong> krank.</td>
+        </tr>
+        <tr>
+          <td style="padding:8px 10px;border-bottom:1px solid #3e3e44;"><span style="background:#1a2848;color:#60d0e8;padding:2px 8px;border-radius:6px;font-size:12px;font-weight:600;">SUBJ</span></td>
+          <td style="padding:8px 10px;border-bottom:1px solid #3e3e44;color:#e0e0e4;font-size:13px;">Nebensatz</td>
+          <td style="padding:8px 10px;border-bottom:1px solid #3e3e44;color:#ababba;font-size:13px;">..., <strong style="color:#60d0e8">[subj]</strong> ... Verb<strong>↵</strong></td>
+          <td style="padding:8px 10px;border-bottom:1px solid #3e3e44;color:#e0e0e4;font-size:13px;">..., <strong style="color:#60d0e8">weil</strong> er krank <strong>ist</strong>.</td>
+        </tr>
+        <tr>
+          <td style="padding:8px 10px;"><span style="background:#3a2e18;color:#e8a840;padding:2px 8px;border-radius:6px;font-size:12px;font-weight:600;">KONADV</span></td>
+          <td style="padding:8px 10px;color:#e0e0e4;font-size:13px;">Pos 1 / 3</td>
+          <td style="padding:8px 10px;color:#ababba;font-size:13px;"><strong style="color:#e8a840">[KonAdv]</strong> <strong>V</strong> Subj ...</td>
+          <td style="padding:8px 10px;color:#e0e0e4;font-size:13px;"><strong style="color:#e8a840">Deshalb</strong> <strong>bleibt</strong> er zu Hause.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<script src="js/common.js"></script>
+<script>
+// [word, type, position, category, english, example]
+const DATA = [
+// ─── Konjunktionen (Pos 0 — HS, HS) ───
+["und",       "konj", "Pos 0 → HS, HS",  "additiv",     "and",         "Ich koche und er deckt den Tisch."],
+["oder",      "konj", "Pos 0 → HS, HS",  "alternativ",  "or",          "Kommst du mit oder bleibst du hier?"],
+["aber",      "konj", "Pos 0 → HS, HS",  "adversativ",  "but",         "Ich bin müde, aber ich arbeite weiter."],
+["denn",      "konj", "Pos 0 → HS, HS",  "kausal",      "because, for","Er bleibt zu Hause, denn er ist krank."],
+["sondern",   "konj", "Pos 0 → HS, HS",  "adversativ",  "but rather (nach Negation)", "Er fährt nicht Bus, sondern er geht zu Fuss."],
+
+// ─── Subjunktionen (Verb am Ende — NS) ───
+["weil",      "subj", "Verb → Ende (NS)", "kausal",      "because",     "Er bleibt zu Hause, weil er krank ist."],
+["obwohl",    "subj", "Verb → Ende (NS)", "konzessiv",   "although",    "Er geht joggen, obwohl es regnet."],
+["dass",      "subj", "Verb → Ende (NS)", "deklarativ",  "that",        "Ich glaube, dass er recht hat."],
+["ob",        "subj", "Verb → Ende (NS)", "deklarativ",  "whether, if", "Ich weiss nicht, ob er kommt."],
+["wenn",      "subj", "Verb → Ende (NS)", "konditional", "if, when(ever)", "Wenn es regnet, bleibe ich zu Hause."],
+["als",       "subj", "Verb → Ende (NS)", "temporal",    "when (einmalig, Vergangenheit)", "Als ich Kind war, spielte ich oft draussen."],
+["nachdem",   "subj", "Verb → Ende (NS)", "temporal",    "after",       "Nachdem er gegessen hatte, ging er spazieren."],
+["bevor",     "subj", "Verb → Ende (NS)", "temporal",    "before",      "Bevor du gehst, ruf mich bitte an."],
+["während",   "subj", "Verb → Ende (NS)", "temporal",    "while, during","Während er kocht, lese ich die Zeitung."],
+["seitdem",   "subj", "Verb → Ende (NS)", "temporal",    "since (time)","Seitdem er hier wohnt, fährt er Velo."],
+["bis",       "subj", "Verb → Ende (NS)", "temporal",    "until",       "Warte, bis ich fertig bin."],
+["damit",     "subj", "Verb → Ende (NS)", "final",       "so that (Zweck)", "Ich lerne, damit ich die Prüfung bestehe."],
+["sodass",    "subj", "Verb → Ende (NS)", "konsekutiv",  "so that (Folge)", "Es regnete stark, sodass wir zu Hause blieben."],
+["falls",     "subj", "Verb → Ende (NS)", "konditional", "in case, if", "Falls du Hilfe brauchst, ruf mich an."],
+["indem",     "subj", "Verb → Ende (NS)", "modal",       "by (doing)",  "Man lernt Deutsch, indem man viel übt."],
+["sobald",    "subj", "Verb → Ende (NS)", "temporal",    "as soon as",  "Sobald ich fertig bin, rufe ich dich an."],
+["solange",   "subj", "Verb → Ende (NS)", "temporal",    "as long as",  "Solange du hier bist, bist du willkommen."],
+
+// ─── Konjunktionaladverbien (Pos 1 / Mittelfeld → Inversion) ───
+["deshalb",       "konadv", "Pos 1 oder 3 → Inversion", "kausal",      "therefore",    "Er ist krank. Deshalb bleibt er zu Hause."],
+["deswegen",      "konadv", "Pos 1 oder 3 → Inversion", "kausal",      "therefore, because of that", "Es regnet. Deswegen nehme ich den Schirm mit."],
+["darum",         "konadv", "Pos 1 oder 3 → Inversion", "kausal",      "therefore",    "Der Zug fällt aus. Darum fahre ich mit dem Auto."],
+["daher",         "konadv", "Pos 1 oder 3 → Inversion", "kausal",      "therefore, hence", "Die Strasse ist gesperrt. Daher nehmen wir einen Umweg."],
+["nämlich",       "konadv", "NUR Mittelfeld (Pos 3)",   "kausal",      "namely, because", "Er kommt nicht. Er ist nämlich krank."],
+["trotzdem",      "konadv", "Pos 1 oder 3 → Inversion", "konzessiv",   "nevertheless", "Es regnet. Trotzdem geht er joggen."],
+["dennoch",       "konadv", "Pos 1 oder 3 → Inversion", "konzessiv",   "nevertheless, still", "Die Aufgabe war schwer. Dennoch hat er sie gelöst."],
+["jedoch",        "konadv", "Pos 1 oder 3 → Inversion", "adversativ",  "however",      "Die Idee ist gut, jedoch fehlt das Budget."],
+["allerdings",    "konadv", "Pos 1 oder 3 → Inversion", "adversativ",  "however, though (weicher)", "Er spricht gut Deutsch, allerdings macht er noch Fehler."],
+["ausserdem",     "konadv", "Pos 1 oder 3 → Inversion", "additiv",     "moreover, besides", "Er spricht Deutsch. Ausserdem lernt er Französisch."],
+["stattdessen",   "konadv", "Pos 1 → Inversion",        "alternativ",  "instead",      "Er ging nicht ins Kino. Stattdessen blieb er zu Hause."],
+["sonst",         "konadv", "Pos 1 oder 3 → Inversion", "konditional", "otherwise",    "Beeil dich, sonst kommen wir zu spät."],
+["folglich",      "konadv", "Pos 1 oder 3 → Inversion", "konsekutiv",  "consequently", "Er hat nicht gelernt. Folglich hat er die Prüfung nicht bestanden."],
+["also",          "konadv", "Pos 1 oder 0 (umg.)",      "konsekutiv",  "so, therefore","Du bist müde, also geh ins Bett."],
+["dann",          "konadv", "Pos 1 → Inversion",        "temporal",    "then",         "Zuerst dusche ich. Dann frühstücke ich."],
+["danach",        "konadv", "Pos 1 → Inversion",        "temporal",    "after that",   "Wir essen Mittag. Danach gehen wir spazieren."],
+["vorher",        "konadv", "Pos 1 → Inversion",        "temporal",    "before that",  "Die Sitzung ist um drei. Vorher mache ich Pause."],
+["gleichzeitig",  "konadv", "Pos 1 oder 3 → Inversion", "temporal",    "at the same time", "Er telefoniert. Gleichzeitig schreibt er eine E-Mail."],
+["schliesslich",  "konadv", "Pos 1 oder 3 → Inversion", "temporal",    "finally, after all", "Schliesslich haben wir eine Lösung gefunden."],
+["zunächst",      "konadv", "Pos 1 → Inversion",        "temporal",    "first, initially", "Zunächst lesen wir den Text. Dann besprechen wir ihn."],
+["anschliessend", "konadv", "Pos 1 → Inversion",        "temporal",    "afterwards",   "Wir machen die Übung. Anschliessend kontrollieren wir die Ergebnisse."],
+
+// ─── Zweigliedrige Konnektoren ───
+["entweder … oder",           "zweigl", "entweder: Pos 0/Vorfeld; oder: Pos 0",               "alternativ",   "either … or",      "Entweder fahren wir ans Meer, oder wir bleiben zu Hause."],
+["weder … noch",              "zweigl", "weder: Vorfeld/Mittelfeld; noch: Pos 0 (Inversion)",  "alternativ",   "neither … nor",    "Ich spreche weder Französisch noch verstehe ich Italienisch."],
+["sowohl … als auch",         "zweigl", "verbindet Elemente (nicht ganze Sätze)",              "additiv",      "both … and",       "Sie spricht sowohl Deutsch als auch Französisch."],
+["nicht nur … sondern auch",  "zweigl", "nicht nur: Vorfeld/Mittelfeld; sondern auch: Pos 0",  "additiv",      "not only … but also", "Nicht nur Schweizer, sondern auch Touristen fahren gern ins Tessin."],
+["zwar … aber",               "zweigl", "zwar: Mittelfeld; aber: Pos 0",                       "konzessiv",    "indeed … but",     "Ich kann zwar kochen, aber nicht besonders gut."],
+["je … desto",                "zweigl", "je: NS (Verb Ende); desto: HS (Verb nach Komparativ)","proportional", "the … the (more)", "Je mehr ich lerne, desto besser spreche ich."],
+];
+
+const grid = document.getElementById("grid");
+const searchBox = document.getElementById("search");
+const typeFiltersEl = document.getElementById("typeFilters");
+const catFiltersEl = document.getElementById("catFilters");
+const countEl = document.getElementById("count");
+
+let activeType = "all";
+let activeCat = "all";
+let guessMode = false;
+let shuffleMode = false;
+
+const types = [
+  ["all",     "Alle",          "active-all"],
+  ["konj",    "Konjunktion",   "active-konj"],
+  ["subj",    "Subjunktion",   "active-subj"],
+  ["konadv",  "KonAdverb",     "active-konadv"],
+  ["zweigl",  "Zweigliedrig",  "active-zweigl"],
+];
+
+types.forEach(([val, label, cls]) => {
+  const btn = document.createElement("button");
+  btn.className = "filter-btn" + (val === "all" ? " active-all" : "");
+  btn.textContent = label;
+  btn.onclick = () => {
+    activeType = val;
+    document.querySelectorAll("#typeFilters .filter-btn").forEach(b => b.className = "filter-btn");
+    btn.className = "filter-btn " + cls;
+    render();
+  };
+  typeFiltersEl.appendChild(btn);
+});
+
+const catList = ["alle", "kausal", "konzessiv", "temporal", "konditional", "final", "modal", "adversativ", "konsekutiv", "additiv"];
+catList.forEach(cat => {
+  const btn = document.createElement("button");
+  btn.className = "cat-btn" + (cat === "alle" ? " active-cat" : "");
+  btn.textContent = cat;
+  btn.onclick = () => {
+    activeCat = cat === "alle" ? "all" : cat;
+    updateCatBtns();
+    render();
+  };
+  catFiltersEl.appendChild(btn);
+});
+
+function updateCatBtns() {
+  document.querySelectorAll(".cat-btn").forEach(b => {
+    const isActive = (activeCat === "all" && b.textContent === "alle") || b.textContent === activeCat;
+    b.className = isActive ? "cat-btn active-cat" : "cat-btn";
+  });
+}
+
+function toggleShuffle() {
+  shuffleMode = !shuffleMode;
+  document.getElementById('shuffle-btn').classList.toggle('guess-active', shuffleMode);
+  render();
+}
+function toggleGuess() {
+  guessMode = !guessMode;
+  document.getElementById('guess-btn').classList.toggle('guess-active', guessMode);
+  render();
+}
+
+grid.addEventListener('click', function(e) {
+  const card = e.target.closest('.guess-hidden, .guess-revealed');
+  if (!card || !guessMode) return;
+  if (card.classList.contains('guess-hidden')) {
+    card.classList.remove('guess-hidden');
+    card.classList.add('guess-revealed');
+  } else {
+    card.classList.remove('guess-revealed');
+    card.classList.add('guess-hidden');
+  }
+});
+
+const catColors = {kausal:"#e87040", konzessiv:"#c870e0", temporal:"#60d0e8", konditional:"#e8d040", final:"#68d8b8", modal:"#7090e0", adversativ:"#f08888", konsekutiv:"#f0b878", additiv:"#70d890", alternativ:"#e0e0e4", proportional:"#c8a8ff", deklarativ:"#ababba"};
+const typeBg = {konj:"#1a3a28", subj:"#1a2848", konadv:"#3a2e18", zweigl:"#2a1848"};
+const typeColor = {konj:"#70d890", subj:"#60d0e8", konadv:"#e8a840", zweigl:"#c8a8ff"};
+const typeLabels = {konj:"KONJ", subj:"SUBJ", konadv:"KONADV", zweigl:"ZWEIGL"};
+
+function render() {
+  const q = searchBox.value.toLowerCase().trim();
+  let filtered = DATA.filter(d => {
+    if (activeType !== "all" && d[1] !== activeType) return false;
+    if (activeCat !== "all" && d[3] !== activeCat) return false;
+    if (q) {
+      const searchable = (d[0] + " " + d[3] + " " + d[4] + " " + d[5]).toLowerCase();
+      if (!searchable.includes(q)) return false;
+    }
+    return true;
+  });
+
+  if (shuffleMode) filtered = shuffleArray(filtered);
+
+  grid.innerHTML = "";
+  filtered.forEach(d => {
+    const [word, type, position, category, english, example] = d;
+    const card = document.createElement("div");
+    const catColor = catColors[category] || "#ababba";
+    const typeLabel = typeLabels[type];
+
+    if (guessMode) {
+      if (type === "zweigl") {
+        const parts = word.split(" … ");
+        const firstPart = parts[0] + " …";
+        card.className = "card guess-hidden";
+        card.style.borderLeft = "3px solid " + catColor;
+        card.innerHTML =
+          '<div class="card-top guess-hide"><span class="type-badge" style="background:' + typeBg[type] + ';color:' + typeColor[type] + '">' + typeLabel + '</span><span class="cat-tag" style="color:' + catColor + '">' + category + '</span></div>' +
+          '<div class="card-word">' + firstPart + ' <span class="guess-hide">' + (parts[1] || "") + '</span></div>' +
+          '<div class="card-pos guess-hide">' + position + '</div>' +
+          '<div class="card-eng guess-hide">' + english + '</div>' +
+          '<div class="card-ex guess-hide">' + example + '</div>';
+      } else {
+        card.className = "card guess-hidden";
+        card.style.borderLeft = "3px solid " + catColor;
+        card.innerHTML =
+          '<div class="card-top guess-hide"><span class="type-badge" style="background:' + typeBg[type] + ';color:' + typeColor[type] + '">' + typeLabel + '</span><span class="cat-tag" style="color:' + catColor + '">' + category + '</span></div>' +
+          '<div class="card-word">' + word + '</div>' +
+          '<div class="card-pos guess-hide">' + position + '</div>' +
+          '<div class="card-eng guess-hide">' + english + '</div>' +
+          '<div class="card-ex guess-hide">' + example + '</div>';
+      }
+    } else {
+      card.className = "card";
+      card.style.borderLeft = "3px solid " + catColor;
+      card.innerHTML =
+        '<div class="card-top"><span class="type-badge" style="background:' + typeBg[type] + ';color:' + typeColor[type] + '">' + typeLabel + '</span><span class="cat-tag" style="color:' + catColor + '">' + category + '</span></div>' +
+        '<div class="card-word">' + word + '</div>' +
+        '<div class="card-pos">' + position + '</div>' +
+        '<div class="card-eng">' + english + '</div>' +
+        '<div class="card-ex">' + example + '</div>';
+    }
+    grid.appendChild(card);
+  });
+
+  countEl.textContent = filtered.length + " Konnektor" + (filtered.length !== 1 ? "en" : "");
+}
+
+searchBox.addEventListener("input", render);
+render();
+</script>
+</body>
+</html>
